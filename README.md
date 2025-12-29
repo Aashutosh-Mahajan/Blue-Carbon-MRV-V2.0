@@ -1,6 +1,6 @@
 # 🌍 Blockchain-Based Blue Carbon MRV System
 
-A Smart India Hackathon 2025 project to build a **transparent, verifiable, and decentralized Monitoring, Reporting & Verification (MRV) system** for **Blue Carbon ecosystems** in India and beyond.  
+A project to build a **transparent, verifiable, and decentralized Monitoring, Reporting & Verification (MRV) system** for **Blue Carbon ecosystems** in India and beyond.  
 
 This project combines:
 - ⚡ **Machine Learning** – to verify NGO/panchayat restoration projects using satellite/drone images and estimate CO₂ sequestration.  
