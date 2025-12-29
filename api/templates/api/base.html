@@ -549,7 +549,7 @@
 </head>
 <body class="font-inter bg-white geometric-bg relative min-h-screen page-enter">
     <!-- Header -->
-    <header class="{% block header_classes %}modern-nav nav-shimmer sticky top-0 z-40{% endblock %}">
+    <header class="{% block header_classes %}nav-on-hero nav-shimmer sticky top-0 z-40{% endblock %}">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="flex items-center justify-between h-16 overflow-visible">
                 <a href="{% url 'home' %}" class="flex items-center group">
@@ -565,7 +565,7 @@
                             </div>
                         </div>
                     </div>
-                    <span class="ml-3 text-xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent brand-text">BlueQuant</span>
+                    <span class="ml-3 text-2xl font-bold text-white font-javanese brand-text">BlueQuant</span>
                 </a>
                 <nav class="hidden lg:block overflow-visible">
                     <div class="flex space-x-1">
@@ -602,7 +602,7 @@
                         <a href="{% url 'collaboration_hub' %}" class="nav-link px-4 py-2 text-sm font-medium text-neutral-700 hover:text-white relative z-10">Collaboration</a>
                     </div>
                 </nav>
-                <button id="mobile-menu-button" class="lg:hidden p-2 text-gray-700 hover:text-sky-600 transition-all duration-300 hover:bg-sky-100/50 rounded-lg backdrop-blur-sm border border-transparent hover:border-sky-200/50" aria-label="Toggle navigation">
+                <button id="mobile-menu-button" class="lg:hidden p-2 text-white hover:text-sky-300 transition-all duration-300 hover:bg-white/10 rounded-lg backdrop-blur-sm border border-transparent hover:border-white/20" aria-label="Toggle navigation">
                     <svg class="h-6 w-6 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
                         <path id="close-icon" class="hidden" stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
@@ -612,38 +612,38 @@
         </div>
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="mobile-menu-slide lg:hidden overflow-hidden">
-            <div class="bg-gradient-to-br from-sky-50/95 via-blue-50/90 to-indigo-50/95 backdrop-blur-xl border-t border-sky-200/50 shadow-lg">
+            <div class="bg-slate-900/95 backdrop-blur-xl border-t border-white/10 shadow-lg">
                 <div class="px-6 py-4 space-y-2">
-                    <a href="{% url 'home' %}" class="block px-4 py-3 text-sm font-medium text-gray-700 hover:text-sky-700 transition-all duration-300 border-b border-transparent hover:border-sky-300">Home</a>
-                    <a href="{% url 'about' %}" class="block px-4 py-3 text-sm font-medium text-gray-700 hover:text-sky-700 transition-all duration-300 border-b border-transparent hover:border-sky-300">About Us</a>
+                    <a href="{% url 'home' %}" class="block px-4 py-3 text-sm font-medium text-gray-200 hover:text-white hover:bg-white/10 transition-all duration-300 border-b border-transparent hover:border-white/20 rounded-lg">Home</a>
+                    <a href="{% url 'about' %}" class="block px-4 py-3 text-sm font-medium text-gray-200 hover:text-white hover:bg-white/10 transition-all duration-300 border-b border-transparent hover:border-white/20 rounded-lg">About Us</a>
                     {% if user.is_authenticated %}
                         {% if user.profile.role == 'ngo' %}
-                            <a href="{% url 'ngo_dashboard' %}" class="block px-4 py-3 text-sm font-medium text-gray-700 hover:text-sky-700 transition-all duration-300 border-b border-transparent hover:border-sky-300">NGO Dashboard</a>
+                            <a href="{% url 'ngo_dashboard' %}" class="block px-4 py-3 text-sm font-medium text-gray-200 hover:text-white hover:bg-white/10 transition-all duration-300 border-b border-transparent hover:border-white/20 rounded-lg">NGO Dashboard</a>
                         {% elif user.profile.role == 'contributor' %}
-                                <a href="{% url 'contributor_dashboard' %}" class="block px-4 py-3 text-sm font-medium text-gray-700 hover:text-sky-700 transition-all duration-300 border-b border-transparent hover:border-sky-300">Contributor Dashboard</a>
+                                <a href="{% url 'contributor_dashboard' %}" class="block px-4 py-3 text-sm font-medium text-gray-200 hover:text-white hover:bg-white/10 transition-all duration-300 border-b border-transparent hover:border-white/20 rounded-lg">Contributor Dashboard</a>
                         {% elif user.profile.role == 'corporate' %}
-                            <a href="{% url 'corporate_dashboard' %}" class="block px-4 py-3 text-sm font-medium text-gray-700 hover:text-sky-700 transition-all duration-300 border-b border-transparent hover:border-sky-300">Corporate Dashboard</a>
+                            <a href="{% url 'corporate_dashboard' %}" class="block px-4 py-3 text-sm font-medium text-gray-200 hover:text-white hover:bg-white/10 transition-all duration-300 border-b border-transparent hover:border-white/20 rounded-lg">Corporate Dashboard</a>
                         {% elif user.profile.role == 'admin' %}
-                            <a href="{% url 'admin_dashboard' %}" class="block px-4 py-3 text-sm font-medium text-gray-700 hover:text-sky-700 transition-all duration-300 border-b border-transparent hover:border-sky-300">Admin Dashboard</a>
+                            <a href="{% url 'admin_dashboard' %}" class="block px-4 py-3 text-sm font-medium text-gray-200 hover:text-white hover:bg-white/10 transition-all duration-300 border-b border-transparent hover:border-white/20 rounded-lg">Admin Dashboard</a>
                         {% elif user.profile.role == 'field_officer' %}
-                            <a href="{% url 'field_officer_dashboard' %}" class="block px-4 py-3 text-sm font-medium text-gray-700 hover:text-sky-700 transition-all duration-300 border-b border-transparent hover:border-sky-300">Field Officer Dashboard</a>
+                            <a href="{% url 'field_officer_dashboard' %}" class="block px-4 py-3 text-sm font-medium text-gray-200 hover:text-white hover:bg-white/10 transition-all duration-300 border-b border-transparent hover:border-white/20 rounded-lg">Field Officer Dashboard</a>
                         {% elif user.profile.role == 'isro_admin' %}
-                            <a href="{% url 'isro_admin_dashboard' %}" class="block px-4 py-3 text-sm font-medium text-gray-700 hover:text-sky-700 transition-all duration-300 border-b border-transparent hover:border-sky-300">ISRO Dashboard</a>
+                            <a href="{% url 'isro_admin_dashboard' %}" class="block px-4 py-3 text-sm font-medium text-gray-200 hover:text-white hover:bg-white/10 transition-all duration-300 border-b border-transparent hover:border-white/20 rounded-lg">ISRO Dashboard</a>
                         {% endif %}
-                        <a href="{% url 'logout' %}" class="block px-4 py-3 text-sm font-medium text-gray-700 hover:text-sky-700 transition-all duration-300 border-b border-transparent hover:border-sky-300">Logout</a>
+                        <a href="{% url 'logout' %}" class="block px-4 py-3 text-sm font-medium text-gray-200 hover:text-white hover:bg-white/10 transition-all duration-300 border-b border-transparent hover:border-white/20 rounded-lg">Logout</a>
                     {% else %}
                         <details id="mobileSignIn" class="px-2">
-                            <summary class="list-none px-2 py-2 text-sm font-medium text-gray-700 hover:text-sky-700 cursor-pointer select-none rounded hover:bg-sky-50/70">Sign In</summary>
+                            <summary class="list-none px-2 py-2 text-sm font-medium text-gray-200 hover:text-white cursor-pointer select-none rounded hover:bg-white/10">Sign In</summary>
                             <div class="mt-1 ml-2 space-y-1">
-                                <a href="{% url 'login_contributor' %}" class="block px-4 py-2 text-sm text-neutral-700 hover:text-sky-700">Contributor</a>
-                                <a href="{% url 'login_corporate' %}" class="block px-4 py-2 text-sm text-neutral-700 hover:text-sky-700">Corporate</a>
-                                <a href="{% url 'login_admin' %}" class="block px-4 py-2 text-sm text-neutral-700 hover:text-sky-700">Admin</a>
-                                <a href="{% url 'login_field_officer' %}" class="block px-4 py-2 text-sm text-neutral-700 hover:text-sky-700">Field Officer</a>
-                                <a href="{% url 'login_isro_admin' %}" class="block px-4 py-2 text-sm text-neutral-700 hover:text-sky-700">ISRO Admin</a>
+                                <a href="{% url 'login_contributor' %}" class="block px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-white/5 rounded">Contributor</a>
+                                <a href="{% url 'login_corporate' %}" class="block px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-white/5 rounded">Corporate</a>
+                                <a href="{% url 'login_admin' %}" class="block px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-white/5 rounded">Admin</a>
+                                <a href="{% url 'login_field_officer' %}" class="block px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-white/5 rounded">Field Officer</a>
+                                <a href="{% url 'login_isro_admin' %}" class="block px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-white/5 rounded">ISRO Admin</a>
                             </div>
                         </details>
                     {% endif %}
-                    <a href="{% url 'collaboration_hub' %}" class="block px-4 py-3 text-sm font-medium text-gray-700 hover:text-sky-700 transition-all duration-300 border-b border-transparent hover:border-sky-300">Collaboration</a>
+                    <a href="{% url 'collaboration_hub' %}" class="block px-4 py-3 text-sm font-medium text-gray-200 hover:text-white hover:bg-white/10 transition-all duration-300 border-b border-transparent hover:border-white/20 rounded-lg">Collaboration</a>
                 </div>
             </div>
         </div>
@@ -664,7 +664,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="relative bg-neutral-900 text-neutral-100 pt-16 pb-8 mt-20 overflow-hidden">
+    <footer class="relative z-20 bg-neutral-900 text-neutral-100 pt-16 pb-8 mt-20 overflow-hidden">
         <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary-500 to-transparent"></div>
         <div class="relative max-w-7xl mx-auto px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -784,60 +784,60 @@
             // Open modal immediately with enhanced loading state
             backdrop.classList.remove('hidden');
             content.innerHTML = `
-                <div class="relative overflow-hidden bg-white rounded-3xl shadow-2xl border border-white/20 max-h-[90vh] overflow-y-auto">
+                <div class="relative overflow-hidden bg-black/60 backdrop-blur-xl shadow-2xl rounded-sm border border-neutral-800 max-h-[90vh] overflow-y-auto">
                     <!-- Loading Header -->
-                    <div class="px-8 pt-8 pb-6 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white relative overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/10 to-blue-600/20"></div>
+                    <div class="px-8 pt-8 pb-6 bg-neutral-900/50 text-white relative overflow-hidden border-b border-neutral-800">
+                        <div class="absolute inset-0 bg-neutral-900/20"></div>
                         <div class="relative z-10">
                             <div class="flex items-center justify-between mb-4">
                                 <div class="flex-1">
                                     <div class="flex items-center gap-4 mb-3">
-                                        <div class="skeleton h-8 w-64 rounded-lg bg-white/20"></div>
-                                        <div class="skeleton h-8 w-24 rounded-full bg-white/10"></div>
+                                        <div class="skeleton h-8 w-64 rounded-sm bg-neutral-800"></div>
+                                        <div class="skeleton h-8 w-24 rounded-sm bg-neutral-800"></div>
                                     </div>
-                                    <div class="skeleton h-4 w-48 rounded bg-white/10 mb-2"></div>
-                                    <div class="skeleton h-4 w-32 rounded bg-white/10"></div>
+                                    <div class="skeleton h-4 w-48 rounded-sm bg-neutral-800 mb-2"></div>
+                                    <div class="skeleton h-4 w-32 rounded-sm bg-neutral-800"></div>
                                 </div>
-                                <div class="ml-4 p-2 hover:bg-white/10 rounded-full transition-colors cursor-pointer" onclick="closeProjectModal()">
-                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <div class="ml-4 p-2 hover:bg-neutral-800 rounded-sm transition-colors cursor-pointer" onclick="closeProjectModal()">
+                                    <svg class="w-6 h-6 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                                     </svg>
                                 </div>
                             </div>
                             <div class="flex flex-wrap gap-3">
-                                <div class="skeleton h-8 w-40 rounded-full bg-white/10"></div>
-                                <div class="skeleton h-8 w-32 rounded-full bg-white/10"></div>
+                                <div class="skeleton h-8 w-40 rounded-sm bg-neutral-800"></div>
+                                <div class="skeleton h-8 w-32 rounded-sm bg-neutral-800"></div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Loading Content -->
-                    <div class="p-8 bg-gradient-to-br from-slate-50/50 to-white space-y-8">
+                    <div class="p-8 bg-black/60 backdrop-blur-sm space-y-8">
                         <div class="grid xl:grid-cols-3 gap-8">
                             <!-- Main Content Skeleton -->
                             <div class="xl:col-span-2 space-y-8">
-                                <div class="bg-gradient-to-br from-blue-50 to-blue-100/50 border border-blue-200/50 p-8 rounded-2xl">
+                                <div class="bg-neutral-900/50 border border-neutral-800 p-8 rounded-sm backdrop-blur-sm shadow-xl">
                                     <div class="flex items-center gap-3 mb-6">
-                                        <div class="w-10 h-10 bg-blue-500/20 rounded-full skeleton"></div>
-                                        <div class="skeleton h-6 w-32 rounded bg-blue-200/50"></div>
+                                        <div class="w-10 h-10 bg-neutral-800 rounded-sm skeleton"></div>
+                                        <div class="skeleton h-6 w-32 rounded-sm bg-neutral-800"></div>
                                     </div>
-                                    <div class="skeleton h-3 w-full rounded bg-blue-200/30 mb-4"></div>
+                                    <div class="skeleton h-3 w-full rounded-sm bg-neutral-800 mb-4"></div>
                                     <div class="grid md:grid-cols-2 gap-6">
-                                        <div class="bg-white/70 p-4 rounded-xl">
-                                            <div class="skeleton h-4 w-16 rounded mb-2 bg-blue-200/50"></div>
-                                            <div class="skeleton h-5 w-24 rounded bg-blue-200/30"></div>
+                                        <div class="bg-black/40 p-4 rounded-sm border border-neutral-800">
+                                            <div class="skeleton h-4 w-16 rounded-sm mb-2 bg-neutral-800"></div>
+                                            <div class="skeleton h-5 w-24 rounded-sm bg-neutral-700"></div>
                                         </div>
-                                        <div class="bg-white/70 p-4 rounded-xl">
-                                            <div class="skeleton h-4 w-16 rounded mb-2 bg-blue-200/50"></div>
-                                            <div class="skeleton h-5 w-20 rounded bg-blue-200/30"></div>
+                                        <div class="bg-black/40 p-4 rounded-sm border border-neutral-800">
+                                            <div class="skeleton h-4 w-16 rounded-sm mb-2 bg-neutral-800"></div>
+                                            <div class="skeleton h-5 w-20 rounded-sm bg-neutral-700"></div>
                                         </div>
-                                        <div class="bg-white/70 p-4 rounded-xl">
-                                            <div class="skeleton h-4 w-24 rounded mb-2 bg-blue-200/50"></div>
-                                            <div class="skeleton h-8 w-16 rounded bg-blue-200/30"></div>
+                                        <div class="bg-black/40 p-4 rounded-sm border border-neutral-800">
+                                            <div class="skeleton h-4 w-24 rounded-sm mb-2 bg-neutral-800"></div>
+                                            <div class="skeleton h-8 w-16 rounded-sm bg-neutral-700"></div>
                                         </div>
-                                        <div class="bg-white/70 p-4 rounded-xl">
-                                            <div class="skeleton h-4 w-20 rounded mb-2 bg-blue-200/50"></div>
-                                            <div class="skeleton h-5 w-28 rounded bg-blue-200/30"></div>
+                                        <div class="bg-black/40 p-4 rounded-sm border border-neutral-800">
+                                            <div class="skeleton h-4 w-20 rounded-sm mb-2 bg-neutral-800"></div>
+                                            <div class="skeleton h-5 w-28 rounded-sm bg-neutral-700"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -845,23 +845,23 @@
 
                             <!-- Sidebar Skeleton -->
                             <div class="space-y-6">
-                                <div class="bg-gradient-to-br from-blue-500 to-blue-600 text-white p-8 rounded-2xl">
+                                <div class="bg-neutral-900/50 border border-neutral-800 p-8 rounded-sm backdrop-blur-sm shadow-xl">
                                     <div class="flex items-center gap-3 mb-6">
-                                        <div class="w-10 h-10 bg-white/20 rounded-full skeleton"></div>
-                                        <div class="skeleton h-6 w-32 rounded bg-white/20"></div>
+                                        <div class="w-10 h-10 bg-neutral-800 rounded-sm skeleton"></div>
+                                        <div class="skeleton h-6 w-32 rounded-sm bg-neutral-800"></div>
                                     </div>
                                     <div class="space-y-4">
-                                        <div class="flex justify-between items-center py-3 border-b border-white/20">
-                                            <div class="skeleton h-4 w-20 rounded bg-white/20"></div>
-                                            <div class="skeleton h-6 w-16 rounded bg-white/20"></div>
+                                        <div class="flex justify-between items-center py-3 border-b border-neutral-800">
+                                            <div class="skeleton h-4 w-20 rounded-sm bg-neutral-800"></div>
+                                            <div class="skeleton h-6 w-16 rounded-sm bg-neutral-800"></div>
                                         </div>
-                                        <div class="flex justify-between items-center py-3 border-b border-white/20">
-                                            <div class="skeleton h-4 w-24 rounded bg-white/20"></div>
-                                            <div class="skeleton h-6 w-20 rounded bg-white/20"></div>
+                                        <div class="flex justify-between items-center py-3 border-b border-neutral-800">
+                                            <div class="skeleton h-4 w-24 rounded-sm bg-neutral-800"></div>
+                                            <div class="skeleton h-6 w-20 rounded-sm bg-neutral-800"></div>
                                         </div>
-                                        <div class="flex justify-between items-center py-3 border-b border-white/20">
-                                            <div class="skeleton h-4 w-16 rounded bg-white/20"></div>
-                                            <div class="skeleton h-6 w-18 rounded bg-white/20"></div>
+                                        <div class="flex justify-between items-center py-3 border-b border-neutral-800">
+                                            <div class="skeleton h-4 w-16 rounded-sm bg-neutral-800"></div>
+                                            <div class="skeleton h-6 w-18 rounded-sm bg-neutral-800"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -870,8 +870,8 @@
                     </div>
 
                     <!-- Loading Footer -->
-                    <div class="px-8 pb-8 flex items-center justify-end">
-                        <div class="skeleton h-12 w-32 rounded-xl bg-slate-200"></div>
+                    <div class="px-8 pb-8 flex items-center justify-end bg-neutral-900/50 border-t border-neutral-800 pt-4">
+                        <div class="skeleton h-12 w-32 rounded-sm bg-neutral-800"></div>
                     </div>
                 </div>`;
             // lock background scroll

@@ -1,47 +1,44 @@
 <div class="relative w-full mx-auto">
     <!-- Enhanced Background Effects -->
-    <div class="absolute inset-0 -m-6 bg-gradient-to-br from-primary-100/50 via-transparent to-accent-100/50 opacity-40 blur-3xl pointer-events-none rounded-3xl"></div>
-    <div class="absolute inset-0 -m-8 bg-gradient-to-r from-blue-600/5 via-purple-600/3 to-blue-600/5 pointer-events-none rounded-3xl animate-pulse"></div>
+    <div class="absolute inset-0 -m-6 bg-neutral-900/20 opacity-20 blur-3xl pointer-events-none rounded-sm"></div>
     
-    <div class="relative overflow-hidden bg-white/95 backdrop-blur-xl shadow-2xl rounded-3xl border border-white/30 max-h-[90vh] overflow-y-auto">
+    <div class="relative overflow-hidden bg-black/60 backdrop-blur-xl shadow-2xl rounded-sm border border-neutral-800 max-h-[90vh] overflow-y-auto">
         <!-- Enhanced Header Section -->
-        <div class="px-4 sm:px-8 pt-6 sm:pt-8 pb-6 sm:pb-8 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white relative overflow-hidden">
+        <div class="px-4 sm:px-8 pt-6 sm:pt-8 pb-6 sm:pb-8 bg-neutral-900/50 text-white relative overflow-hidden border-b border-neutral-800">
             <!-- Animated Background Elements -->
-            <div class="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/15 to-blue-600/20"></div>
+            <div class="absolute inset-0 bg-neutral-900/20"></div>
             <div class="absolute inset-0 opacity-30">
-                <div class="absolute top-0 left-0 w-32 h-32 bg-blue-400/20 rounded-full blur-3xl animate-pulse"></div>
-                <div class="absolute bottom-0 right-0 w-40 h-40 bg-purple-400/20 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+                <div class="absolute top-0 left-0 w-32 h-32 bg-neutral-500/10 rounded-full blur-3xl animate-pulse"></div>
+                <div class="absolute bottom-0 right-0 w-40 h-40 bg-neutral-500/10 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
             </div>
             
             <div class="relative z-10">
                 <div class="flex items-start justify-between mb-6">
                     <div class="flex-1 pr-4 sm:pr-6">
                         <div class="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 mb-4">
-                            <h3 class="text-2xl sm:text-3xl font-bold tracking-tight text-white leading-tight">
+                            <h3 class="text-2xl sm:text-3xl font-julius font-bold tracking-tight text-white leading-tight">
                                 {{ project.title }}
                             </h3>
                             <!-- Enhanced Status Badge -->
                             <div class="relative self-start">
-                                <span class="inline-flex items-center gap-2 text-xs sm:text-sm font-bold px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-lg backdrop-blur-sm border border-white/30 transition-all duration-300 hover:scale-105 {% if project.status == 'approved' %}bg-gradient-to-r from-emerald-500/90 to-emerald-600/90 text-white shadow-emerald-500/25{% elif project.status == 'under_review' %}bg-gradient-to-r from-blue-500/90 to-blue-600/90 text-white shadow-blue-500/25{% elif project.status == 'pending' %}bg-gradient-to-r from-amber-500/90 to-amber-600/90 text-white shadow-amber-500/25{% else %}bg-gradient-to-r from-red-500/90 to-red-600/90 text-white shadow-red-500/25{% endif %}">
-                                    <span class="w-2 h-2 rounded-full bg-white/80 animate-pulse"></span>
+                                <span class="inline-flex items-center gap-2 text-xs sm:text-sm font-bold px-4 sm:px-6 py-2 sm:py-3 rounded-sm shadow-lg backdrop-blur-sm border border-white/5 transition-all duration-300 hover:scale-105 {% if project.status == 'approved' %}bg-emerald-500/10 text-emerald-400 border-emerald-500/20{% elif project.status == 'under_review' %}bg-blue-500/10 text-blue-400 border-blue-500/20{% elif project.status == 'pending' %}bg-amber-500/10 text-amber-400 border-amber-500/20{% else %}bg-red-500/10 text-red-400 border-red-500/20{% endif %}">
+                                    <span class="w-2 h-2 rounded-full bg-current animate-pulse"></span>
                                     {{ project.status|title|default:"Under Review" }}
                                 </span>
-                                <!-- Status Glow Effect -->
-                                <div class="absolute inset-0 rounded-full blur-md opacity-60 {% if project.status == 'approved' %}bg-emerald-500/50{% elif project.status == 'under_review' %}bg-blue-500/50{% elif project.status == 'pending' %}bg-amber-500/50{% else %}bg-red-500/50{% endif %}"></div>
                             </div>
                         </div>
                         
                         {% if project.ngo %}
-                            <div class="bg-white/10 backdrop-blur-sm rounded-xl px-4 sm:px-6 py-3 sm:py-4 border border-white/20">
-                                <div class="flex items-center gap-3 text-slate-200">
-                                    <div class="w-6 sm:w-8 h-6 sm:h-8 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                            <div class="bg-black/20 backdrop-blur-sm rounded-sm px-4 sm:px-6 py-3 sm:py-4 border border-neutral-800">
+                                <div class="flex items-center gap-3 text-neutral-300">
+                                    <div class="w-6 sm:w-8 h-6 sm:h-8 bg-white/5 rounded-sm flex items-center justify-center flex-shrink-0">
                                         <svg class="w-3 sm:w-4 h-3 sm:h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                                         </svg>
                                     </div>
                                     <div>
-                                        <p class="font-semibold text-white text-sm sm:text-base">{{ project.ngo.email|default:project.ngo.username }}</p>
-                                        <p class="text-xs text-slate-300">Submitted {{ project.submitted_at|date:"M d, Y \a\t H:i" }}</p>
+                                        <p class="font-semibold text-white text-sm sm:text-base font-javanese">{{ project.ngo.email|default:project.ngo.username }}</p>
+                                        <p class="text-xs text-neutral-500 font-javanese">Submitted {{ project.submitted_at|date:"M d, Y \a\t H:i" }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -49,8 +46,8 @@
                     </div>
                     
                     <!-- Enhanced Close Button -->
-                    <button id="modal-close-btn" class="group ml-2 sm:ml-4 p-2 sm:p-3 hover:bg-white/10 rounded-xl sm:rounded-2xl transition-all duration-300 hover:scale-110 hover:rotate-90 border border-white/20 backdrop-blur-sm flex-shrink-0">
-                        <svg class="w-5 sm:w-6 h-5 sm:h-6 text-white group-hover:text-red-300 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <button id="modal-close-btn" class="group ml-2 sm:ml-4 p-2 sm:p-3 hover:bg-white/5 rounded-sm transition-all duration-300 border border-transparent hover:border-neutral-700 backdrop-blur-sm flex-shrink-0">
+                        <svg class="w-5 sm:w-6 h-5 sm:h-6 text-neutral-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                         </svg>
                     </button>
@@ -59,12 +56,11 @@
                 <!-- Enhanced Status Badges Section -->
                 <div class="flex flex-wrap gap-2 sm:gap-4 mt-6">
                     {% if not project.has_field_data %}
-                        <div class="inline-flex items-center gap-2 sm:gap-3 text-xs sm:text-sm font-semibold px-3 sm:px-6 py-2 sm:py-3 rounded-full bg-amber-500/20 text-amber-200 ring-2 ring-amber-400/50 backdrop-blur-sm shadow-lg shadow-amber-500/10 hover:scale-105 transition-transform duration-300">
+                        <div class="inline-flex items-center gap-2 sm:gap-3 text-xs sm:text-sm font-semibold px-3 sm:px-6 py-2 sm:py-3 rounded-sm bg-amber-500/5 text-amber-400 ring-1 ring-amber-500/20 backdrop-blur-sm hover:bg-amber-500/10 transition-colors duration-300">
                             <span class="relative">
-                                <span class="w-2 sm:w-3 h-2 sm:h-3 rounded-full bg-amber-300 animate-pulse"></span>
-                                <span class="absolute inset-0 w-2 sm:w-3 h-2 sm:h-3 rounded-full bg-amber-300 animate-ping opacity-75"></span>
+                                <span class="w-2 sm:w-3 h-2 sm:h-3 rounded-full bg-amber-500/50 animate-pulse"></span>
                             </span>
-                            <span class="flex items-center gap-1 sm:gap-2">
+                            <span class="flex items-center gap-1 sm:gap-2 font-javanese">
                                 <svg class="w-3 sm:w-4 h-3 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                                 </svg>
@@ -74,12 +70,11 @@
                         </div>
                     {% endif %}
                     {% if not project.has_satellite_data %}
-                        <div class="inline-flex items-center gap-2 sm:gap-3 text-xs sm:text-sm font-semibold px-3 sm:px-6 py-2 sm:py-3 rounded-full bg-purple-500/20 text-purple-200 ring-2 ring-purple-400/50 backdrop-blur-sm shadow-lg shadow-purple-500/10 hover:scale-105 transition-transform duration-300">
+                        <div class="inline-flex items-center gap-2 sm:gap-3 text-xs sm:text-sm font-semibold px-3 sm:px-6 py-2 sm:py-3 rounded-sm bg-purple-500/5 text-purple-400 ring-1 ring-purple-500/20 backdrop-blur-sm hover:bg-purple-500/10 transition-colors duration-300">
                             <span class="relative">
-                                <span class="w-2 sm:w-3 h-2 sm:h-3 rounded-full bg-purple-300 animate-pulse"></span>
-                                <span class="absolute inset-0 w-2 sm:w-3 h-2 sm:h-3 rounded-full bg-purple-300 animate-ping opacity-75"></span>
+                                <span class="w-2 sm:w-3 h-2 sm:h-3 rounded-full bg-purple-500/50 animate-pulse"></span>
                             </span>
-                            <span class="flex items-center gap-1 sm:gap-2">
+                            <span class="flex items-center gap-1 sm:gap-2 font-javanese">
                                 <svg class="w-3 sm:w-4 h-3 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                 </svg>
@@ -89,9 +84,9 @@
                         </div>
                     {% endif %}
                     {% if project.has_field_data and project.has_satellite_data %}
-                        <div class="inline-flex items-center gap-2 sm:gap-3 text-xs sm:text-sm font-semibold px-3 sm:px-6 py-2 sm:py-3 rounded-full bg-emerald-500/20 text-emerald-200 ring-2 ring-emerald-400/50 backdrop-blur-sm shadow-lg shadow-emerald-500/10 hover:scale-105 transition-transform duration-300">
-                            <span class="w-2 sm:w-3 h-2 sm:h-3 rounded-full bg-emerald-300 shadow-lg"></span>
-                            <span class="flex items-center gap-1 sm:gap-2">
+                        <div class="inline-flex items-center gap-2 sm:gap-3 text-xs sm:text-sm font-semibold px-3 sm:px-6 py-2 sm:py-3 rounded-sm bg-emerald-500/5 text-emerald-400 ring-1 ring-emerald-500/20 backdrop-blur-sm hover:bg-emerald-500/10 transition-colors duration-300">
+                            <span class="w-2 sm:w-3 h-2 sm:h-3 rounded-full bg-emerald-500/50 shadow-lg"></span>
+                            <span class="flex items-center gap-1 sm:gap-2 font-javanese">
                                 <svg class="w-3 sm:w-4 h-3 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                                 </svg>
@@ -104,44 +99,40 @@
         </div>
 
         <!-- Enhanced Main Content Grid -->
-        <div class="p-4 sm:p-8 bg-gradient-to-br from-slate-50/50 to-white/90 backdrop-blur-sm">
+        <div class="p-4 sm:p-8 bg-black/60 backdrop-blur-sm">
             <!-- Project Overview Section -->
             <div class="grid lg:grid-cols-3 gap-6 sm:gap-8 mb-8 sm:mb-12">
                 <!-- Enhanced Basic Info -->
                 <div class="lg:col-span-2 space-y-6 sm:space-y-8">
-                    <div class="card-hover bg-gradient-to-br from-blue-50/80 to-blue-100/60 border border-blue-200/50 p-4 sm:p-8 rounded-2xl sm:rounded-3xl backdrop-blur-sm shadow-xl">
+                    <div class="card-hover bg-neutral-900/50 border border-neutral-800 p-4 sm:p-8 rounded-sm backdrop-blur-sm shadow-xl">
                         <div class="flex items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
                             <div class="relative">
-                                <div class="w-10 sm:w-12 h-10 sm:h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-xl">
-                                    <svg class="w-5 sm:w-6 h-5 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <div class="w-10 sm:w-12 h-10 sm:h-12 bg-neutral-800 rounded-sm flex items-center justify-center shadow-xl border border-neutral-700">
+                                    <svg class="w-5 sm:w-6 h-5 sm:h-6 text-neutral-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
                                     </svg>
                                 </div>
-                                <div class="absolute inset-0 w-10 sm:w-12 h-10 sm:h-12 bg-blue-500/30 rounded-xl sm:rounded-2xl blur-lg"></div>
                             </div>
                             <div>
-                                <h4 class="text-lg sm:text-2xl font-bold text-blue-900 mb-1">Project Overview</h4>
-                                <p class="text-blue-700 text-xs sm:text-sm">Essential project information and metrics</p>
+                                <h4 class="text-lg sm:text-2xl font-bold text-white mb-1 font-julius">Project Overview</h4>
+                                <p class="text-neutral-400 text-xs sm:text-sm font-javanese">Essential project information and metrics</p>
                             </div>
                         </div>
                         
                         <!-- Enhanced Progress Bar -->
                         <div class="mb-6 sm:mb-8">
                             {% with pct=project.completion_percentage %}
-                            <div class="flex items-center justify-between text-sm text-blue-700 mb-3">
-                                <span class="font-semibold flex items-center gap-2 text-xs sm:text-sm">
+                            <div class="flex items-center justify-between text-sm text-neutral-400 mb-3">
+                                <span class="font-semibold flex items-center gap-2 text-xs sm:text-sm font-javanese">
                                     <svg class="w-3 sm:w-4 h-3 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                     </svg>
                                     Completion Progress
                                 </span>
-                                <span class="font-bold text-base sm:text-lg">{{ pct }}%</span>
+                                <span class="font-bold text-base sm:text-lg text-white">{{ pct }}%</span>
                             </div>
-                            <div class="relative w-full h-3 sm:h-4 bg-white/80 rounded-full sm:rounded-2xl overflow-hidden shadow-inner border border-blue-200/30">
-                                <div class="absolute inset-0 bg-gradient-to-r from-blue-100/50 to-blue-200/50"></div>
-                                <div class="relative h-3 sm:h-4 rounded-full sm:rounded-2xl bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 transition-all duration-1000 ease-out shadow-lg {% if pct >= 100 %}w-full{% elif pct >= 75 %}w-3/4{% elif pct >= 50 %}w-1/2{% elif pct >= 25 %}w-1/4{% else %}w-0{% endif %}" 
-                                     style="box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);">
-                                    <div class="absolute inset-0 bg-gradient-to-r from-white/20 via-transparent to-white/10 rounded-full sm:rounded-2xl"></div>
+                            <div class="relative w-full h-2 sm:h-3 bg-neutral-800 rounded-sm overflow-hidden border border-neutral-700">
+                                <div class="relative h-2 sm:h-3 rounded-sm bg-neutral-400 transition-all duration-1000 ease-out {% if pct >= 100 %}w-full{% elif pct >= 75 %}w-3/4{% elif pct >= 50 %}w-1/2{% elif pct >= 25 %}w-1/4{% else %}w-0{% endif %}">
                                 </div>
                             </div>
                             {% endwith %}
@@ -149,58 +140,58 @@
 
                         <!-- Enhanced Info Grid -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-                            <div class="card-hover bg-white/80 backdrop-blur-sm p-4 sm:p-6 rounded-xl sm:rounded-2xl border border-blue-200/30 shadow-lg hover:shadow-xl transition-all duration-300">
+                            <div class="card-hover bg-black/40 backdrop-blur-sm p-4 sm:p-6 rounded-sm border border-neutral-800 shadow-lg hover:bg-neutral-900/60 transition-all duration-300">
                                 <div class="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-                                    <div class="w-6 sm:w-8 h-6 sm:h-8 bg-blue-500/20 rounded-lg sm:rounded-xl flex items-center justify-center">
-                                        <svg class="w-3 sm:w-4 h-3 sm:h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <div class="w-6 sm:w-8 h-6 sm:h-8 bg-neutral-800 rounded-sm flex items-center justify-center border border-neutral-700">
+                                        <svg class="w-3 sm:w-4 h-3 sm:h-4 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                                         </svg>
                                     </div>
-                                    <div class="text-xs font-bold text-blue-600 uppercase tracking-wider">Location</div>
+                                    <div class="text-xs font-bold text-neutral-400 uppercase tracking-wider font-julius">Location</div>
                                 </div>
-                                <div class="text-sm sm:text-lg font-semibold text-blue-900">{{ project.location|default:"Not specified" }}</div>
+                                <div class="text-sm sm:text-lg font-semibold text-white font-javanese">{{ project.location|default:"Not specified" }}</div>
                             </div>
                             
-                            <div class="card-hover bg-white/80 backdrop-blur-sm p-4 sm:p-6 rounded-xl sm:rounded-2xl border border-blue-200/30 shadow-lg hover:shadow-xl transition-all duration-300">
+                            <div class="card-hover bg-black/40 backdrop-blur-sm p-4 sm:p-6 rounded-sm border border-neutral-800 shadow-lg hover:bg-neutral-900/60 transition-all duration-300">
                                 <div class="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-                                    <div class="w-6 sm:w-8 h-6 sm:h-8 bg-green-500/20 rounded-lg sm:rounded-xl flex items-center justify-center">
-                                        <svg class="w-3 sm:w-4 h-3 sm:h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <div class="w-6 sm:w-8 h-6 sm:h-8 bg-neutral-800 rounded-sm flex items-center justify-center border border-neutral-700">
+                                        <svg class="w-3 sm:w-4 h-3 sm:h-4 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
                                         </svg>
                                     </div>
-                                    <div class="text-xs font-bold text-green-600 uppercase tracking-wider">Species</div>
+                                    <div class="text-xs font-bold text-neutral-400 uppercase tracking-wider font-julius">Species</div>
                                 </div>
-                                <div class="text-sm sm:text-lg font-semibold text-green-900">{{ project.species }}</div>
+                                <div class="text-sm sm:text-lg font-semibold text-white font-javanese">{{ project.species }}</div>
                             </div>
                             
-                            <div class="card-hover bg-white/80 backdrop-blur-sm p-4 sm:p-6 rounded-xl sm:rounded-2xl border border-blue-200/30 shadow-lg hover:shadow-xl transition-all duration-300">
+                            <div class="card-hover bg-black/40 backdrop-blur-sm p-4 sm:p-6 rounded-sm border border-neutral-800 shadow-lg hover:bg-neutral-900/60 transition-all duration-300">
                                 <div class="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-                                    <div class="w-6 sm:w-8 h-6 sm:h-8 bg-purple-500/20 rounded-lg sm:rounded-xl flex items-center justify-center">
-                                        <svg class="w-3 sm:w-4 h-3 sm:h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <div class="w-6 sm:w-8 h-6 sm:h-8 bg-neutral-800 rounded-sm flex items-center justify-center border border-neutral-700">
+                                        <svg class="w-3 sm:w-4 h-3 sm:h-4 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/>
                                         </svg>
                                     </div>
-                                    <div class="text-xs font-bold text-purple-600 uppercase tracking-wider">Area</div>
+                                    <div class="text-xs font-bold text-neutral-400 uppercase tracking-wider font-julius">Area</div>
                                 </div>
-                                <div class="text-2xl sm:text-3xl font-bold text-purple-900 mb-1">{{ project.area }}</div>
-                                <div class="text-xs sm:text-sm text-purple-700 font-medium">hectares</div>
+                                <div class="text-2xl sm:text-3xl font-bold text-white mb-1">{{ project.area }}</div>
+                                <div class="text-xs sm:text-sm text-neutral-500 font-medium font-javanese">hectares</div>
                             </div>
                             
-                            <div class="card-hover bg-white/80 backdrop-blur-sm p-4 sm:p-6 rounded-xl sm:rounded-2xl border border-blue-200/30 shadow-lg hover:shadow-xl transition-all duration-300">
+                            <div class="card-hover bg-black/40 backdrop-blur-sm p-4 sm:p-6 rounded-sm border border-neutral-800 shadow-lg hover:bg-neutral-900/60 transition-all duration-300">
                                 <div class="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-                                    <div class="w-6 sm:w-8 h-6 sm:h-8 bg-indigo-500/20 rounded-lg sm:rounded-xl flex items-center justify-center">
-                                        <svg class="w-3 sm:w-4 h-3 sm:h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <div class="w-6 sm:w-8 h-6 sm:h-8 bg-neutral-800 rounded-sm flex items-center justify-center border border-neutral-700">
+                                        <svg class="w-3 sm:w-4 h-3 sm:h-4 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
                                         </svg>
                                     </div>
-                                    <div class="text-xs font-bold text-indigo-600 uppercase tracking-wider">Coordinates</div>
+                                    <div class="text-xs font-bold text-neutral-400 uppercase tracking-wider font-julius">Coordinates</div>
                                 </div>
-                                <div class="text-xs sm:text-sm font-semibold text-indigo-900 font-mono">
+                                <div class="text-xs sm:text-sm font-semibold text-white font-mono">
                                     {% if project.latitude and project.longitude %}
                                         <div>{{ project.latitude|floatformat:6 }}°N</div>
                                         <div>{{ project.longitude|floatformat:6 }}°E</div>
                                     {% else %}
-                                        <div class="text-gray-500">Not provided</div>
+                                        <div class="text-neutral-500">Not provided</div>
                                     {% endif %}
                                 </div>
                             </div>
@@ -209,46 +200,45 @@
 
                     <!-- Enhanced NGO Document Section -->
                     {% if project.document %}
-                    <div class="card-hover bg-gradient-to-br from-slate-50/80 to-slate-100/60 border border-slate-200/50 p-4 sm:p-8 rounded-2xl sm:rounded-3xl backdrop-blur-sm shadow-xl">
+                    <div class="card-hover bg-neutral-900/50 border border-neutral-800 p-4 sm:p-8 rounded-sm backdrop-blur-sm shadow-xl">
                         <div class="flex items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
                             <div class="relative">
-                                <div class="w-10 sm:w-12 h-10 sm:h-12 bg-gradient-to-br from-slate-500 to-slate-600 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-xl">
-                                    <svg class="w-5 sm:w-6 h-5 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <div class="w-10 sm:w-12 h-10 sm:h-12 bg-neutral-800 rounded-sm flex items-center justify-center shadow-xl border border-neutral-700">
+                                    <svg class="w-5 sm:w-6 h-5 sm:h-6 text-neutral-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                                     </svg>
                                 </div>
-                                <div class="absolute inset-0 w-10 sm:w-12 h-10 sm:h-12 bg-slate-500/30 rounded-xl sm:rounded-2xl blur-lg"></div>
                             </div>
                             <div>
-                                <h4 class="text-lg sm:text-2xl font-bold text-slate-900 mb-1">NGO Submission Document</h4>
-                                <p class="text-slate-700 text-xs sm:text-sm">Original project documentation submitted by NGO</p>
+                                <h4 class="text-lg sm:text-2xl font-bold text-white mb-1 font-julius">NGO Submission Document</h4>
+                                <p class="text-neutral-400 text-xs sm:text-sm font-javanese">Original project documentation submitted by NGO</p>
                             </div>
                         </div>
                         
                         {% with project.document.name|lower as fname %}
                             {% if ".jpg" in fname or ".jpeg" in fname or ".png" in fname or ".gif" in fname %}
-                                <div class="relative overflow-hidden border border-slate-200 bg-white rounded-xl sm:rounded-2xl shadow-xl group">
-                                    <img src="{{ project.document.url }}" alt="project document" class="w-full h-60 sm:h-80 object-cover transition-transform duration-500 group-hover:scale-105" />
-                                    <div class="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                <div class="relative overflow-hidden border border-neutral-800 bg-black rounded-sm shadow-xl group">
+                                    <img src="{{ project.document.url }}" alt="project document" class="w-full h-60 sm:h-80 object-cover transition-transform duration-500 group-hover:scale-105 opacity-80 group-hover:opacity-100" />
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                     <div class="absolute bottom-2 sm:bottom-4 left-2 sm:left-4 right-2 sm:right-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                                        <div class="bg-white/90 backdrop-blur-sm rounded-lg sm:rounded-xl p-3 sm:p-4 border border-white/50">
-                                            <p class="text-xs sm:text-sm font-semibold text-slate-900">Click to view full size</p>
+                                        <div class="bg-black/90 backdrop-blur-sm rounded-sm p-3 sm:p-4 border border-neutral-800">
+                                            <p class="text-xs sm:text-sm font-semibold text-white">Click to view full size</p>
                                         </div>
                                     </div>
                                 </div>
                             {% else %}
-                                <a class="group inline-flex items-center gap-3 sm:gap-4 text-xs sm:text-sm font-bold text-slate-600 hover:text-slate-800 bg-white/90 backdrop-blur-sm px-4 sm:px-8 py-4 sm:py-6 rounded-xl sm:rounded-2xl border border-slate-200 hover:border-slate-300 transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105 w-full sm:w-auto" href="{{ project.document.url }}" target="_blank">
-                                    <div class="w-10 sm:w-12 h-10 sm:h-12 bg-slate-100 group-hover:bg-slate-200 rounded-xl sm:rounded-2xl flex items-center justify-center transition-colors flex-shrink-0">
-                                        <svg class="w-5 sm:w-6 h-5 sm:h-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <a class="group inline-flex items-center gap-3 sm:gap-4 text-xs sm:text-sm font-bold text-neutral-300 hover:text-white bg-black/40 backdrop-blur-sm px-4 sm:px-8 py-4 sm:py-6 rounded-sm border border-neutral-800 hover:border-neutral-600 transition-all duration-300 shadow-xl hover:bg-neutral-900/60 w-full sm:w-auto" href="{{ project.document.url }}" target="_blank">
+                                    <div class="w-10 sm:w-12 h-10 sm:h-12 bg-neutral-800 group-hover:bg-neutral-700 rounded-sm flex items-center justify-center transition-colors flex-shrink-0 border border-neutral-700">
+                                        <svg class="w-5 sm:w-6 h-5 sm:h-6 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                                         </svg>
                                     </div>
                                     <div class="flex-1">
-                                        <p class="text-sm sm:text-lg">View Uploaded Document</p>
-                                        <p class="text-xs text-slate-500 mt-1">Opens in new tab</p>
+                                        <p class="text-sm sm:text-lg font-javanese">View Uploaded Document</p>
+                                        <p class="text-xs text-neutral-500 mt-1 font-javanese">Opens in new tab</p>
                                     </div>
                                     <div class="ml-auto">
-                                        <svg class="w-4 sm:w-5 h-4 sm:h-5 text-slate-400 group-hover:text-slate-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <svg class="w-4 sm:w-5 h-4 sm:h-5 text-neutral-500 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
                                         </svg>
                                     </div>
@@ -262,101 +252,97 @@
                 <!-- Enhanced Right Sidebar -->
                 <div class="space-y-6 sm:space-y-8">
                     <!-- Enhanced ML Prediction Metrics -->
-                    <div class="card-hover bg-gradient-to-br from-blue-500 to-blue-600 text-white p-4 sm:p-8 rounded-2xl sm:rounded-3xl shadow-2xl border border-blue-400/30 relative overflow-hidden">
+                    <div class="card-hover bg-neutral-900/50 text-white p-4 sm:p-8 rounded-sm shadow-2xl border border-neutral-800 relative overflow-hidden">
                         <!-- Background Effects -->
-                        <div class="absolute inset-0 bg-gradient-to-br from-blue-400/20 via-transparent to-blue-700/20"></div>
-                        <div class="absolute top-0 right-0 w-24 sm:w-32 h-24 sm:h-32 bg-white/10 rounded-full blur-3xl"></div>
+                        <div class="absolute inset-0 bg-gradient-to-br from-neutral-900/20 via-transparent to-neutral-950/20"></div>
                         
                         <div class="relative z-10">
                             <div class="flex items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
                                 <div class="relative">
-                                    <div class="w-10 sm:w-12 h-10 sm:h-12 bg-white/20 rounded-xl sm:rounded-2xl flex items-center justify-center backdrop-blur-sm shadow-xl">
-                                        <svg class="w-5 sm:w-6 h-5 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <div class="w-10 sm:w-12 h-10 sm:h-12 bg-neutral-800 rounded-sm flex items-center justify-center backdrop-blur-sm shadow-xl border border-neutral-700">
+                                        <svg class="w-5 sm:w-6 h-5 sm:h-6 text-neutral-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
                                         </svg>
                                     </div>
-                                    <div class="absolute inset-0 w-10 sm:w-12 h-10 sm:h-12 bg-white/10 rounded-xl sm:rounded-2xl blur-lg"></div>
                                 </div>
                                 <div>
-                                    <h4 class="text-lg sm:text-2xl font-bold mb-1">ML Predictions</h4>
-                                    <p class="text-blue-100 text-xs sm:text-sm">AI-powered carbon analysis</p>
+                                    <h4 class="text-lg sm:text-2xl font-bold mb-1 font-julius">ML Predictions</h4>
+                                    <p class="text-neutral-400 text-xs sm:text-sm font-javanese">AI-powered carbon analysis</p>
                                 </div>
                             </div>
                             
                             {% if project.pred_details %}
                                 <div class="space-y-4 sm:space-y-6">
-                                    <div class="flex justify-between items-center py-3 sm:py-4 border-b border-white/20 hover:bg-white/5 transition-colors rounded-lg px-2 sm:px-4">
-                                        <span class="text-xs sm:text-sm font-medium text-blue-100">Biomass / ha</span>
-                                        <span class="font-bold text-lg sm:text-2xl">{{ project.pred_details.biomass_t_per_ha|floatformat:2 }}<span class="text-sm sm:text-base text-blue-200 ml-1">t</span></span>
+                                    <div class="flex justify-between items-center py-3 sm:py-4 border-b border-neutral-800 hover:bg-neutral-800/30 transition-colors rounded-sm px-2 sm:px-4">
+                                        <span class="text-xs sm:text-sm font-medium text-neutral-400 font-javanese">Biomass / ha</span>
+                                        <span class="font-bold text-lg sm:text-2xl">{{ project.pred_details.biomass_t_per_ha|floatformat:2 }}<span class="text-sm sm:text-base text-neutral-500 ml-1">t</span></span>
                                     </div>
-                                    <div class="flex justify-between items-center py-3 sm:py-4 border-b border-white/20 hover:bg-white/5 transition-colors rounded-lg px-2 sm:px-4">
-                                        <span class="text-xs sm:text-sm font-medium text-blue-100">Total Biomass</span>
-                                        <span class="font-bold text-lg sm:text-2xl">{{ project.pred_details.biomass_total_t|floatformat:2 }}<span class="text-sm sm:text-base text-blue-200 ml-1">t</span></span>
+                                    <div class="flex justify-between items-center py-3 sm:py-4 border-b border-neutral-800 hover:bg-neutral-800/30 transition-colors rounded-sm px-2 sm:px-4">
+                                        <span class="text-xs sm:text-sm font-medium text-neutral-400 font-javanese">Total Biomass</span>
+                                        <span class="font-bold text-lg sm:text-2xl">{{ project.pred_details.biomass_total_t|floatformat:2 }}<span class="text-sm sm:text-base text-neutral-500 ml-1">t</span></span>
                                     </div>
-                                    <div class="flex justify-between items-center py-3 sm:py-4 border-b border-white/20 hover:bg-white/5 transition-colors rounded-lg px-2 sm:px-4">
-                                        <span class="text-xs sm:text-sm font-medium text-blue-100">Carbon Content</span>
-                                        <span class="font-bold text-lg sm:text-2xl">{{ project.pred_details.carbon_t|floatformat:2 }}<span class="text-sm sm:text-base text-blue-200 ml-1">t</span></span>
+                                    <div class="flex justify-between items-center py-3 sm:py-4 border-b border-neutral-800 hover:bg-neutral-800/30 transition-colors rounded-sm px-2 sm:px-4">
+                                        <span class="text-xs sm:text-sm font-medium text-neutral-400 font-javanese">Carbon Content</span>
+                                        <span class="font-bold text-lg sm:text-2xl">{{ project.pred_details.carbon_t|floatformat:2 }}<span class="text-sm sm:text-base text-neutral-500 ml-1">t</span></span>
                                     </div>
-                                    <div class="flex justify-between items-center py-3 sm:py-4 border-b border-white/20 hover:bg-white/5 transition-colors rounded-lg px-2 sm:px-4">
-                                        <span class="text-xs sm:text-sm font-medium text-blue-100">CO₂ Equivalent</span>
-                                        <span class="font-bold text-lg sm:text-2xl">{{ project.pred_details.co2e_t|floatformat:2 }}<span class="text-sm sm:text-base text-blue-200 ml-1">t</span></span>
+                                    <div class="flex justify-between items-center py-3 sm:py-4 border-b border-neutral-800 hover:bg-neutral-800/30 transition-colors rounded-sm px-2 sm:px-4">
+                                        <span class="text-xs sm:text-sm font-medium text-neutral-400 font-javanese">CO₂ Equivalent</span>
+                                        <span class="font-bold text-lg sm:text-2xl">{{ project.pred_details.co2e_t|floatformat:2 }}<span class="text-sm sm:text-base text-neutral-500 ml-1">t</span></span>
                                     </div>
                                     
-                                    <div class="bg-white/15 backdrop-blur-sm rounded-xl sm:rounded-2xl px-4 sm:px-8 py-4 sm:py-6 mt-6 sm:mt-8 border border-white/20 shadow-xl">
+                                    <div class="bg-black/20 backdrop-blur-sm rounded-sm px-4 sm:px-8 py-4 sm:py-6 mt-6 sm:mt-8 border border-neutral-800 shadow-xl">
                                         <div class="text-center">
-                                            <div class="text-xs sm:text-sm font-medium text-blue-100 mb-2 sm:mb-3 flex items-center justify-center gap-2">
+                                            <div class="text-xs sm:text-sm font-medium text-neutral-400 mb-2 sm:mb-3 flex items-center justify-center gap-2 font-javanese">
                                                 <svg class="w-3 sm:w-4 h-3 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"/>
                                                 </svg>
                                                 Estimated Credits
                                             </div>
                                             <div class="text-3xl sm:text-4xl font-bold text-white mb-2">{{ project.pred_details.credits|floatformat:0 }}</div>
-                                            <div class="text-xs text-blue-200">Carbon credits available</div>
+                                            <div class="text-xs text-neutral-500 font-javanese">Carbon credits available</div>
                                         </div>
                                     </div>
                                 </div>
                             {% else %}
                                 <div class="text-center py-8 sm:py-12">
-                                    <div class="w-12 sm:w-16 h-12 sm:h-16 bg-white/10 rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 shadow-xl">
-                                        <svg class="w-6 sm:w-8 h-6 sm:h-8 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <div class="w-12 sm:w-16 h-12 sm:h-16 bg-neutral-800 rounded-sm flex items-center justify-center mx-auto mb-4 sm:mb-6 shadow-xl border border-neutral-700">
+                                        <svg class="w-6 sm:w-8 h-6 sm:h-8 text-neutral-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
                                         </svg>
                                     </div>
-                                    <p class="text-blue-100 font-semibold mb-2 text-sm sm:text-base">Analysis Pending</p>
-                                    <p class="text-blue-200 text-xs sm:text-sm">ML predictions will appear after document analysis</p>
+                                    <p class="text-neutral-300 font-semibold mb-2 text-sm sm:text-base font-javanese">Analysis Pending</p>
+                                    <p class="text-neutral-500 text-xs sm:text-sm font-javanese">ML predictions will appear after document analysis</p>
                                 </div>
                             {% endif %}
                         </div>
                     </div>
 
                     <!-- Enhanced Current Credits -->
-                    <div class="card-hover bg-gradient-to-br from-emerald-500 to-emerald-600 text-white p-4 sm:p-8 rounded-2xl sm:rounded-3xl shadow-2xl border border-emerald-400/30 relative overflow-hidden">
+                    <div class="card-hover bg-neutral-900/50 text-white p-4 sm:p-8 rounded-sm shadow-2xl border border-neutral-800 relative overflow-hidden">
                         <!-- Background Effects -->
-                        <div class="absolute inset-0 bg-gradient-to-br from-emerald-400/20 via-transparent to-emerald-700/20"></div>
-                        <div class="absolute bottom-0 left-0 w-20 sm:w-28 h-20 sm:h-28 bg-white/10 rounded-full blur-3xl"></div>
+                        <div class="absolute inset-0 bg-gradient-to-br from-neutral-900/20 via-transparent to-neutral-950/20"></div>
                         
                         <div class="relative z-10">
                             <div class="flex items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
                                 <div class="relative">
-                                    <div class="w-10 sm:w-12 h-10 sm:h-12 bg-white/20 rounded-xl sm:rounded-2xl flex items-center justify-center backdrop-blur-sm shadow-xl">
-                                        <svg class="w-5 sm:w-6 h-5 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <div class="w-10 sm:w-12 h-10 sm:h-12 bg-neutral-800 rounded-sm flex items-center justify-center backdrop-blur-sm shadow-xl border border-neutral-700">
+                                        <svg class="w-5 sm:w-6 h-5 sm:h-6 text-neutral-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"/>
                                         </svg>
                                     </div>
-                                    <div class="absolute inset-0 w-10 sm:w-12 h-10 sm:h-12 bg-white/10 rounded-xl sm:rounded-2xl blur-lg"></div>
                                 </div>
                                 <div>
-                                    <h4 class="text-lg sm:text-2xl font-bold mb-1">Approved Credits</h4>
-                                    <p class="text-emerald-100 text-xs sm:text-sm">Officially verified carbon credits</p>
+                                    <h4 class="text-lg sm:text-2xl font-bold mb-1 font-julius">Approved Credits</h4>
+                                    <p class="text-neutral-400 text-xs sm:text-sm font-javanese">Officially verified carbon credits</p>
                                 </div>
                             </div>
                             
                             <div class="text-center">
-                                <div class="text-4xl sm:text-6xl font-bold mb-3 sm:mb-4 bg-gradient-to-br from-white via-emerald-100 to-white bg-clip-text text-transparent">
+                                <div class="text-4xl sm:text-6xl font-bold mb-3 sm:mb-4 text-white">
                                     {{ project.credits|default:0 }}
                                 </div>
-                                <div class="bg-white/15 backdrop-blur-sm rounded-xl sm:rounded-2xl px-4 sm:px-6 py-3 sm:py-4 border border-white/20 shadow-lg">
-                                    <div class="text-emerald-100 text-xs sm:text-sm font-medium">
+                                <div class="bg-black/20 backdrop-blur-sm rounded-sm px-4 sm:px-6 py-3 sm:py-4 border border-neutral-800 shadow-lg">
+                                    <div class="text-neutral-400 text-xs sm:text-sm font-medium font-javanese">
                                         {% if project.status == 'approved' %}
                                             Ready for marketplace
                                         {% else %}
@@ -373,30 +359,30 @@
             <!-- Enhanced Field Officer Data Section -->
             {% if field_submissions %}
             <div class="mb-10">
-                <div class="bg-gradient-to-br from-green-50 to-green-100/50 border border-green-200/50 rounded-2xl overflow-hidden shadow-lg">
-                    <div class="bg-gradient-to-r from-green-600 to-green-500 px-8 py-6">
+                <div class="bg-neutral-900/50 border border-neutral-800 rounded-sm overflow-hidden shadow-lg">
+                    <div class="bg-neutral-800 px-8 py-6 border-b border-neutral-700">
                         <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
-                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div class="w-10 h-10 bg-neutral-700 rounded-sm flex items-center justify-center backdrop-blur-sm border border-neutral-600">
+                                <svg class="w-5 h-5 text-neutral-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                                 </svg>
                             </div>
-                            <h3 class="text-2xl font-bold text-white">Field Officer Verification</h3>
+                            <h3 class="text-2xl font-bold text-white font-julius">Field Officer Verification</h3>
                         </div>
                     </div>
                     
                     <div class="p-8 space-y-8">
                         {% for submission in field_submissions %}
-                        <div class="bg-white border border-green-200/50 rounded-xl shadow-lg overflow-hidden">
+                        <div class="bg-black/40 border border-neutral-800 rounded-sm shadow-lg overflow-hidden">
                             <!-- Submission Header -->
-                            <div class="bg-gradient-to-r from-green-100 to-green-50 px-6 py-4 border-b border-green-200/50">
+                            <div class="bg-neutral-800/50 px-6 py-4 border-b border-neutral-700">
                                 <div class="flex items-center justify-between">
                                     <div>
-                                        <h5 class="text-lg font-bold text-green-900">Survey by {{ submission.field_officer.email|default:submission.field_officer.username }}</h5>
-                                        <p class="text-sm text-green-700">{{ submission.survey_date|date:"M d, Y" }} • {{ submission.hectare_area }} hectares</p>
+                                        <h5 class="text-lg font-bold text-white font-julius">Survey by {{ submission.field_officer.email|default:submission.field_officer.username }}</h5>
+                                        <p class="text-sm text-neutral-400 font-javanese">{{ submission.survey_date|date:"M d, Y" }} • {{ submission.hectare_area }} hectares</p>
                                     </div>
-                                    <div class="bg-green-500/20 text-green-700 px-4 py-2 rounded-full font-bold text-sm ring-1 ring-green-400/50 backdrop-blur-sm">
+                                    <div class="bg-neutral-800 text-neutral-300 px-4 py-2 rounded-sm font-bold text-sm border border-neutral-700 backdrop-blur-sm font-javanese">
                                         Field Verified
                                     </div>
                                 </div>
@@ -405,17 +391,17 @@
                             <div class="p-6 space-y-6">
                                 <!-- Enhanced Metrics Grid -->
                                 <div class="grid md:grid-cols-3 gap-6">
-                                    <div class="bg-green-50/50 border border-green-200/30 p-4 rounded-xl">
-                                        <div class="text-xs font-bold text-green-600 uppercase tracking-wide mb-2">Coordinates</div>
-                                        <div class="text-sm font-semibold text-green-900">{{ submission.latitude|floatformat:6 }}, {{ submission.longitude|floatformat:6 }}</div>
+                                    <div class="bg-neutral-800/30 border border-neutral-700 p-4 rounded-sm">
+                                        <div class="text-xs font-bold text-neutral-500 uppercase tracking-wide mb-2 font-julius">Coordinates</div>
+                                        <div class="text-sm font-semibold text-white font-mono">{{ submission.latitude|floatformat:6 }}, {{ submission.longitude|floatformat:6 }}</div>
                                     </div>
-                                    <div class="bg-green-50/50 border border-green-200/30 p-4 rounded-xl">
-                                        <div class="text-xs font-bold text-green-600 uppercase tracking-wide mb-2">Soil Type</div>
-                                        <div class="text-sm font-semibold text-green-900">{{ submission.soil_type|title }}</div>
+                                    <div class="bg-neutral-800/30 border border-neutral-700 p-4 rounded-sm">
+                                        <div class="text-xs font-bold text-neutral-500 uppercase tracking-wide mb-2 font-julius">Soil Type</div>
+                                        <div class="text-sm font-semibold text-white font-javanese">{{ submission.soil_type|title }}</div>
                                     </div>
-                                    <div class="bg-green-50/50 border border-green-200/30 p-4 rounded-xl">
-                                        <div class="text-xs font-bold text-green-600 uppercase tracking-wide mb-2">Environmental Data</div>
-                                        <div class="text-sm font-semibold text-green-900">
+                                    <div class="bg-neutral-800/30 border border-neutral-700 p-4 rounded-sm">
+                                        <div class="text-xs font-bold text-neutral-500 uppercase tracking-wide mb-2 font-julius">Environmental Data</div>
+                                        <div class="text-sm font-semibold text-white font-javanese">
                                             {% if submission.water_salinity %}Salinity: {{ submission.water_salinity }}ppt{% endif %}
                                             {% if submission.tidal_range %}{% if submission.water_salinity %} • {% endif %}Tidal: {{ submission.tidal_range }}m{% endif %}
                                         </div>
@@ -425,32 +411,32 @@
                                 <!-- Enhanced Species Data -->
                                 {% if submission.species_data %}
                                 <div>
-                                    <h6 class="text-lg font-bold text-green-900 mb-4 flex items-center gap-2">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <h6 class="text-lg font-bold text-white mb-4 flex items-center gap-2 font-julius">
+                                        <svg class="w-5 h-5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
                                         </svg>
                                         Species Documented
                                     </h6>
-                                    <div class="bg-white border border-green-200/50 rounded-xl overflow-hidden shadow-sm">
+                                    <div class="bg-black/20 border border-neutral-800 rounded-sm overflow-hidden shadow-sm">
                                         <table class="w-full text-sm">
-                                            <thead class="bg-gradient-to-r from-green-100 to-green-50">
+                                            <thead class="bg-neutral-800/50">
                                                 <tr>
-                                                    <th class="text-left py-4 px-6 font-bold text-green-800">Species Name</th>
-                                                    <th class="text-left py-4 px-6 font-bold text-green-800">Count</th>
-                                                    <th class="text-left py-4 px-6 font-bold text-green-800">Health Status</th>
+                                                    <th class="text-left py-4 px-6 font-bold text-neutral-400 font-julius">Species Name</th>
+                                                    <th class="text-left py-4 px-6 font-bold text-neutral-400 font-julius">Count</th>
+                                                    <th class="text-left py-4 px-6 font-bold text-neutral-400 font-julius">Health Status</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 {% for species in submission.species_data %}
-                                                <tr class="border-b border-green-100/50 hover:bg-green-50/30 transition-colors">
-                                                    <td class="py-4 px-6 font-medium text-green-900">{{ species.name }}</td>
-                                                    <td class="py-4 px-6 font-semibold text-green-900">{{ species.count }}</td>
+                                                <tr class="border-b border-neutral-800 hover:bg-neutral-800/30 transition-colors">
+                                                    <td class="py-4 px-6 font-medium text-white font-javanese">{{ species.name }}</td>
+                                                    <td class="py-4 px-6 font-semibold text-white font-mono">{{ species.count }}</td>
                                                     <td class="py-4 px-6">
-                                                        <span class="px-3 py-1 text-xs font-bold rounded-full backdrop-blur-sm
-                                                            {% if species.health == 'excellent' %}bg-green-500/20 text-green-700 ring-1 ring-green-400/50
-                                                            {% elif species.health == 'good' %}bg-blue-500/20 text-blue-700 ring-1 ring-blue-400/50
-                                                            {% elif species.health == 'fair' %}bg-yellow-500/20 text-yellow-700 ring-1 ring-yellow-400/50
-                                                            {% else %}bg-red-500/20 text-red-700 ring-1 ring-red-400/50{% endif %}">
+                                                        <span class="px-3 py-1 text-xs font-bold rounded-sm backdrop-blur-sm font-javanese
+                                                            {% if species.health == 'excellent' %}bg-emerald-500/10 text-emerald-400 border border-emerald-500/20
+                                                            {% elif species.health == 'good' %}bg-blue-500/10 text-blue-400 border border-blue-500/20
+                                                            {% elif species.health == 'fair' %}bg-yellow-500/10 text-yellow-400 border border-yellow-500/20
+                                                            {% else %}bg-red-500/10 text-red-400 border border-red-500/20{% endif %}">
                                                             {{ species.health|title }}
                                                         </span>
                                                     </td>
@@ -465,8 +451,8 @@
                                 <!-- Enhanced Field Images -->
                                 {% if submission.images.all %}
                                 <div>
-                                    <h6 class="text-lg font-bold text-green-900 mb-4 flex items-center gap-2">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <h6 class="text-lg font-bold text-white mb-4 flex items-center gap-2 font-julius">
+                                        <svg class="w-5 h-5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                                         </svg>
                                         Field Images ({{ submission.images.count }})
@@ -474,13 +460,13 @@
                                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                                         {% for img in submission.images.all %}
                                         <a href="{{ img.image.url }}" target="_blank" class="group block">
-                                            <div class="relative overflow-hidden bg-white border border-green-200/50 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+                                            <div class="relative overflow-hidden bg-black border border-neutral-800 rounded-sm shadow-lg hover:shadow-xl transition-all duration-300">
                                                 <div class="aspect-square overflow-hidden">
-                                                    <img src="{{ img.image.url }}" alt="Field image" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                                                    <img src="{{ img.image.url }}" alt="Field image" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 opacity-80 group-hover:opacity-100" />
                                                 </div>
                                                 {% if img.image_type %}
-                                                <div class="p-3">
-                                                    <div class="text-xs font-medium text-green-900">{{ img.image_type|title }}</div>
+                                                <div class="p-3 bg-neutral-900">
+                                                    <div class="text-xs font-medium text-neutral-400 font-javanese">{{ img.image_type|title }}</div>
                                                 </div>
                                                 {% endif %}
                                             </div>
@@ -492,9 +478,9 @@
 
                                 <!-- Enhanced Field Notes -->
                                 {% if submission.notes %}
-                                <div class="bg-green-50/50 border border-green-200/50 p-6 rounded-xl">
-                                    <h6 class="text-sm font-bold text-green-600 uppercase tracking-wide mb-3">Field Notes</h6>
-                                    <div class="text-sm text-green-800 leading-relaxed">{{ submission.notes }}</div>
+                                <div class="bg-neutral-800/30 border border-neutral-700 p-6 rounded-sm">
+                                    <h6 class="text-sm font-bold text-neutral-500 uppercase tracking-wide mb-3 font-julius">Field Notes</h6>
+                                    <div class="text-sm text-neutral-300 leading-relaxed font-javanese">{{ submission.notes }}</div>
                                 </div>
                                 {% endif %}
                             </div>
@@ -505,18 +491,18 @@
             </div>
             {% else %}
             <div class="mb-10">
-                <div class="bg-gradient-to-br from-yellow-50 to-yellow-100/50 border border-yellow-200/50 p-8 rounded-2xl shadow-lg">
+                <div class="bg-neutral-900/50 border border-neutral-800 p-8 rounded-sm shadow-lg">
                     <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 bg-yellow-500/20 rounded-full flex items-center justify-center backdrop-blur-sm">
-                            <svg class="w-5 h-5 text-yellow-600" fill="currentColor" viewBox="0 0 20 20">
+                        <div class="w-10 h-10 bg-neutral-800 rounded-sm flex items-center justify-center backdrop-blur-sm border border-neutral-700">
+                            <svg class="w-5 h-5 text-neutral-500" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-5a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5A.75.75 0 0110 5zm0 9a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/>
                             </svg>
                         </div>
-                        <h3 class="text-xl font-bold text-yellow-900">Field Officer Data</h3>
+                        <h3 class="text-xl font-bold text-neutral-400 font-julius">Field Officer Data</h3>
                     </div>
-                    <div class="bg-white/70 border border-yellow-200/50 p-6 rounded-xl backdrop-blur-sm">
-                        <p class="font-semibold text-yellow-900 mb-2">Pending Field Officer submission</p>
-                        <p class="text-sm text-yellow-800">This project hasn't received field survey data yet. Field Officer must submit hectares, species, images, and notes.</p>
+                    <div class="bg-black/40 border border-neutral-800 p-6 rounded-sm backdrop-blur-sm">
+                        <p class="font-semibold text-neutral-300 mb-2 font-javanese">Pending Field Officer submission</p>
+                        <p class="text-sm text-neutral-500 font-javanese">This project hasn't received field survey data yet. Field Officer must submit hectares, species, images, and notes.</p>
                     </div>
                 </div>
             </div>
@@ -525,29 +511,29 @@
             <!-- Enhanced ISRO Satellite Data Section -->
             {% if satellite_submissions %}
             <div class="mb-10">
-                <div class="bg-gradient-to-br from-purple-50 to-purple-100/50 border border-purple-200/50 rounded-2xl overflow-hidden shadow-lg">
-                    <div class="bg-gradient-to-r from-purple-600 to-purple-500 px-8 py-6">
+                <div class="bg-neutral-900/50 border border-neutral-800 rounded-sm overflow-hidden shadow-lg">
+                    <div class="bg-neutral-800 px-8 py-6 border-b border-neutral-700">
                         <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
-                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div class="w-10 h-10 bg-neutral-700 rounded-sm flex items-center justify-center backdrop-blur-sm border border-neutral-600">
+                                <svg class="w-5 h-5 text-neutral-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                 </svg>
                             </div>
-                            <h3 class="text-2xl font-bold text-white">ISRO Satellite Verification</h3>
+                            <h3 class="text-2xl font-bold text-white font-julius">ISRO Satellite Verification</h3>
                         </div>
                     </div>
                     
                     <div class="p-8 space-y-8">
                         {% for submission in satellite_submissions %}
-                        <div class="bg-white border border-purple-200/50 rounded-xl shadow-lg overflow-hidden">
+                        <div class="bg-black/40 border border-neutral-800 rounded-sm shadow-lg overflow-hidden">
                             <!-- Submission Header -->
-                            <div class="bg-gradient-to-r from-purple-100 to-purple-50 px-6 py-4 border-b border-purple-200/50">
+                            <div class="bg-neutral-800/50 px-6 py-4 border-b border-neutral-700">
                                 <div class="flex items-center justify-between">
                                     <div>
-                                        <h5 class="text-lg font-bold text-purple-900">Analysis by {{ submission.isro_admin.email|default:submission.isro_admin.username }}</h5>
-                                        <p class="text-sm text-purple-700">{{ submission.capture_date|date:"M d, Y" }} • {{ submission.satellite_name|title }} • {{ submission.resolution }}m resolution</p>
+                                        <h5 class="text-lg font-bold text-white font-julius">Analysis by {{ submission.isro_admin.email|default:submission.isro_admin.username }}</h5>
+                                        <p class="text-sm text-neutral-400 font-javanese">{{ submission.capture_date|date:"M d, Y" }} • {{ submission.satellite_name|title }} • {{ submission.resolution }}m resolution</p>
                                     </div>
-                                    <div class="bg-purple-500/20 text-purple-700 px-4 py-2 rounded-full font-bold text-sm ring-1 ring-purple-400/50 backdrop-blur-sm">
+                                    <div class="bg-neutral-800 text-neutral-300 px-4 py-2 rounded-sm font-bold text-sm border border-neutral-700 backdrop-blur-sm font-javanese">
                                         Satellite Verified
                                     </div>
                                 </div>
@@ -556,28 +542,28 @@
                             <div class="p-6 space-y-6">
                                 <!-- Enhanced Metrics Grid -->
                                 <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
-                                    <div class="bg-purple-50/50 border border-purple-200/30 p-4 rounded-xl">
-                                        <div class="text-xs font-bold text-purple-600 uppercase tracking-wide mb-2">Image Type</div>
-                                        <div class="text-sm font-semibold text-purple-900">{{ submission.image_type|title }}</div>
+                                    <div class="bg-neutral-800/30 border border-neutral-700 p-4 rounded-sm">
+                                        <div class="text-xs font-bold text-neutral-500 uppercase tracking-wide mb-2 font-julius">Image Type</div>
+                                        <div class="text-sm font-semibold text-white font-javanese">{{ submission.image_type|title }}</div>
                                     </div>
-                                    <div class="bg-purple-50/50 border border-purple-200/30 p-4 rounded-xl">
-                                        <div class="text-xs font-bold text-purple-600 uppercase tracking-wide mb-2">Measured Area</div>
-                                        <div class="text-sm font-semibold text-purple-900">
+                                    <div class="bg-neutral-800/30 border border-neutral-700 p-4 rounded-sm">
+                                        <div class="text-xs font-bold text-neutral-500 uppercase tracking-wide mb-2 font-julius">Measured Area</div>
+                                        <div class="text-sm font-semibold text-white font-javanese">
                                             {% if submission.measured_area %}{{ submission.measured_area }} hectares{% else %}Not measured{% endif %}
                                         </div>
                                     </div>
-                                    <div class="bg-purple-50/50 border border-purple-200/30 p-4 rounded-xl">
-                                        <div class="text-xs font-bold text-purple-600 uppercase tracking-wide mb-2">Geographic Bounds</div>
-                                        <div class="text-xs font-medium text-purple-800 space-y-1">
+                                    <div class="bg-neutral-800/30 border border-neutral-700 p-4 rounded-sm">
+                                        <div class="text-xs font-bold text-neutral-500 uppercase tracking-wide mb-2 font-julius">Geographic Bounds</div>
+                                        <div class="text-xs font-medium text-neutral-300 space-y-1 font-mono">
                                             <div>N: {{ submission.north_bound|floatformat:6 }}</div>
                                             <div>S: {{ submission.south_bound|floatformat:6 }}</div>
                                             <div>E: {{ submission.east_bound|floatformat:6 }}</div>
                                             <div>W: {{ submission.west_bound|floatformat:6 }}</div>
                                         </div>
                                     </div>
-                                    <div class="bg-purple-50/50 border border-purple-200/30 p-4 rounded-xl">
-                                        <div class="text-xs font-bold text-purple-600 uppercase tracking-wide mb-2">Vegetation Index</div>
-                                        <div class="text-lg font-bold text-purple-900">
+                                    <div class="bg-neutral-800/30 border border-neutral-700 p-4 rounded-sm">
+                                        <div class="text-xs font-bold text-neutral-500 uppercase tracking-wide mb-2 font-julius">Vegetation Index</div>
+                                        <div class="text-lg font-bold text-white font-mono">
                                             {% if submission.vegetation_index %}{{ submission.vegetation_index|floatformat:3 }}{% else %}Not calculated{% endif %}
                                         </div>
                                     </div>
@@ -586,8 +572,8 @@
                                 <!-- Enhanced Satellite Images -->
                                 {% if submission.images.all %}
                                 <div>
-                                    <h6 class="text-lg font-bold text-purple-900 mb-4 flex items-center gap-2">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <h6 class="text-lg font-bold text-white mb-4 flex items-center gap-2 font-julius">
+                                        <svg class="w-5 h-5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                                         </svg>
                                         Satellite Images ({{ submission.images.count }})
@@ -595,13 +581,13 @@
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                         {% for img in submission.images.all %}
                                         <a href="{{ img.image.url }}" target="_blank" class="group block">
-                                            <div class="relative overflow-hidden bg-white border border-purple-200/50 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+                                            <div class="relative overflow-hidden bg-black border border-neutral-800 rounded-sm shadow-lg hover:shadow-xl transition-all duration-300">
                                                 <div class="aspect-video overflow-hidden">
-                                                    <img src="{{ img.image.url }}" alt="Satellite image" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                                                    <img src="{{ img.image.url }}" alt="Satellite image" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 opacity-80 group-hover:opacity-100" />
                                                 </div>
-                                                <div class="p-4 bg-gradient-to-t from-white to-purple-50/30">
-                                                    <div class="text-sm font-medium text-purple-900 mb-1">{{ img.filename }}</div>
-                                                    <div class="text-xs text-purple-600">{{ img.file_size|filesizeformat }}</div>
+                                                <div class="p-4 bg-neutral-900">
+                                                    <div class="text-sm font-medium text-neutral-400 mb-1 font-javanese">{{ img.filename }}</div>
+                                                    <div class="text-xs text-neutral-500 font-mono">{{ img.file_size|filesizeformat }}</div>
                                                 </div>
                                             </div>
                                         </a>
@@ -612,9 +598,9 @@
 
                                 <!-- Enhanced Analysis Notes -->
                                 {% if submission.analysis_notes %}
-                                <div class="bg-purple-50/50 border border-purple-200/50 p-6 rounded-xl">
-                                    <h6 class="text-sm font-bold text-purple-600 uppercase tracking-wide mb-3">Analysis Notes</h6>
-                                    <div class="text-sm text-purple-800 leading-relaxed">{{ submission.analysis_notes }}</div>
+                                <div class="bg-neutral-800/30 border border-neutral-700 p-6 rounded-sm">
+                                    <h6 class="text-sm font-bold text-neutral-500 uppercase tracking-wide mb-3 font-julius">Analysis Notes</h6>
+                                    <div class="text-sm text-neutral-300 leading-relaxed font-javanese">{{ submission.analysis_notes }}</div>
                                 </div>
                                 {% endif %}
                             </div>
@@ -625,18 +611,18 @@
             </div>
             {% else %}
             <div class="mb-10">
-                <div class="bg-gradient-to-br from-yellow-50 to-yellow-100/50 border border-yellow-200/50 p-8 rounded-2xl shadow-lg">
+                <div class="bg-neutral-900/50 border border-neutral-800 p-8 rounded-sm shadow-lg">
                     <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 bg-yellow-500/20 rounded-full flex items-center justify-center backdrop-blur-sm">
-                            <svg class="w-5 h-5 text-yellow-600" fill="currentColor" viewBox="0 0 20 20">
+                        <div class="w-10 h-10 bg-neutral-800 rounded-sm flex items-center justify-center backdrop-blur-sm border border-neutral-700">
+                            <svg class="w-5 h-5 text-neutral-500" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-5a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5A.75.75 0 0110 5zm0 9a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/>
                             </svg>
                         </div>
-                        <h3 class="text-xl font-bold text-yellow-900">ISRO Satellite Data</h3>
+                        <h3 class="text-xl font-bold text-neutral-400 font-julius">ISRO Satellite Data</h3>
                     </div>
-                    <div class="bg-white/70 border border-yellow-200/50 p-6 rounded-xl backdrop-blur-sm">
-                        <p class="font-semibold text-yellow-900 mb-2">Pending ISRO submission</p>
-                        <p class="text-sm text-yellow-800">This project hasn't received satellite analysis yet. ISRO Admin must upload satellite images and analysis data.</p>
+                    <div class="bg-black/40 border border-neutral-800 p-6 rounded-sm backdrop-blur-sm">
+                        <p class="font-semibold text-neutral-300 mb-2 font-javanese">Pending ISRO submission</p>
+                        <p class="text-sm text-neutral-500 font-javanese">This project hasn't received satellite analysis yet. ISRO Admin must upload satellite images and analysis data.</p>
                     </div>
                 </div>
             </div>
@@ -645,30 +631,30 @@
 
             <!-- Enhanced Admin Actions -->
             {% if user.is_staff or user.is_superuser %}
-            <div class="bg-gradient-to-br from-slate-50 to-slate-100/50 border border-slate-200/50 rounded-2xl overflow-hidden shadow-lg">
-                <div class="bg-gradient-to-r from-slate-700 to-slate-600 px-8 py-6">
+            <div class="bg-neutral-900/50 border border-neutral-800 rounded-sm overflow-hidden shadow-lg">
+                <div class="bg-neutral-800 px-8 py-6 border-b border-neutral-700">
                     <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+                        <div class="w-10 h-10 bg-neutral-700 rounded-sm flex items-center justify-center backdrop-blur-sm border border-neutral-600">
                             <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                             </svg>
                         </div>
-                        <h3 class="text-2xl font-bold text-white">Administrative Review</h3>
+                        <h3 class="text-2xl font-bold text-white font-julius">Administrative Review</h3>
                     </div>
                 </div>
                 
                 <div class="p-8">
                     {% if not project.has_field_data or not project.has_satellite_data %}
-                    <div class="mb-8 bg-yellow-50/50 border border-yellow-200/50 p-6 rounded-xl">
+                    <div class="mb-8 bg-neutral-800 border border-neutral-700 p-6 rounded-sm">
                         <div class="flex items-start gap-3">
-                            <div class="w-8 h-8 bg-yellow-500/20 rounded-full flex items-center justify-center flex-shrink-0">
-                                <svg class="w-4 h-4 text-yellow-600" fill="currentColor" viewBox="0 0 20 20">
+                            <div class="w-8 h-8 bg-amber-500/10 rounded-full flex items-center justify-center flex-shrink-0">
+                                <svg class="w-4 h-4 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-5a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5A.75.75 0 0110 5zm0 9a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/>
                                 </svg>
                             </div>
                             <div>
-                                <p class="font-bold text-yellow-900 mb-2">Review Requirements Not Met</p>
-                                <p class="text-sm text-yellow-800">Both Field Officer and ISRO verification data are required before this project can be approved or rejected.</p>
+                                <p class="font-bold text-amber-500 mb-2 font-julius">Review Requirements Not Met</p>
+                                <p class="text-sm text-neutral-400 font-javanese">Both Field Officer and ISRO verification data are required before this project can be approved or rejected.</p>
                             </div>
                         </div>
                     </div>
@@ -679,13 +665,13 @@
                             {% csrf_token %}
                             <input type="hidden" name="action" value="approve">
                             <button {% if not project.has_field_data or not project.has_satellite_data %}disabled aria-disabled="true"{% endif %} 
-                                class="group w-full bg-gradient-to-r from-emerald-500 to-emerald-600 disabled:from-gray-300 disabled:to-gray-400 disabled:cursor-not-allowed hover:from-emerald-600 hover:to-emerald-700 text-white font-bold py-6 px-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-3 border-2 border-transparent hover:border-emerald-400/20">
-                                <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-white/30 transition-colors">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                class="group w-full bg-emerald-900/50 disabled:bg-neutral-800 disabled:cursor-not-allowed hover:bg-emerald-900/80 text-white font-bold py-6 px-8 rounded-sm shadow-lg transition-all duration-300 flex items-center justify-center gap-3 border border-emerald-800 hover:border-emerald-600 disabled:border-neutral-700">
+                                <div class="w-8 h-8 bg-emerald-500/20 rounded-full flex items-center justify-center group-hover:bg-emerald-500/30 transition-colors">
+                                    <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                                     </svg>
                                 </div>
-                                <span class="text-lg">Approve Project</span>
+                                <span class="text-lg font-julius">Approve Project</span>
                             </button>
                         </form>
                         
@@ -693,13 +679,13 @@
                             {% csrf_token %}
                             <input type="hidden" name="action" value="reject">
                             <button {% if not project.has_field_data or not project.has_satellite_data %}disabled aria-disabled="true"{% endif %} 
-                                class="group w-full bg-gradient-to-r from-red-500 to-red-600 disabled:from-gray-300 disabled:to-gray-400 disabled:cursor-not-allowed hover:from-red-600 hover:to-red-700 text-white font-bold py-6 px-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-3 border-2 border-transparent hover:border-red-400/20">
-                                <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-white/30 transition-colors">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                class="group w-full bg-red-900/50 disabled:bg-neutral-800 disabled:cursor-not-allowed hover:bg-red-900/80 text-white font-bold py-6 px-8 rounded-sm shadow-lg transition-all duration-300 flex items-center justify-center gap-3 border border-red-800 hover:border-red-600 disabled:border-neutral-700">
+                                <div class="w-8 h-8 bg-red-500/20 rounded-full flex items-center justify-center group-hover:bg-red-500/30 transition-colors">
+                                    <svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                                     </svg>
                                 </div>
-                                <span class="text-lg">Reject Project</span>
+                                <span class="text-lg font-julius">Reject Project</span>
                             </button>
                         </form>
                     </div>
@@ -710,63 +696,57 @@
         
         <!-- Enhanced Timeline Section -->
         {% if timeline_events %}
-        <div class="px-8 pb-8">
-            <div class="bg-gradient-to-br from-indigo-50 to-indigo-100/50 border border-indigo-200/50 rounded-2xl overflow-hidden shadow-lg">
-                <div class="bg-gradient-to-r from-indigo-600 to-indigo-500 px-8 py-6">
+        <div class="px-8 pb-8 bg-black/60 backdrop-blur-sm">
+            <div class="bg-neutral-900/50 border border-neutral-800 rounded-sm overflow-hidden shadow-lg">
+                <div class="bg-neutral-800 px-8 py-6 border-b border-neutral-700">
                     <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
-                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="w-10 h-10 bg-neutral-700 rounded-sm flex items-center justify-center backdrop-blur-sm border border-neutral-600">
+                            <svg class="w-5 h-5 text-neutral-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                             </svg>
                         </div>
-                        <h3 class="text-2xl font-bold text-white">Lifecycle & On-Chain Timeline</h3>
+                        <h3 class="text-2xl font-bold text-white font-julius">Lifecycle & On-Chain Timeline</h3>
                     </div>
                 </div>
                 
                 <div class="p-8">
                     <div class="relative">
                         <!-- Timeline Line -->
-                        <div class="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-indigo-200 to-indigo-300"></div>
+                        <div class="absolute left-6 top-0 bottom-0 w-0.5 bg-neutral-800"></div>
                         
                         <ol class="relative space-y-8 max-h-96 overflow-y-auto pr-4">
                             {% for ev in timeline_events %}
                             <li class="relative flex gap-6">
                                 <!-- Timeline Dot -->
                                 <div class="flex-shrink-0 relative z-10">
-                                    <div class="w-12 h-12 rounded-full border-4 border-white shadow-lg flex items-center justify-center
-                                        {% if ev.kind == 'SUBMITTED' %}bg-gradient-to-br from-blue-500 to-blue-600
-                                        {% elif ev.kind == 'VERIFIED' %}bg-gradient-to-br from-green-500 to-green-600
-                                        {% elif ev.kind == 'PURCHASE' %}bg-gradient-to-br from-yellow-500 to-yellow-600
-                                        {% elif ev.kind == 'SOLD_OUT' %}bg-gradient-to-br from-purple-500 to-purple-600
-                                        {% elif ev.kind|slice:':6' == 'CHAIN_' %}bg-gradient-to-br from-indigo-500 to-indigo-600
-                                        {% else %}bg-gradient-to-br from-gray-400 to-gray-500{% endif %}">
+                                    <div class="w-12 h-12 rounded-full border-4 border-neutral-900 shadow-lg flex items-center justify-center bg-neutral-800">
                                         {% if ev.kind == 'SUBMITTED' %}
-                                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
                                             </svg>
                                         {% elif ev.kind == 'VERIFIED' %}
-                                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                                             </svg>
                                         {% elif ev.kind == 'PURCHASE' %}
-                                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"/>
                                             </svg>
                                         {% else %}
-                                            <div class="w-2 h-2 bg-white rounded-full"></div>
+                                            <div class="w-2 h-2 bg-neutral-400 rounded-full"></div>
                                         {% endif %}
                                     </div>
                                 </div>
                                 
                                 <!-- Timeline Content -->
-                                <div class="flex-1 bg-white border border-indigo-200/50 rounded-xl shadow-lg overflow-hidden">
+                                <div class="flex-1 bg-neutral-900 border border-neutral-800 rounded-sm shadow-lg overflow-hidden">
                                     <div class="p-6">
                                         <div class="flex items-center justify-between mb-4">
                                             <div>
-                                                <h5 class="text-lg font-bold text-indigo-900">{{ ev.label }}</h5>
-                                                <div class="text-sm text-indigo-600 mt-1">{{ ev.timestamp|date:'Y-m-d H:i' }}</div>
+                                                <h5 class="text-lg font-bold text-white">{{ ev.label }}</h5>
+                                                <div class="text-sm text-neutral-500 mt-1">{{ ev.timestamp|date:'Y-m-d H:i' }}</div>
                                             </div>
-                                            <div class="bg-indigo-500/20 text-indigo-700 px-3 py-1 rounded-full font-bold text-xs uppercase tracking-wide ring-1 ring-indigo-400/50 backdrop-blur-sm">
+                                            <div class="bg-neutral-800 text-neutral-400 px-3 py-1 rounded-sm font-bold text-xs uppercase tracking-wide border border-neutral-700 backdrop-blur-sm">
                                                 {{ ev.kind }}
                                             </div>
                                         </div>
@@ -775,9 +755,9 @@
                                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                             {% for key,label,val in ev.meta_items %}
                                                 {% if val %}
-                                                <div class="bg-indigo-50/50 border border-indigo-200/30 p-3 rounded-lg">
-                                                    <div class="text-xs font-bold text-indigo-600 uppercase tracking-wide mb-1">{{ label }}</div>
-                                                    <div class="text-sm font-mono text-indigo-900 break-all" title="{{ val }}">
+                                                <div class="bg-black/20 border border-neutral-800 p-3 rounded-sm">
+                                                    <div class="text-xs font-bold text-neutral-500 uppercase tracking-wide mb-1">{{ label }}</div>
+                                                    <div class="text-sm font-mono text-neutral-300 break-all" title="{{ val }}">
                                                         {% if key == 'corporate_username' %}
                                                             {{ val }}
                                                         {% elif 'wallet' in key or 'hash' in key or key == 'sender' or key == 'recipient' %}
@@ -797,13 +777,13 @@
                             {% empty %}
                             <li class="flex items-center justify-center py-12">
                                 <div class="text-center">
-                                    <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                        <svg class="w-8 h-8 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <div class="w-16 h-16 bg-neutral-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                                        <svg class="w-8 h-8 text-neutral-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                         </svg>
                                     </div>
-                                    <p class="text-indigo-600 font-medium">No timeline events yet</p>
-                                    <p class="text-sm text-indigo-500 mt-1">Events will appear here as the project progresses</p>
+                                    <p class="text-neutral-500 font-medium">No timeline events yet</p>
+                                    <p class="text-sm text-neutral-600 mt-1">Events will appear here as the project progresses</p>
                                 </div>
                             </li>
                             {% endfor %}
@@ -815,15 +795,15 @@
         {% endif %}
         
         <!-- Enhanced Footer -->
-        <div class="px-4 sm:px-8 pb-4 sm:pb-8 pt-3 sm:pt-4 bg-gradient-to-r from-slate-50/50 to-white/50 border-t border-slate-200/30">
+        <div class="px-4 sm:px-8 pb-4 sm:pb-8 pt-3 sm:pt-4 bg-neutral-900 border-t border-neutral-800">
             <div class="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-0">
-                <div class="flex items-center gap-2 sm:gap-3 text-slate-500 order-2 sm:order-1">
+                <div class="flex items-center gap-2 sm:gap-3 text-neutral-500 order-2 sm:order-1">
                     <svg class="w-4 sm:w-5 h-4 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
                     <p class="text-xs sm:text-sm font-medium">Project ID: #{{ project.id }}</p>
                 </div>
-                <button id="modal-close-btn-bottom" class="group inline-flex items-center gap-2 sm:gap-3 bg-gradient-to-r from-slate-200 to-slate-300 hover:from-slate-300 hover:to-slate-400 text-slate-700 font-bold px-6 sm:px-8 py-3 sm:py-4 rounded-xl sm:rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-transparent hover:border-slate-400/20 hover:scale-105 order-1 sm:order-2">
+                <button id="modal-close-btn-bottom" class="group inline-flex items-center gap-2 sm:gap-3 bg-neutral-800 hover:bg-neutral-700 text-white font-bold px-6 sm:px-8 py-3 sm:py-4 rounded-sm transition-all duration-300 shadow-lg border border-neutral-700 hover:border-neutral-600 order-1 sm:order-2">
                     <svg class="w-4 sm:w-5 h-4 sm:h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                     </svg>
