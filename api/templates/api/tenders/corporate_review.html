@@ -2,66 +2,72 @@
 {% block title %}Review Tender | Blue Carbon MRV{% endblock %}
 {% block content %}
 <div class="max-w-6xl mx-auto px-6 py-10 space-y-8">
-  <div class="p-6 bg-white border">
-    <div class="text-2xl font-bold mb-1">{{ tender.title }}</div>
-    <div class="text-neutral-600 mb-2">Location: {{ tender.location }} • Credits: {{ tender.credits_required }} • Status: {{ tender.status }}</div>
-    <div class="text-sm text-neutral-500 mb-2">
-      {% if tender.location_preference %}Preference: {{ tender.location_preference }} • {% endif %}
-      {% if tender.budget_range %}Budget: {{ tender.budget_range }} • {% endif %}
-      {% if tender.deadline %}Deadline: {{ tender.deadline|date:'M d, Y' }}{% endif %}
+  <div class="p-6 glass-surface border border-white/10 rounded-xl">
+    <div class="text-2xl font-julius text-white mb-1">{{ tender.title }}</div>
+    <div class="font-javanese text-white/60 mb-2">
+      <span class="text-white/40">Location:</span> {{ tender.location }} • 
+      <span class="text-white/40">Credits:</span> {{ tender.credits_required }} • 
+      <span class="text-white/40">Status:</span> <span class="text-emerald-400">{{ tender.status }}</span>
     </div>
-    <p class="text-neutral-700">{{ tender.description }}</p>
+    <div class="text-sm font-javanese text-white/40 mb-4">
+      {% if tender.location_preference %}Preference: <span class="text-white/60">{{ tender.location_preference }}</span> • {% endif %}
+      {% if tender.budget_range %}Budget: <span class="text-white/60">{{ tender.budget_range }}</span> • {% endif %}
+      {% if tender.deadline %}Deadline: <span class="text-white/60">{{ tender.deadline|date:'M d, Y' }}</span>{% endif %}
+    </div>
+    <p class="font-javanese text-white/80 leading-relaxed">{{ tender.description }}</p>
   </div>
 
   <div>
-    <h2 class="text-xl font-semibold mb-4">Proposals</h2>
-    <div class="overflow-x-auto bg-white border">
+    <h2 class="text-xl font-julius text-white mb-4">Proposals</h2>
+    <div class="overflow-x-auto glass-surface border border-white/10 rounded-xl">
       <table class="min-w-full text-sm">
-        <thead class="bg-neutral-50 text-neutral-600">
+        <thead class="bg-white/5 text-emerald-400 font-javanese uppercase tracking-wider">
           <tr>
-            <th class="text-left p-3">NGO</th>
-            <th class="text-left p-3">Offered Credits</th>
-            <th class="text-left p-3">Price/Credit</th>
-            <th class="text-left p-3">Project Location</th>
-            <th class="text-left p-3">Documents</th>
-            <th class="text-left p-3">Status</th>
-            <th class="text-left p-3">Actions</th>
+            <th class="text-left p-4 font-normal">NGO</th>
+            <th class="text-left p-4 font-normal">Offered Credits</th>
+            <th class="text-left p-4 font-normal">Price/Credit</th>
+            <th class="text-left p-4 font-normal">Project Location</th>
+            <th class="text-left p-4 font-normal">Documents</th>
+            <th class="text-left p-4 font-normal">Status</th>
+            <th class="text-left p-4 font-normal">Actions</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="divide-y divide-white/10">
           {% for a in applications %}
-          <tr class="border-t">
-            <td class="p-3 font-medium">{{ a.ngo.first_name|default:a.ngo.username }}</td>
-            <td class="p-3">{{ a.offered_credits|default:'—' }}</td>
-            <td class="p-3">{% if a.price_per_credit %}{{ a.price_per_credit }}{% else %}—{% endif %}</td>
-            <td class="p-3">{{ a.project_location|default:'—' }}</td>
-            <td class="p-3">
+          <tr class="hover:bg-white/5 transition-colors">
+            <td class="p-4 font-medium text-white">{{ a.ngo.first_name|default:a.ngo.username }}</td>
+            <td class="p-4 text-white/80">{{ a.offered_credits|default:'—' }}</td>
+            <td class="p-4 text-white/80">{% if a.price_per_credit %}{{ a.price_per_credit }}{% else %}—{% endif %}</td>
+            <td class="p-4 text-white/80">{{ a.project_location|default:'—' }}</td>
+            <td class="p-4">
               {% if a.supporting_documents %}
-                <a href="{{ a.supporting_documents.url }}" target="_blank" class="text-primary-600 underline">Download</a>
-              {% else %}—{% endif %}
+                <a href="{{ a.supporting_documents.url }}" target="_blank" class="text-emerald-400 hover:text-emerald-300 underline decoration-emerald-500/30 underline-offset-4">Download</a>
+              {% else %}<span class="text-white/40">—</span>{% endif %}
             </td>
-            <td class="p-3">
-              <span class="px-2 py-1 text-xs {% if a.status == 'Accepted' %}bg-green-100 text-green-700{% elif a.status == 'Rejected' %}bg-red-100 text-red-700{% else %}bg-neutral-100 text-neutral-700{% endif %}">{{ a.status }}</span>
+            <td class="p-4">
+              <span class="px-2 py-1 text-xs rounded border {% if a.status == 'Accepted' %}bg-emerald-500/20 text-emerald-400 border-emerald-500/30{% elif a.status == 'Rejected' %}bg-red-500/20 text-red-400 border-red-500/30{% else %}bg-white/10 text-white/60 border-white/10{% endif %}">
+                {{ a.status }}
+              </span>
             </td>
-            <td class="p-3">
+            <td class="p-4">
               {% if tender.status == 'Open' %}
               <div class="flex items-center gap-2">
                 <form method="post" action="{% url 'tender_accept' tender.id a.id %}">
                   {% csrf_token %}
-                  <button type="submit" class="px-3 py-1.5 bg-primary-600 text-white text-xs">Accept</button>
+                  <button type="submit" class="px-3 py-1.5 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 border border-emerald-500/30 rounded font-jockey tracking-wide transition-all text-xs">Accept</button>
                 </form>
                 <form method="post" action="{% url 'tender_reject' tender.id a.id %}">
                   {% csrf_token %}
-                  <button type="submit" class="px-3 py-1.5 bg-neutral-200 text-neutral-800 text-xs">Reject</button>
+                  <button type="submit" class="px-3 py-1.5 bg-white/5 hover:bg-white/10 text-white/60 border border-white/10 rounded font-jockey tracking-wide transition-all text-xs">Reject</button>
                 </form>
               </div>
               {% else %}
-                <span class="text-neutral-500">—</span>
+                <span class="text-white/40">—</span>
               {% endif %}
             </td>
           </tr>
           {% empty %}
-          <tr><td colspan="7" class="p-4 text-neutral-600">No proposals yet.</td></tr>
+          <tr><td colspan="7" class="p-8 text-center text-white/40 font-javanese">No proposals yet.</td></tr>
           {% endfor %}
         </tbody>
       </table>

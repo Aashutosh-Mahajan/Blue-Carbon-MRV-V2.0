@@ -5,78 +5,80 @@
   <!-- Header -->
   <div class="mb-10">
     <div class="flex items-center mb-4">
-      <div class="w-1 h-8 bg-primary-500 mr-4"></div>
-      <h1 class="text-3xl font-bold text-neutral-900">Open Tenders</h1>
+      <div class="w-1 h-8 bg-emerald-500 mr-4"></div>
+      <h1 class="text-3xl font-julius text-white">Open Tenders</h1>
     </div>
-  <p class="text-neutral-600">Review company requirements and apply with a short message about your capacity and experience.</p>
+  <p class="font-javanese text-white/60">Review company requirements and apply with a short message about your capacity and experience.</p>
   </div>
 
   <!-- Tenders list -->
   <div class="grid gap-8">
     {% for t in tenders %}
-    <div class="modern-card card-enter p-6 bg-white">
+    <div class="glass-surface p-6 border border-white/10 rounded-xl hover:border-emerald-500/30 transition-all duration-300">
       <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8">
         <!-- Left content -->
         <div class="flex-1">
           <div class="flex items-start gap-4 mb-3">
-            <div class="w-10 h-10 bg-primary-100 text-primary-600 flex items-center justify-center">
+            <div class="w-10 h-10 bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-lg flex items-center justify-center">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A2 2 0 013 15.382V6a2 2 0 011-1.732l7-4a2 2 0 012 0l7 4A2 2 0 0121 6v9.382a2 2 0 01-1.553 1.894L14 20"/></svg>
             </div>
             <div class="flex-1">
-              <div class="text-2xl font-bold text-neutral-900">{{ t.title }}</div>
-              <div class="text-sm text-neutral-600">Posted by: <span class="font-medium">{{ t.corporate.first_name|default:t.corporate.username }}</span></div>
+              <div class="text-2xl font-julius text-white mb-1">{{ t.title }}</div>
+              <div class="text-sm font-javanese text-white/60">Posted by: <span class="text-emerald-400">{{ t.corporate.first_name|default:t.corporate.username }}</span></div>
             </div>
           </div>
-          <div class="flex flex-wrap items-center gap-3 mb-3 text-sm">
-            <span class="inline-flex items-center px-3 py-1 bg-neutral-100 text-neutral-700">
-              <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          <div class="flex flex-wrap items-center gap-3 mb-4 text-sm font-javanese">
+            <span class="inline-flex items-center px-3 py-1 bg-white/5 text-white/80 border border-white/10 rounded">
+              <svg class="w-4 h-4 mr-2 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
               {{ t.location }}
             </span>
-            <span class="inline-flex items-center px-3 py-1 bg-accent-100 text-accent-700 font-semibold">
+            <span class="inline-flex items-center px-3 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded">
               <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"/></svg>
               Requirement: {{ t.credits_required }} credits
             </span>
           </div>
           {% if t.description %}
-          <p class="text-neutral-700 leading-relaxed">{{ t.description }}</p>
+          <p class="font-javanese text-white/80 leading-relaxed">{{ t.description }}</p>
           {% endif %}
         </div>
 
         <!-- Right: apply form -->
-        <form method="post" enctype="multipart/form-data" action="{% url 'tender_apply' t.id %}" class="w-full lg:w-96 p-4 bg-neutral-50 border border-neutral-200">
+        <form method="post" enctype="multipart/form-data" action="{% url 'tender_apply' t.id %}" class="w-full lg:w-96 p-6 bg-white/5 border border-white/10 rounded-xl backdrop-blur-sm">
           {% csrf_token %}
-          <div class="grid gap-3">
+          <div class="grid gap-4 mb-6">
             <div>
-              <label class="block text-sm font-medium text-neutral-700">Offered Credits</label>
-              <input type="number" name="offered_credits" min="1" class="mt-1 w-full border border-neutral-300 bg-white px-3 py-2 text-sm" placeholder="e.g., 2,000" />
+              <label class="block text-xs font-javanese text-emerald-400 uppercase tracking-wider mb-2">Offered Credits</label>
+              <input type="number" name="offered_credits" min="1" class="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-white/20 focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 transition-all" placeholder="e.g., 2,000" />
             </div>
             <div>
-              <label class="block text-sm font-medium text-neutral-700">Price per Credit</label>
-              <input type="number" step="0.01" name="price_per_credit" class="mt-1 w-full border border-neutral-300 bg-white px-3 py-2 text-sm" placeholder="e.g., 9.50" />
+              <label class="block text-xs font-javanese text-emerald-400 uppercase tracking-wider mb-2">Price per Credit</label>
+              <input type="number" step="0.01" name="price_per_credit" class="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-white/20 focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 transition-all" placeholder="e.g., 9.50" />
             </div>
             <div>
-              <label class="block text-sm font-medium text-neutral-700">Project Location</label>
-              <input type="text" name="project_location" class="mt-1 w-full border border-neutral-300 bg-white px-3 py-2 text-sm" placeholder="e.g., Sundarbans, Andhra Coast" />
+              <label class="block text-xs font-javanese text-emerald-400 uppercase tracking-wider mb-2">Project Location</label>
+              <input type="text" name="project_location" class="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-white/20 focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 transition-all" placeholder="e.g., Sundarbans, Andhra Coast" />
             </div>
             <div>
-              <label class="block text-sm font-medium text-neutral-700">Supporting Documents</label>
-              <input type="file" name="supporting_documents" class="mt-1 w-full text-sm" />
+              <label class="block text-xs font-javanese text-emerald-400 uppercase tracking-wider mb-2">Supporting Documents</label>
+              <input type="file" name="supporting_documents" class="w-full text-sm text-white/60 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-emerald-500/20 file:text-emerald-400 hover:file:bg-emerald-500/30 transition-all" />
             </div>
             <div>
-              <label class="block text-sm font-medium text-neutral-700">Project Description</label>
-              <textarea name="project_description" rows="4" class="mt-1 w-full border border-neutral-300 bg-white px-3 py-2 text-sm" placeholder="Short explanation of your carbon project and its impact."></textarea>
+              <label class="block text-xs font-javanese text-emerald-400 uppercase tracking-wider mb-2">Project Description</label>
+              <textarea name="project_description" rows="4" class="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-white/20 focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 transition-all" placeholder="Short explanation of your carbon project and its impact."></textarea>
             </div>
           </div>
           {% if t.id in my_applied_ids %}
-            <button type="button" disabled class="w-full px-4 py-2 bg-neutral-200 text-neutral-500 cursor-not-allowed">Applied</button>
+            <button type="button" disabled class="w-full px-4 py-3 bg-white/10 text-white/40 font-jockey tracking-wide rounded-lg cursor-not-allowed border border-white/5">Applied</button>
           {% else %}
-            <button type="submit" class="w-full btn-primary px-4 py-2 text-white">Apply</button>
+            <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-jockey tracking-wide px-4 py-3 rounded-lg shadow-lg shadow-emerald-900/20 transition-all">Apply Now</button>
           {% endif %}
         </form>
       </div>
     </div>
     {% empty %}
-    <div class="text-neutral-600">No open tenders right now.</div>
+    <div class="text-white/60 font-javanese text-center py-12 glass-surface rounded-xl border border-white/10">
+      No open tenders right now.
+    </div>
     {% endfor %}
   </div>
 </div>

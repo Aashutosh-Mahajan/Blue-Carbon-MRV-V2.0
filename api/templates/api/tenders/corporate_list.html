@@ -3,27 +3,48 @@
 {% block content %}
 <div class="max-w-5xl mx-auto px-6 py-10">
   <div class="flex items-center justify-between mb-8">
-    <h1 class="text-3xl font-bold">Your Tenders</h1>
-    <a href="{% url 'tender_create' %}" class="btn-primary px-4 py-2 text-white">Create Tender</a>
+    <h1 class="text-3xl font-julius text-white">Your Tenders</h1>
+    <a href="{% url 'tender_create' %}" class="px-6 py-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 border border-emerald-500/30 rounded-lg font-jockey tracking-wide transition-all">
+      Create Tender
+    </a>
   </div>
   <div class="grid gap-4">
     {% for t in tenders %}
-    <div class="p-6 border bg-white">
+    <div class="p-6 glass-surface border border-white/10 rounded-xl hover:border-emerald-500/30 transition-colors group">
       <div class="flex items-center justify-between">
         <div>
-          <div class="text-xl font-semibold">{{ t.title }}</div>
-          <div class="text-sm text-neutral-500">Location: {{ t.location }} • Requirement: {{ t.credits_required }} credits • Status: {{ t.status }} • Applications: {{ t.applications.count }}</div>
-          <div class="text-xs text-neutral-500 mt-1">
-            {% if t.location_preference %}Preference: {{ t.location_preference }} • {% endif %}
-            {% if t.budget_range %}Budget: {{ t.budget_range }} • {% endif %}
-            {% if t.deadline %}Deadline: {{ t.deadline|date:'M d, Y' }}{% endif %}
+          <div class="text-xl font-julius text-white mb-2 group-hover:text-emerald-400 transition-colors">{{ t.title }}</div>
+          <div class="text-sm font-javanese text-white/60 space-y-1">
+            <div>
+              <span class="text-white/40">Location:</span> {{ t.location }} • 
+              <span class="text-white/40">Requirement:</span> {{ t.credits_required }} credits • 
+              <span class="text-white/40">Status:</span> <span class="text-emerald-400">{{ t.status }}</span>
+            </div>
+            <div>
+              <span class="text-white/40">Applications:</span> {{ t.applications.count }}
+            </div>
+          </div>
+          <div class="text-xs font-javanese text-white/40 mt-3 flex gap-4">
+            {% if t.location_preference %}
+            <span>Preference: <span class="text-white/60">{{ t.location_preference }}</span></span>
+            {% endif %}
+            {% if t.budget_range %}
+            <span>Budget: <span class="text-white/60">{{ t.budget_range }}</span></span>
+            {% endif %}
+            {% if t.deadline %}
+            <span>Deadline: <span class="text-white/60">{{ t.deadline|date:'M d, Y' }}</span></span>
+            {% endif %}
           </div>
         </div>
-        <a href="{% url 'tender_review' t.id %}" class="px-3 py-2 bg-neutral-900 text-white text-sm">Review</a>
+        <a href="{% url 'tender_review' t.id %}" class="px-4 py-2 bg-white/5 hover:bg-white/10 text-white border border-white/10 rounded-lg font-jockey tracking-wide transition-all">
+          Review
+        </a>
       </div>
     </div>
     {% empty %}
-    <div class="text-neutral-600">No tenders yet.</div>
+    <div class="text-white/60 font-javanese text-center py-10 glass-surface rounded-xl border border-white/10">
+      No tenders yet.
+    </div>
     {% endfor %}
   </div>
 </div>

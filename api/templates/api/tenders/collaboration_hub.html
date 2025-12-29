@@ -3,24 +3,33 @@
 {% block content %}
 <div class="max-w-6xl mx-auto px-6 py-10">
   <div class="flex items-center justify-between mb-8">
-    <h1 class="text-3xl font-bold">Collaboration Hub</h1>
-    <div class="text-sm text-neutral-500">Showcase of allotted tenders</div>
+    <h1 class="text-3xl font-julius text-white">Collaboration Hub</h1>
+    <div class="text-sm font-javanese text-white/60">Showcase of allotted tenders</div>
   </div>
 
   <div class="grid gap-6">
     {% for t in collaborations %}
-    <div class="p-6 border bg-white">
-      <div class="text-xl font-semibold mb-1">{{ t.title }}</div>
-      <div class="text-neutral-600 mb-2">Location: {{ t.location }} • Credits Required: {{ t.credits_required }}</div>
-      <div class="flex flex-wrap gap-4 text-sm">
-        <span class="px-2 py-1 bg-primary-50 text-primary-700">Corporate: {{ t.corporate.username }}</span>
-  {% if t.allotted_to %}<span class="px-2 py-1 bg-accent-50 text-accent-700">Contributor: {{ t.allotted_to.username }}</span>{% endif %}
-  {% if t.allotted_project %}<span class="px-2 py-1 bg-neutral-100">Project: {% firstof t.allotted_project.title t.allotted_project.name %}</span>{% endif %}
-        <span class="px-2 py-1 bg-neutral-50">Updated: {{ t.updated_at|date:'M d, Y H:i' }}</span>
+    <div class="p-6 glass-surface border border-white/10 rounded-xl hover:border-emerald-500/30 transition-colors">
+      <div class="text-xl font-julius text-white mb-1">{{ t.title }}</div>
+      <div class="font-javanese text-white/60 mb-4">
+        <span class="text-white/40">Location:</span> {{ t.location }} • 
+        <span class="text-white/40">Credits Required:</span> {{ t.credits_required }}
+      </div>
+      <div class="flex flex-wrap gap-4 text-sm font-javanese">
+        <span class="px-3 py-1 bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded">Corporate: {{ t.corporate.username }}</span>
+        {% if t.allotted_to %}
+        <span class="px-3 py-1 bg-blue-500/20 text-blue-400 border border-blue-500/30 rounded">Contributor: {{ t.allotted_to.username }}</span>
+        {% endif %}
+        {% if t.allotted_project %}
+        <span class="px-3 py-1 bg-white/10 text-white/80 border border-white/10 rounded">Project: {% firstof t.allotted_project.title t.allotted_project.name %}</span>
+        {% endif %}
+        <span class="px-3 py-1 bg-white/5 text-white/40 border border-white/5 rounded">Updated: {{ t.updated_at|date:'M d, Y H:i' }}</span>
       </div>
     </div>
     {% empty %}
-    <div class="text-neutral-600">No collaborations yet.</div>
+    <div class="text-white/60 font-javanese text-center py-10 glass-surface rounded-xl border border-white/10">
+      No collaborations yet.
+    </div>
     {% endfor %}
   </div>
 </div>

@@ -2,85 +2,83 @@
 {% block title %}Corporate Dashboard | Blue Carbon MRV{% endblock %}
 
 {% block content %}
-<div class="min-h-screen bg-white relative overflow-hidden">
-    <!-- Background Pattern -->
-    <div class="absolute inset-0 bg-gradient-to-br from-primary-50 via-white to-accent-50 opacity-60"></div>
-    <div class="absolute inset-0">
-        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-100 transform rotate-45 opacity-30"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent-100 transform -rotate-45 opacity-30"></div>
-    </div>
+<div class="relative text-white">
+    <div class="fixed inset-0 hero-bg hero-bg-fixed"></div>
+    <div class="fixed inset-0 hero-overlay"></div>
     
     <div class="relative z-10 max-w-7xl mx-auto px-6 py-12">
         <!-- Header Section -->
         <div class="text-center mb-16">
-            <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 text-white mb-6 rounded-full shadow-lg">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="inline-flex items-center justify-center w-16 h-16 glass-surface-strong rounded-full shadow-lg mb-6">
+                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
                 </svg>
             </div>
-            <h1 class="text-5xl font-bold text-neutral-900 mb-4 tracking-tight">
+            <h1 class="text-5xl font-julius tracking-wide mb-4">
                 Corporate Hub
             </h1>
-            <p class="text-xl text-neutral-600 max-w-2xl mx-auto leading-relaxed">
+            <p class="text-xl text-white/85 max-w-2xl mx-auto leading-relaxed font-javanese">
                 Drive sustainability forward with verified carbon credits that create real environmental impact
             </p>
             <div class="mt-6 flex items-center justify-center gap-4">
-                <a href="{% url 'tenders_list' %}" class="px-5 py-3 bg-neutral-900 text-white text-sm font-semibold hover:bg-neutral-700 transition">Manage Tenders</a>
-                <a href="{% url 'tender_create' %}" class="px-5 py-3 bg-primary-600 text-white text-sm font-semibold hover:bg-primary-700 transition">Post New Tender</a>
+                <a href="{% url 'tenders_list' %}" class="px-8 py-3.5 glass-surface text-white font-jockey text-lg rounded-full hover:glass-surface-strong transition-all">Manage Tenders</a>
+                <a href="{% url 'tender_create' %}" class="px-8 py-3.5 bg-white/90 text-neutral-900 font-jockey text-lg rounded-full shadow-lg hover:bg-white transition-all">Post New Tender</a>
             </div>
         </div>
 
         <!-- Summary Metrics -->
         <div class="max-w-4xl mx-auto mb-16 grid grid-cols-1 sm:grid-cols-2 gap-8">
-            <div class="modern-card p-8 text-center group">
-                <div class="inline-flex items-center justify-center w-12 h-12 bg-primary-100 text-primary-600 mb-4 group-hover:bg-primary-500 group-hover:text-white transition-colors duration-300 rounded-full">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="glass-surface rounded-2xl p-8 text-center group hover:glass-surface-strong transition-all duration-300">
+                <div class="inline-flex items-center justify-center w-12 h-12 glass-surface-strong rounded-full mb-4">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
                     </svg>
                 </div>
-                <div class="text-3xl font-bold text-neutral-900 mb-1">{{ total_projects_available }}</div>
-                <div class="text-sm text-neutral-500 uppercase tracking-wide font-medium">Projects Available</div>
+                <div class="text-3xl font-light tracking-wide mb-1">{{ total_projects_available }}</div>
+                <div class="text-sm text-white/80 uppercase tracking-wide font-javanese">Projects Available</div>
+                <div class="w-full h-1 bg-gradient-to-r from-white/20 to-white/5 rounded-full mt-4"></div>
             </div>
-            <div class="modern-card p-8 text-center group">
-                <div class="inline-flex items-center justify-center w-12 h-12 bg-accent-100 text-accent-600 mb-4 group-hover:bg-accent-500 group-hover:text-white transition-colors duration-300 rounded-full">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="glass-surface rounded-2xl p-8 text-center group hover:glass-surface-strong transition-all duration-300">
+                <div class="inline-flex items-center justify-center w-12 h-12 glass-surface-strong rounded-full mb-4">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"/>
                     </svg>
                 </div>
-                <div class="text-3xl font-bold text-neutral-900 mb-1">{{ total_credits_purchased }}</div>
-                <div class="text-sm text-neutral-500 uppercase tracking-wide font-medium">Credits Purchased</div>
+                <div class="text-3xl font-light tracking-wide mb-1">{{ total_credits_purchased }}</div>
+                <div class="text-sm text-white/80 uppercase tracking-wide font-javanese">Credits Purchased</div>
+                <div class="w-full h-1 bg-gradient-to-r from-white/20 to-white/5 rounded-full mt-4"></div>
             </div>
         </div>
 
         <!-- Verified Projects Section -->
         <div class="mb-20">
             <div class="flex items-center mb-10">
-                <div class="w-1 h-8 bg-primary-500 mr-4"></div>
-                <h2 class="text-3xl font-bold text-neutral-900">Available Projects</h2>
+                <div class="w-1 h-8 bg-white/50 mr-4"></div>
+                <h2 class="text-3xl font-julius text-white">Available Projects</h2>
             </div>
             
             <div class="grid gap-8">
                 {% for p in verified %}
                     {% if p.credits|default:0 > 0 %}
-                    <div class="modern-card card-enter p-8 group hover:shadow-glow transition-all duration-500">
+                    <div class="glass-surface p-8 rounded-2xl group hover:glass-surface-strong transition-all duration-500 border border-white/10">
                         <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
                             <div class="flex-1">
                                 <div class="flex items-start gap-6 mb-6">
-                                    <div class="w-12 h-12 bg-primary-100 flex items-center justify-center text-primary-600 group-hover:bg-primary-500 group-hover:text-white transition-colors duration-300">
+                                    <div class="w-12 h-12 glass-surface-strong flex items-center justify-center text-white rounded-full">
                                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                         </svg>
                                     </div>
                                     <div class="flex-1">
-                                        <h3 class="text-2xl font-bold text-neutral-900 mb-3 group-hover:text-primary-600 transition-colors">{{ p.title }}</h3>
-                                        <div class="inline-flex items-center px-4 py-2 bg-accent-100 text-accent-700 text-sm font-semibold mb-4">
+                                        <h3 class="text-2xl font-julius text-white mb-3 group-hover:text-emerald-400 transition-colors">{{ p.title }}</h3>
+                                        <div class="inline-flex items-center px-4 py-2 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-sm font-jockey rounded-full mb-4">
                                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                             </svg>
                                             {{ p.credits }} Credits Available
                                         </div>
                                         {% if p.latitude and p.longitude %}
-                                        <div class="inline-flex items-center text-sm text-neutral-500 bg-neutral-100 px-3 py-2">
+                                        <div class="inline-flex items-center text-sm text-white/60 bg-white/5 px-3 py-2 rounded-lg font-javanese ml-2">
                                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
@@ -91,18 +89,18 @@
                                     </div>
                                 </div>
                                 <div class="grid grid-cols-2 gap-4">
-                                    <div class="p-4 bg-neutral-50 border border-neutral-200">
-                                        <div class="text-xs text-neutral-500 uppercase tracking-wide font-medium mb-1">Species</div>
-                                        <div class="font-semibold text-neutral-800">{{ p.species }}</div>
+                                    <div class="p-4 bg-white/5 border border-white/10 rounded-xl">
+                                        <div class="text-xs text-white/60 uppercase tracking-wide font-javanese mb-1">Species</div>
+                                        <div class="font-jockey text-white text-lg">{{ p.species }}</div>
                                     </div>
-                                    <div class="p-4 bg-neutral-50 border border-neutral-200">
-                                        <div class="text-xs text-neutral-500 uppercase tracking-wide font-medium mb-1">Area (ha)</div>
-                                        <div class="font-semibold text-neutral-800">{{ p.area }}</div>
+                                    <div class="p-4 bg-white/5 border border-white/10 rounded-xl">
+                                        <div class="text-xs text-white/60 uppercase tracking-wide font-javanese mb-1">Area (ha)</div>
+                                        <div class="font-jockey text-white text-lg">{{ p.area }}</div>
                                     </div>
                                 </div>
                             </div>
                             <div class="flex-shrink-0">
-                                <a class="btn-primary inline-flex items-center px-8 py-4 text-white font-semibold text-sm shadow-lg hover:shadow-glow focus:outline-none focus:ring-4 focus:ring-primary-300" href="{% url 'purchase_credits' p.id %}">
+                                <a class="inline-flex items-center px-8 py-4 bg-white text-neutral-900 font-jockey text-sm rounded-full shadow-lg hover:bg-white/90 transition-all" href="{% url 'purchase_credits' p.id %}">
                                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17M17 13v4a2 2 0 01-2 2H9a2 2 0 01-2-2v-4m8 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01"/>
                                     </svg>
@@ -113,14 +111,14 @@
                     </div>
                     {% endif %}
                 {% empty %}
-                    <div class="text-center py-20">
-                        <div class="w-16 h-16 bg-neutral-100 flex items-center justify-center mx-auto mb-6">
-                            <svg class="w-8 h-8 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="text-center py-20 glass-surface rounded-2xl">
+                        <div class="w-16 h-16 bg-white/10 flex items-center justify-center mx-auto mb-6 rounded-full">
+                            <svg class="w-8 h-8 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
                             </svg>
                         </div>
-                        <h3 class="text-xl font-semibold text-neutral-600 mb-2">No Projects Available</h3>
-                        <p class="text-neutral-500">Check back soon for new verified carbon credit projects.</p>
+                        <h3 class="text-xl font-julius text-white/60 mb-2">No Projects Available</h3>
+                        <p class="text-white/40 font-javanese">Check back soon for new verified carbon credit projects.</p>
                     </div>
                 {% endfor %}
             </div>
@@ -129,29 +127,29 @@
         <!-- Your Purchases Section -->
         <div>
             <div class="flex items-center mb-10">
-                <div class="w-1 h-8 bg-accent-500 mr-4"></div>
-                <h2 class="text-3xl font-bold text-neutral-900">Your Purchases</h2>
+                <div class="w-1 h-8 bg-white/50 mr-4"></div>
+                <h2 class="text-3xl font-julius text-white">Your Purchases</h2>
             </div>
             
             <div class="grid gap-6">
                 {% for pur in purchases %}
-                <div class="modern-card p-8 group hover:shadow-glow-accent transition-all duration-300">
+                <div class="glass-surface p-8 rounded-2xl group hover:glass-surface-strong transition-all duration-300 border border-white/10">
                     <div class="flex items-center gap-6">
-                        <div class="w-12 h-12 bg-accent-100 flex items-center justify-center text-accent-600 group-hover:bg-accent-500 group-hover:text-white transition-colors duration-300">
+                        <div class="w-12 h-12 glass-surface-strong flex items-center justify-center text-white rounded-full">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                             </svg>
                         </div>
                         <div class="flex-1">
-                            <h3 class="text-xl font-bold text-neutral-900 mb-3 group-hover:text-accent-600 transition-colors">{{ pur.project.title }}</h3>
+                            <h3 class="text-xl font-julius text-white mb-3 group-hover:text-emerald-400 transition-colors">{{ pur.project.title }}</h3>
                             <div class="flex flex-wrap items-center gap-6 text-sm">
-                                <div class="flex items-center text-accent-600 font-semibold">
+                                <div class="flex items-center text-emerald-300 font-jockey text-lg">
                                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"/>
                                     </svg>
                                     {{ pur.credits }} credits
                                 </div>
-                                <div class="flex items-center text-neutral-500">
+                                <div class="flex items-center text-white/60 font-javanese">
                                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                     </svg>
@@ -160,29 +158,29 @@
                             </div>
                         </div>
                         <div class="flex items-center gap-3">
-                            <div class="px-4 py-2 bg-accent-100 text-accent-700 text-sm font-medium">
+                            <div class="px-4 py-2 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-sm font-jockey rounded-full">
                                 Purchased
                             </div>
                             {% if pur.certificate %}
-                            <a href="{% url 'download_certificate' pur.id %}" class="px-4 py-2 bg-neutral-900 text-white text-sm hover:bg-neutral-700 transition">Download Certificate</a>
+                            <a href="{% url 'download_certificate' pur.id %}" class="px-4 py-2 bg-white text-neutral-900 text-sm font-jockey rounded-full hover:bg-white/90 transition-all">Download Certificate</a>
                             {% else %}
                             <form method="post" action="{% url 'request_certificate' pur.id %}">
                                 {% csrf_token %}
-                                <button type="submit" class="px-4 py-2 bg-yellow-400 text-neutral-900 text-sm font-medium hover:bg-yellow-500 transition">Request Certificate</button>
+                                <button type="submit" class="px-4 py-2 bg-yellow-500/20 text-yellow-300 border border-yellow-500/30 text-sm font-jockey rounded-full hover:bg-yellow-500/30 transition-all">Request Certificate</button>
                             </form>
                             {% endif %}
                         </div>
                     </div>
                 </div>
                 {% empty %}
-                <div class="text-center py-20">
-                    <div class="w-16 h-16 bg-neutral-100 flex items-center justify-center mx-auto mb-6">
-                        <svg class="w-8 h-8 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="text-center py-20 glass-surface rounded-2xl">
+                    <div class="w-16 h-16 bg-white/10 flex items-center justify-center mx-auto mb-6 rounded-full">
+                        <svg class="w-8 h-8 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
                         </svg>
                     </div>
-                    <h3 class="text-xl font-semibold text-neutral-600 mb-2">No Purchases Yet</h3>
-                    <p class="text-neutral-500">Start purchasing verified carbon credits to support environmental projects.</p>
+                    <h3 class="text-xl font-julius text-white/60 mb-2">No Purchases Yet</h3>
+                    <p class="text-white/40 font-javanese">Start purchasing verified carbon credits to support environmental projects.</p>
                 </div>
                 {% endfor %}
             </div>
@@ -191,23 +189,23 @@
         <!-- Recent Tenders -->
         <div class="mt-20">
             <div class="flex items-center mb-6">
-                <div class="w-1 h-8 bg-primary-500 mr-4"></div>
-                <h2 class="text-2xl font-bold text-neutral-900">Recent Tenders</h2>
-                <a href="{% url 'tenders_list' %}" class="ml-auto text-sm text-primary-700 hover:underline">View all</a>
+                <div class="w-1 h-8 bg-white/50 mr-4"></div>
+                <h2 class="text-2xl font-julius text-white">Recent Tenders</h2>
+                <a href="{% url 'tenders_list' %}" class="ml-auto text-sm text-white/70 hover:text-white font-jockey transition-colors">View all</a>
             </div>
             <div class="grid gap-4">
                 {% for t in tenders_open %}
-                <div class="p-6 bg-white border">
+                <div class="p-6 glass-surface rounded-xl border border-white/10 hover:glass-surface-strong transition-all duration-300">
                     <div class="flex items-center justify-between">
                         <div>
-                            <div class="font-semibold">{{ t.title }}</div>
-                            <div class="text-sm text-neutral-500">{{ t.location }} • {{ t.credits_required }} credits • {{ t.status }}</div>
+                            <div class="font-julius text-white text-lg">{{ t.title }}</div>
+                            <div class="text-sm text-white/60 font-javanese">{{ t.location }} • {{ t.credits_required }} credits • {{ t.status }}</div>
                         </div>
-                        <a href="{% url 'tender_review' t.id %}" class="px-3 py-2 bg-neutral-900 text-white text-sm">Review</a>
+                        <a href="{% url 'tender_review' t.id %}" class="px-4 py-2 bg-white text-neutral-900 text-sm font-jockey rounded-full hover:bg-white/90 transition-all">Review</a>
                     </div>
                 </div>
                 {% empty %}
-                <div class="text-neutral-600">No tenders yet.</div>
+                <div class="text-white/40 font-javanese">No tenders yet.</div>
                 {% endfor %}
             </div>
         </div>
@@ -236,19 +234,19 @@
                             if(data.ok){
                                 // show success message
                                 const msg = document.createElement('div');
-                                msg.className = 'mt-2 text-sm text-green-700';
+                                msg.className = 'mt-2 text-sm text-emerald-300 font-javanese';
                                 msg.innerText = 'Email sent successfully. Certificate available for download.';
                                 form.parentNode.appendChild(msg);
 
                                 // replace form with download link
                                 const link = document.createElement('a');
                                 link.href = data.download_url || ('/corporate/certificate/' + url.split('/').slice(-3)[1] + '/download/');
-                                link.className = 'px-4 py-2 bg-neutral-900 text-white text-sm hover:bg-neutral-700 transition';
+                                link.className = 'px-4 py-2 bg-white text-neutral-900 text-sm font-jockey rounded-full hover:bg-white/90 transition-all';
                                 link.innerText = 'Download Certificate';
                                 form.replaceWith(link);
                             } else {
                                 const err = document.createElement('div');
-                                err.className = 'mt-2 text-sm text-red-700';
+                                err.className = 'mt-2 text-sm text-red-300 font-javanese';
                                 err.innerText = data.error || 'Failed to generate or send certificate.';
                                 form.parentNode.appendChild(err);
                                 btn.disabled = false;
@@ -256,7 +254,7 @@
                             }
                         }).catch(e => {
                             const err = document.createElement('div');
-                            err.className = 'mt-2 text-sm text-red-700';
+                            err.className = 'mt-2 text-sm text-red-300 font-javanese';
                             err.innerText = 'Request failed. Try again.';
                             form.parentNode.appendChild(err);
                             btn.disabled = false;

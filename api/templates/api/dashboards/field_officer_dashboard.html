@@ -2,108 +2,108 @@
 {% block title %}Field Officer Dashboard | Blue Carbon MRV{% endblock %}
 
 {% block content %}
-<div class="min-h-screen bg-gradient-to-br from-neutral-50 to-primary-50 relative">
-    <!-- Geometric Background Elements -->
-    <div class="absolute inset-0 overflow-hidden">
-        <div class="absolute top-20 right-20 w-32 h-32 bg-primary-100 rounded-full opacity-20"></div>
-        <div class="absolute bottom-40 left-16 w-24 h-24 bg-accent-100 rounded-full opacity-30"></div>
-        <div class="absolute top-1/2 left-1/4 w-16 h-16 bg-primary-200 rounded-full opacity-15"></div>
-    </div>
-    
+<div class="relative text-white">
+    <div class="fixed inset-0 hero-bg hero-bg-fixed"></div>
+    <div class="fixed inset-0 hero-overlay"></div>
+
     <div class="relative z-10 max-w-7xl mx-auto px-6 py-12">
         <!-- Header Section -->
         <div class="text-center mb-12">
-            <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-accent-500 to-accent-600 text-white mb-6 rounded-full shadow-lg">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="inline-flex items-center justify-center w-16 h-16 glass-surface-strong rounded-full shadow-lg mb-6">
+                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                 </svg>
             </div>
-            <h1 class="text-5xl font-bold text-neutral-900 mb-4 tracking-tight">
+            <h1 class="text-5xl font-julius tracking-wide mb-4">
                 Field Officer Dashboard
             </h1>
-            <p class="text-xl text-neutral-600 max-w-2xl mx-auto leading-relaxed">
+            <p class="text-xl text-white/85 max-w-2xl mx-auto leading-relaxed font-javanese">
                 Collect and submit field data for mangrove restoration projects. Input measurements, species data, images, and location information.
             </p>
         </div>
 
         <!-- Stats Cards -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            <div class="modern-card p-6 group hover:shadow-glow transition-all duration-300">
+            <!-- Total Submissions -->
+            <div class="glass-surface rounded-2xl p-6 group hover:glass-surface-strong transition-all duration-300">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="w-12 h-12 bg-gradient-to-br from-accent-500 to-accent-600 text-white flex items-center justify-center rounded-full shadow-md">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="w-12 h-12 glass-surface-strong rounded-full flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
                         </svg>
                     </div>
                     <div class="text-right">
-                        <div class="text-3xl font-bold text-neutral-900 group-hover:text-accent-600 transition-colors">{{ field_stats.total_submissions }}</div>
-                        <div class="text-sm font-medium text-neutral-500 uppercase tracking-wide">Total Submissions</div>
+                        <div class="text-3xl font-light tracking-wide">{{ field_stats.total_submissions }}</div>
+                        <div class="text-sm font-javanese text-white/80">Total Submissions</div>
                     </div>
                 </div>
-                <div class="w-full h-1 bg-gradient-to-r from-accent-400 to-accent-600"></div>
+                <div class="w-full h-1 bg-gradient-to-r from-white/20 to-white/5 rounded-full"></div>
             </div>
 
-            <div class="modern-card p-6 group hover:shadow-glow transition-all duration-300">
+            <!-- Hectares Surveyed -->
+            <div class="glass-surface rounded-2xl p-6 group hover:glass-surface-strong transition-all duration-300">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 text-white flex items-center justify-center rounded-full shadow-md">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="w-12 h-12 glass-surface-strong rounded-full flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
                         </svg>
                     </div>
                     <div class="text-right">
-                        <div class="text-3xl font-bold text-neutral-900 group-hover:text-green-600 transition-colors">{{ field_stats.total_hectares }}</div>
-                        <div class="text-sm font-medium text-neutral-500 uppercase tracking-wide">Hectares Surveyed</div>
+                        <div class="text-3xl font-light tracking-wide">{{ field_stats.total_hectares }}</div>
+                        <div class="text-sm font-javanese text-white/80">Hectares Surveyed</div>
                     </div>
                 </div>
-                <div class="w-full h-1 bg-gradient-to-r from-green-400 to-green-600"></div>
+                <div class="w-full h-1 bg-gradient-to-r from-white/20 to-white/5 rounded-full"></div>
             </div>
 
-            <div class="modern-card p-6 group hover:shadow-glow transition-all duration-300">
+            <!-- Images Captured -->
+            <div class="glass-surface rounded-2xl p-6 group hover:glass-surface-strong transition-all duration-300">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 text-white flex items-center justify-center rounded-full shadow-md">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="w-12 h-12 glass-surface-strong rounded-full flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                         </svg>
                     </div>
                     <div class="text-right">
-                        <div class="text-3xl font-bold text-neutral-900 group-hover:text-blue-600 transition-colors">{{ field_stats.total_images }}</div>
-                        <div class="text-sm font-medium text-neutral-500 uppercase tracking-wide">Images Captured</div>
+                        <div class="text-3xl font-light tracking-wide">{{ field_stats.total_images }}</div>
+                        <div class="text-sm font-javanese text-white/80">Images Captured</div>
                     </div>
                 </div>
-                <div class="w-full h-1 bg-gradient-to-r from-blue-400 to-blue-600"></div>
+                <div class="w-full h-1 bg-gradient-to-r from-white/20 to-white/5 rounded-full"></div>
             </div>
 
-            <div class="modern-card p-6 group hover:shadow-glow transition-all duration-300">
+            <!-- Species Documented -->
+            <div class="glass-surface rounded-2xl p-6 group hover:glass-surface-strong transition-all duration-300">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 text-white flex items-center justify-center rounded-full shadow-md">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="w-12 h-12 glass-surface-strong rounded-full flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
                         </svg>
                     </div>
                     <div class="text-right">
-                        <div class="text-3xl font-bold text-neutral-900 group-hover:text-purple-600 transition-colors">{{ field_stats.species_count }}</div>
-                        <div class="text-sm font-medium text-neutral-500 uppercase tracking-wide">Species Documented</div>
+                        <div class="text-3xl font-light tracking-wide">{{ field_stats.species_count }}</div>
+                        <div class="text-sm font-javanese text-white/80">Species Documented</div>
                     </div>
                 </div>
-                <div class="w-full h-1 bg-gradient-to-r from-purple-400 to-purple-600"></div>
+                <div class="w-full h-1 bg-gradient-to-r from-white/20 to-white/5 rounded-full"></div>
             </div>
         </div>
 
         <!-- Action Buttons -->
         <div class="flex flex-wrap gap-4 mb-12 justify-center">
-            <button onclick="openFieldDataModal()" class="btn-primary inline-flex items-center px-6 py-3 text-white font-semibold shadow-lg hover:shadow-glow {% if assigned_projects|length == 0 %}opacity-50 cursor-not-allowed{% endif %}" {% if assigned_projects|length == 0 %}disabled aria-disabled="true"{% endif %}>
+            <button onclick="openFieldDataModal()" class="inline-flex items-center px-8 py-3.5 bg-white/90 text-neutral-900 font-jockey text-lg rounded-full shadow-lg hover:bg-white transition-all {% if assigned_projects|length == 0 %}opacity-50 cursor-not-allowed{% endif %}" {% if assigned_projects|length == 0 %}disabled aria-disabled="true"{% endif %}>
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
                 </svg>
                 Submit Field Data
             </button>
-            <button onclick="viewAssignedProjects()" class="btn-secondary inline-flex items-center px-6 py-3 font-semibold shadow-lg hover:shadow-glow">
+            <button onclick="viewAssignedProjects()" class="inline-flex items-center px-8 py-3.5 glass-surface text-white font-jockey text-lg rounded-full hover:glass-surface-strong transition-all">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
                 </svg>
                 View Assigned Projects
             </button>
-            <button onclick="viewSubmissionHistory()" class="btn-secondary inline-flex items-center px-6 py-3 font-semibold shadow-lg hover:shadow-glow">
+            <button onclick="viewSubmissionHistory()" class="inline-flex items-center px-8 py-3.5 glass-surface text-white font-jockey text-lg rounded-full hover:glass-surface-strong transition-all">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                 </svg>
@@ -111,183 +111,43 @@
             </button>
         </div>
 
-        <!-- Field Data Submission Form Modal -->
-        <div id="fieldDataModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
-            <div class="flex items-center justify-center min-h-screen p-4">
-                <div class="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto relative">
-                    <div class="p-6 border-b border-gray-200">
-                        <h3 class="text-lg font-semibold text-gray-900">Submit Field Data</h3>
-                        <button onclick="closeFieldDataModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                            </svg>
-                        </button>
-                    </div>
-                    
-                    <form id="fieldDataForm" class="p-6 space-y-6" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        
-                        <!-- Project Selection -->
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Select Project</label>
-                            <select name="project_id" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500">
-                                <option value="">Choose a project...</option>
-                                {% for project in assigned_projects %}
-                                <option value="{{ project.id }}">{{ project.title }} - {{ project.location }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
 
-                        <!-- Area Information -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Area (Hectares)</label>
-                                <input type="number" name="hectare_area" step="0.01" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500" placeholder="0.00">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Survey Date</label>
-                                <input type="date" name="survey_date" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500">
-                            </div>
-                        </div>
 
-                        <!-- Location Data -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Latitude</label>
-                                <input type="number" name="latitude" step="0.000001" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500" placeholder="0.000000">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Longitude</label>
-                                <input type="number" name="longitude" step="0.000001" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500" placeholder="0.000000">
-                            </div>
-                        </div>
-
-                        <!-- Species Information -->
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Species Information</label>
-                            <div id="speciesContainer">
-                                <div class="species-entry border rounded-lg p-4 mb-4">
-                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                        <div>
-                                            <label class="block text-sm font-medium text-gray-700 mb-1">Species Name</label>
-                                            <input type="text" name="species_name[]" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500">
-                                        </div>
-                                        <div>
-                                            <label class="block text-sm font-medium text-gray-700 mb-1">Count</label>
-                                            <input type="number" name="species_count[]" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500">
-                                        </div>
-                                        <div>
-                                            <label class="block text-sm font-medium text-gray-700 mb-1">Health Status</label>
-                                            <select name="species_health[]" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500">
-                                                <option value="excellent">Excellent</option>
-                                                <option value="good">Good</option>
-                                                <option value="fair">Fair</option>
-                                                <option value="poor">Poor</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <button type="button" onclick="addSpeciesEntry()" class="text-primary-600 hover:text-primary-800 font-medium">
-                                + Add Another Species
-                            </button>
-                        </div>
-
-                        <!-- Environmental Data -->
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Soil Type</label>
-                                <select name="soil_type" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500">
-                                    <option value="">Select soil type...</option>
-                                    <option value="sandy">Sandy</option>
-                                    <option value="clay">Clay</option>
-                                    <option value="loamy">Loamy</option>
-                                    <option value="muddy">Muddy</option>
-                                    <option value="rocky">Rocky</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Water Salinity (ppt)</label>
-                                <input type="number" name="water_salinity" step="0.1" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Tidal Range (m)</label>
-                                <input type="number" name="tidal_range" step="0.1" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500">
-                            </div>
-                        </div>
-
-                        <!-- Images Upload -->
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Field Images</label>
-                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
-                                <input type="file" name="field_images" multiple accept="image/*" class="hidden" id="fieldImages">
-                                <label for="fieldImages" class="cursor-pointer">
-                                    <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
-                                        <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                    <p class="mt-2 text-sm text-gray-600">Click to upload field images</p>
-                                    <p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB each</p>
-                                </label>
-                            </div>
-                            <div id="selectedImages" class="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4"></div>
-                        </div>
-
-                        <!-- Additional Notes -->
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Additional Notes</label>
-                            <textarea name="notes" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500" placeholder="Any additional observations or notes..."></textarea>
-                        </div>
-
-                        <!-- Submit Button -->
-                        <div class="flex justify-end space-x-4">
-                            <button type="button" onclick="closeFieldDataModal()" class="px-4 py-2 text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300">
-                                Cancel
-                            </button>
-                            <button type="submit" class="px-6 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700">
-                                Submit Field Data
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <!-- Recent Submissions -->
         <!-- Assigned/Pending Projects -->
-        <div class="modern-card p-8 mb-8">
+        <div class="glass-surface-strong p-8 mb-8 rounded-2xl border border-white/10">
             <div class="flex items-center justify-between mb-6">
-                <h2 class="text-2xl font-bold text-neutral-900">Projects Needing Field Data</h2>
-                <span class="text-sm text-neutral-500">{{ assigned_projects|length }} pending</span>
+                <h2 class="text-2xl font-julius text-white">Projects Needing Field Data</h2>
+                <span class="text-sm text-white/60 font-javanese">{{ assigned_projects|length }} pending</span>
             </div>
 
             <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
                 {% for proj in assigned_projects %}
-                <div class="border border-neutral-200 bg-white p-5 rounded-lg">
+                <div class="glass-surface p-5 rounded-xl border border-white/10 hover:border-white/20 transition-all duration-300 group">
                     <div class="flex items-start justify-between mb-3">
                         <div class="pr-3">
-                            <div class="font-semibold text-neutral-900">{{ proj.title }}</div>
-                            <div class="text-sm text-neutral-500">{{ proj.location }}</div>
+                            <div class="font-julius text-lg text-white group-hover:text-emerald-400 transition-colors">{{ proj.title }}</div>
+                            <div class="text-sm text-white/60 font-javanese">{{ proj.location }}</div>
                         </div>
-                        <div class="w-8 h-8 text-neutral-600 bg-neutral-100 rounded-full flex items-center justify-center text-xs font-bold">#{{ proj.id }}</div>
+                        <div class="w-8 h-8 text-white bg-white/10 rounded-full flex items-center justify-center text-xs font-bold font-jockey">#{{ proj.id }}</div>
                     </div>
                     <div class="grid grid-cols-2 gap-3 text-xs mb-4">
-                        <div class="bg-primary-50 border border-primary-200 px-3 py-2">
-                            <div class="font-medium text-primary-700">Species</div>
-                            <div class="text-primary-600 truncate">{{ proj.species }}</div>
+                        <div class="bg-white/5 border border-white/10 px-3 py-2 rounded-lg">
+                            <div class="font-medium text-white/60 font-javanese">Species</div>
+                            <div class="text-white truncate font-jockey">{{ proj.species }}</div>
                         </div>
-                        <div class="bg-accent-50 border border-accent-200 px-3 py-2">
-                            <div class="font-medium text-accent-700">Area</div>
-                            <div class="text-accent-600">{{ proj.area }} ha</div>
+                        <div class="bg-white/5 border border-white/10 px-3 py-2 rounded-lg">
+                            <div class="font-medium text-white/60 font-javanese">Area</div>
+                            <div class="text-white font-jockey">{{ proj.area }} ha</div>
                         </div>
                     </div>
                     
                     <!-- Status indicator -->
                     <div class="mb-3 text-xs">
-                        <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium
-                            {% if proj.status == 'approved' %}bg-green-100 text-green-800
-                            {% elif proj.status == 'rejected' %}bg-red-100 text-red-800
-                            {% elif proj.field_verified_at %}bg-blue-100 text-blue-800
-                            {% else %}bg-yellow-100 text-yellow-800{% endif %}">
+                        <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium font-jockey
+                            {% if proj.status == 'approved' %}bg-emerald-500/20 text-emerald-300 border border-emerald-500/30
+                            {% elif proj.status == 'rejected' %}bg-red-500/20 text-red-300 border border-red-500/30
+                            {% elif proj.field_verified_at %}bg-blue-500/20 text-blue-300 border border-blue-500/30
+                            {% else %}bg-yellow-500/20 text-yellow-300 border border-yellow-500/30{% endif %}">
                             {% if proj.status == 'approved' %}✓ Approved
                             {% elif proj.status == 'rejected' %}✗ Rejected  
                             {% elif proj.field_verified_at %}📋 Field Data Submitted
@@ -297,64 +157,64 @@
                     
                     <!-- Conditional button - only show if no field data yet and not approved/rejected -->
                     {% if not proj.field_verified_at and proj.status != 'approved' and proj.status != 'rejected' %}
-                        <button class="btn-primary w-full py-2 text-sm" onclick="openFieldDataFor('{{ proj.id }}')">Submit Field Data</button>
+                        <button class="w-full py-2 text-sm bg-white text-neutral-900 rounded-lg hover:bg-white/90 transition-colors font-jockey shadow-lg" onclick="openFieldDataFor('{{ proj.id }}')">Submit Field Data</button>
                     {% else %}
-                        <button class="bg-gray-300 text-gray-500 w-full py-2 text-sm cursor-not-allowed" disabled>
+                        <button class="bg-white/10 text-white/40 w-full py-2 text-sm cursor-not-allowed rounded-lg font-jockey border border-white/5" disabled>
                             {% if proj.field_verified_at %}Data Already Submitted{% else %}Project Finalized{% endif %}
                         </button>
                     {% endif %}
                 </div>
                 {% empty %}
-                <div class="col-span-full text-center py-8 text-neutral-500">No projects pending field data.</div>
+                <div class="col-span-full text-center py-8 text-white/40 font-javanese">No projects pending field data.</div>
                 {% endfor %}
             </div>
         </div>
 
-        <div class="modern-card p-8">
+        <div class="glass-surface-strong p-8 rounded-2xl border border-white/10">
             <div class="flex items-center justify-between mb-6">
-                <h2 class="text-2xl font-bold text-neutral-900">Recent Submissions</h2>
-                <button class="text-primary-600 hover:text-primary-800 font-medium">View All</button>
+                <h2 class="text-2xl font-julius text-white">Recent Submissions</h2>
+                <button class="text-white/70 hover:text-white font-medium font-jockey transition-colors">View All</button>
             </div>
             
             <div class="overflow-x-auto">
                 <table class="w-full">
                     <thead>
-                        <tr class="border-b border-gray-200">
-                            <th class="text-left py-3 px-4 font-semibold text-gray-700">Project</th>
-                            <th class="text-left py-3 px-4 font-semibold text-gray-700">Date</th>
-                            <th class="text-left py-3 px-4 font-semibold text-gray-700">Area (Ha)</th>
-                            <th class="text-left py-3 px-4 font-semibold text-gray-700">Species</th>
-                            <th class="text-left py-3 px-4 font-semibold text-gray-700">Status</th>
-                            <th class="text-left py-3 px-4 font-semibold text-gray-700">Actions</th>
+                        <tr class="border-b border-white/10">
+                            <th class="text-left py-3 px-4 font-julius text-white/80">Project</th>
+                            <th class="text-left py-3 px-4 font-julius text-white/80">Date</th>
+                            <th class="text-left py-3 px-4 font-julius text-white/80">Area (Ha)</th>
+                            <th class="text-left py-3 px-4 font-julius text-white/80">Species</th>
+                            <th class="text-left py-3 px-4 font-julius text-white/80">Status</th>
+                            <th class="text-left py-3 px-4 font-julius text-white/80">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for submission in recent_submissions %}
-                        <tr class="border-b border-gray-100 hover:bg-gray-50">
+                        <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
                             <td class="py-3 px-4">
-                                <div class="font-medium text-gray-900">{{ submission.project.title }}</div>
-                                <div class="text-sm text-gray-500">{{ submission.project.location }}</div>
+                                <div class="font-medium text-white font-javanese">{{ submission.project.title }}</div>
+                                <div class="text-sm text-white/50 font-javanese">{{ submission.project.location }}</div>
                             </td>
-                            <td class="py-3 px-4 text-gray-700">{{ submission.survey_date|date:"M d, Y" }}</td>
-                            <td class="py-3 px-4 text-gray-700">{{ submission.hectare_area }}</td>
-                            <td class="py-3 px-4 text-gray-700">{{ submission.species_data|length }}</td>
+                            <td class="py-3 px-4 text-white/70 font-jockey">{{ submission.survey_date|date:"M d, Y" }}</td>
+                            <td class="py-3 px-4 text-white/70 font-jockey">{{ submission.hectare_area }}</td>
+                            <td class="py-3 px-4 text-white/70 font-jockey">{{ submission.species_data|length }}</td>
                             <td class="py-3 px-4">
-                                <span class="px-2 py-1 text-xs font-semibold rounded-full
-                                    {% if submission.status == 'approved' %}bg-green-100 text-green-800
-                                    {% elif submission.status == 'pending' %}bg-yellow-100 text-yellow-800
-                                    {% else %}bg-red-100 text-red-800{% endif %}">
+                                <span class="px-2 py-1 text-xs font-semibold rounded-full font-jockey
+                                    {% if submission.status == 'approved' %}bg-emerald-500/20 text-emerald-300 border border-emerald-500/30
+                                    {% elif submission.status == 'pending' %}bg-yellow-500/20 text-yellow-300 border border-yellow-500/30
+                                    {% else %}bg-red-500/20 text-red-300 border border-red-500/30{% endif %}">
                                     {{ submission.status|title }}
                                 </span>
                             </td>
                             <td class="py-3 px-4">
-                                <button onclick="viewSubmission('{{ submission.id }}')" class="text-primary-600 hover:text-primary-800 text-sm font-medium">
+                                <button onclick="viewSubmission('{{ submission.id }}')" class="text-white/70 hover:text-white text-sm font-medium font-jockey transition-colors">
                                     View Details
                                 </button>
                             </td>
                         </tr>
                         {% empty %}
                         <tr>
-                            <td colspan="6" class="py-8 text-center text-gray-500">
+                            <td colspan="6" class="py-8 text-center text-white/40 font-javanese">
                                 No submissions yet. Start by submitting your first field data!
                             </td>
                         </tr>
@@ -365,6 +225,147 @@
         </div>
     </div>
 </div>
+
+    <!-- Field Data Submission Form Modal -->
+    <div id="fieldDataModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden z-[100]">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="glass-surface-strong rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto relative border border-white/10">
+                <div class="p-6 border-b border-white/10 flex justify-between items-center">
+                    <h3 class="text-xl font-julius text-white">Submit Field Data</h3>
+                    <button onclick="closeFieldDataModal()" class="text-white/50 hover:text-white transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+                
+                <form id="fieldDataForm" class="p-6 space-y-6" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    <!-- Project Selection -->
+                    <div>
+                        <label class="block text-sm font-medium text-white/80 mb-2 font-javanese">Select Project</label>
+                        <select name="project_id" required class="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white focus:ring-2 focus:ring-white/20 focus:border-white/30 outline-none transition-all">
+                            <option value="" class="bg-neutral-900">Choose a project...</option>
+                            {% for project in assigned_projects %}
+                            <option value="{{ project.id }}" class="bg-neutral-900">{{ project.title }} - {{ project.location }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- Area Information -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-white/80 mb-2 font-javanese">Area (Hectares)</label>
+                            <input type="number" name="hectare_area" step="0.01" required class="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white focus:ring-2 focus:ring-white/20 focus:border-white/30 outline-none transition-all" placeholder="0.00">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-white/80 mb-2 font-javanese">Survey Date</label>
+                            <input type="date" name="survey_date" required class="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white focus:ring-2 focus:ring-white/20 focus:border-white/30 outline-none transition-all [color-scheme:dark]">
+                        </div>
+                    </div>
+
+                    <!-- Location Data -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-white/80 mb-2 font-javanese">Latitude</label>
+                            <input type="number" name="latitude" step="0.000001" required class="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white focus:ring-2 focus:ring-white/20 focus:border-white/30 outline-none transition-all" placeholder="0.000000">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-white/80 mb-2 font-javanese">Longitude</label>
+                            <input type="number" name="longitude" step="0.000001" required class="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white focus:ring-2 focus:ring-white/20 focus:border-white/30 outline-none transition-all" placeholder="0.000000">
+                        </div>
+                    </div>
+
+                    <!-- Species Information -->
+                    <div>
+                        <label class="block text-sm font-medium text-white/80 mb-2 font-javanese">Species Information</label>
+                        <div id="speciesContainer">
+                            <div class="species-entry border border-white/10 rounded-lg p-4 mb-4 bg-white/5">
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-white/60 mb-1">Species Name</label>
+                                        <input type="text" name="species_name[]" required class="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white focus:ring-2 focus:ring-white/20 focus:border-white/30 outline-none transition-all">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-white/60 mb-1">Count</label>
+                                        <input type="number" name="species_count[]" required class="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white focus:ring-2 focus:ring-white/20 focus:border-white/30 outline-none transition-all">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-white/60 mb-1">Health Status</label>
+                                        <select name="species_health[]" required class="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white focus:ring-2 focus:ring-white/20 focus:border-white/30 outline-none transition-all">
+                                            <option value="excellent" class="bg-neutral-900">Excellent</option>
+                                            <option value="good" class="bg-neutral-900">Good</option>
+                                            <option value="fair" class="bg-neutral-900">Fair</option>
+                                            <option value="poor" class="bg-neutral-900">Poor</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" onclick="addSpeciesEntry()" class="text-white/80 hover:text-white font-medium flex items-center gap-2 transition-colors">
+                            <span class="text-xl">+</span> Add Another Species
+                        </button>
+                    </div>
+
+                    <!-- Environmental Data -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-white/80 mb-2 font-javanese">Soil Type</label>
+                            <select name="soil_type" required class="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white focus:ring-2 focus:ring-white/20 focus:border-white/30 outline-none transition-all">
+                                <option value="" class="bg-neutral-900">Select soil type...</option>
+                                <option value="sandy" class="bg-neutral-900">Sandy</option>
+                                <option value="clay" class="bg-neutral-900">Clay</option>
+                                <option value="loamy" class="bg-neutral-900">Loamy</option>
+                                <option value="muddy" class="bg-neutral-900">Muddy</option>
+                                <option value="rocky" class="bg-neutral-900">Rocky</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-white/80 mb-2 font-javanese">Water Salinity (ppt)</label>
+                            <input type="number" name="water_salinity" step="0.1" class="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white focus:ring-2 focus:ring-white/20 focus:border-white/30 outline-none transition-all">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-white/80 mb-2 font-javanese">Tidal Range (m)</label>
+                            <input type="number" name="tidal_range" step="0.1" class="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white focus:ring-2 focus:ring-white/20 focus:border-white/30 outline-none transition-all">
+                        </div>
+                    </div>
+
+                    <!-- Images Upload -->
+                    <div>
+                        <label class="block text-sm font-medium text-white/80 mb-2 font-javanese">Field Images</label>
+                        <div class="border-2 border-dashed border-white/20 rounded-lg p-6 text-center hover:border-white/40 transition-colors bg-white/5">
+                            <input type="file" name="field_images" multiple accept="image/*" class="hidden" id="fieldImages">
+                            <label for="fieldImages" class="cursor-pointer">
+                                <svg class="mx-auto h-12 w-12 text-white/40" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                                    <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <p class="mt-2 text-sm text-white/80">Click to upload field images</p>
+                                <p class="text-xs text-white/50">PNG, JPG, GIF up to 10MB each</p>
+                            </label>
+                        </div>
+                        <div id="selectedImages" class="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4"></div>
+                    </div>
+
+                    <!-- Additional Notes -->
+                    <div>
+                        <label class="block text-sm font-medium text-white/80 mb-2 font-javanese">Additional Notes</label>
+                        <textarea name="notes" rows="4" class="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white focus:ring-2 focus:ring-white/20 focus:border-white/30 outline-none transition-all" placeholder="Any additional observations or notes..."></textarea>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="flex justify-end space-x-4 pt-4 border-t border-white/10">
+                        <button type="button" onclick="closeFieldDataModal()" class="px-6 py-2 text-white/70 hover:text-white transition-colors font-jockey">
+                            Cancel
+                        </button>
+                        <button type="submit" class="px-8 py-2 bg-white text-neutral-900 rounded-full hover:bg-white/90 transition-colors font-jockey shadow-lg">
+                            Submit Field Data
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
 <script>
 function openFieldDataModal() {
@@ -387,28 +388,28 @@ function closeFieldDataModal() {
 function addSpeciesEntry() {
     const container = document.getElementById('speciesContainer');
     const newEntry = document.createElement('div');
-    newEntry.className = 'species-entry border rounded-lg p-4 mb-4';
+    newEntry.className = 'species-entry border border-white/10 rounded-lg p-4 mb-4 bg-white/5';
     newEntry.innerHTML = `
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Species Name</label>
-                <input type="text" name="species_name[]" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500">
+                <label class="block text-sm font-medium text-white/60 mb-1 font-javanese">Species Name</label>
+                <input type="text" name="species_name[]" required class="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white focus:ring-2 focus:ring-white/20 focus:border-white/30 outline-none transition-all">
             </div>
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Count</label>
-                <input type="number" name="species_count[]" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500">
+                <label class="block text-sm font-medium text-white/60 mb-1 font-javanese">Count</label>
+                <input type="number" name="species_count[]" required class="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white focus:ring-2 focus:ring-white/20 focus:border-white/30 outline-none transition-all">
             </div>
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Health Status</label>
-                <select name="species_health[]" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500">
-                    <option value="excellent">Excellent</option>
-                    <option value="good">Good</option>
-                    <option value="fair">Fair</option>
-                    <option value="poor">Poor</option>
+                <label class="block text-sm font-medium text-white/60 mb-1 font-javanese">Health Status</label>
+                <select name="species_health[]" required class="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white focus:ring-2 focus:ring-white/20 focus:border-white/30 outline-none transition-all">
+                    <option value="excellent" class="bg-neutral-900">Excellent</option>
+                    <option value="good" class="bg-neutral-900">Good</option>
+                    <option value="fair" class="bg-neutral-900">Fair</option>
+                    <option value="poor" class="bg-neutral-900">Poor</option>
                 </select>
             </div>
         </div>
-        <button type="button" onclick="removeSpeciesEntry(this)" class="mt-2 text-red-600 hover:text-red-800 text-sm">
+        <button type="button" onclick="removeSpeciesEntry(this)" class="mt-2 text-red-400 hover:text-red-300 text-sm font-jockey transition-colors">
             Remove Species
         </button>
     `;
