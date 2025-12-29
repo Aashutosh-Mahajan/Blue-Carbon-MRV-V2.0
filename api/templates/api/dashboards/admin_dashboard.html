@@ -5,7 +5,7 @@
 <div class="relative text-white">
     <div class="fixed inset-0 hero-bg hero-bg-fixed"></div>
     <div class="fixed inset-0 hero-overlay"></div>
-    
+
     <div class="relative z-10 max-w-7xl mx-auto px-6 py-12">
         <!-- Header Section -->
         <div class="text-center mb-12">
@@ -17,16 +17,11 @@
             <h1 class="text-5xl font-julius tracking-wide mb-4">
                 Admin Dashboard
             </h1>
-            <p class="text-xl text-white/85 max-w-2xl mx-auto leading-relaxed font-javanese mb-6">
-                Review and verify NGO project submissions with comprehensive oversight tools
+            <p class="text-xl text-white/85 max-w-2xl mx-auto leading-relaxed font-javanese">
+                Review and verify NGO project submissions with comprehensive oversight tools.
             </p>
-            
-            <!-- Quick Action -->
-            <div class="inline-flex items-center gap-4">
-                <a href="/blockchain/" class="inline-flex items-center px-8 py-3.5 bg-white/90 text-neutral-900 font-jockey text-lg rounded-full shadow-lg hover:bg-white transition-all">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
-                    </svg>
+            <div class="mt-6">
+                <a href="/blockchain/" class="inline-flex items-center px-8 py-3 bg-white/90 text-neutral-900 font-jockey text-lg rounded-full hover:bg-white transition-colors">
                     Blockchain Explorer
                 </a>
             </div>
@@ -57,53 +52,53 @@
                         </svg>
                     </div>
                     <div class="text-right">
-                        <div class="text-3xl font-bold text-neutral-900 group-hover:text-yellow-600 transition-colors">{{ stats.pending }}</div>
-                        <div class="text-sm font-medium text-neutral-500 uppercase tracking-wide">Pending Review</div>
+                        <div class="text-3xl font-light tracking-wide">{{ stats.pending }}</div>
+                        <div class="text-sm font-javanese text-white/80">Pending Review</div>
                     </div>
                 </div>
-                <div class="w-full h-1 bg-gradient-to-r from-yellow-400 to-orange-500"></div>
+                <div class="w-full h-1 bg-gradient-to-r from-white/20 to-white/5 rounded-full"></div>
             </div>
 
-            <div class="modern-card p-6 group hover:shadow-glow transition-all duration-300">
+            <div class="glass-surface rounded-2xl p-6 group hover:glass-surface-strong transition-all duration-300">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="w-12 h-12 bg-gradient-to-br from-accent-500 to-accent-600 text-white flex items-center justify-center rounded-full shadow-md">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="w-12 h-12 glass-surface-strong rounded-full flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
                     </div>
                     <div class="text-right">
-                        <div class="text-3xl font-bold text-neutral-900 group-hover:text-accent-600 transition-colors">{{ stats.approved }}</div>
-                        <div class="text-sm font-medium text-neutral-500 uppercase tracking-wide">Approved</div>
+                        <div class="text-3xl font-light tracking-wide">{{ stats.approved }}</div>
+                        <div class="text-sm font-javanese text-white/80">Approved</div>
                     </div>
                 </div>
-                <div class="w-full h-1 bg-gradient-to-r from-accent-400 to-accent-600"></div>
+                <div class="w-full h-1 bg-gradient-to-r from-white/20 to-white/5 rounded-full"></div>
             </div>
 
-            <div class="modern-card p-6 group hover:shadow-glow transition-all duration-300">
+            <div class="glass-surface rounded-2xl p-6 group hover:glass-surface-strong transition-all duration-300">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="w-12 h-12 bg-gradient-to-br from-primary-600 to-primary-700 text-white flex items-center justify-center rounded-full shadow-md">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="w-12 h-12 glass-surface-strong rounded-full flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"/>
                         </svg>
                     </div>
                     <div class="text-right">
-                        <div class="text-3xl font-bold text-neutral-900 group-hover:text-primary-600 transition-colors">{{ stats.credits }}</div>
-                        <div class="text-sm font-medium text-neutral-500 uppercase tracking-wide">Credits Issued</div>
+                        <div class="text-3xl font-light tracking-wide">{{ stats.credits }}</div>
+                        <div class="text-sm font-javanese text-white/80">Credits Issued</div>
                     </div>
                 </div>
-                <div class="w-full h-1 bg-gradient-to-r from-primary-500 to-primary-700"></div>
+                <div class="w-full h-1 bg-gradient-to-r from-white/20 to-white/5 rounded-full"></div>
             </div>
         </div>
 
         <!-- Action Buttons -->
         <div class="flex flex-wrap gap-4 mb-12 justify-center">
-            <button class="btn-primary inline-flex items-center px-6 py-3 text-white font-semibold shadow-lg hover:shadow-glow">
+            <button onclick="scrollToReviews()" class="inline-flex items-center px-8 py-3.5 bg-white/90 text-neutral-900 font-jockey text-lg rounded-full shadow-lg hover:bg-white transition-all">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
                 </svg>
                 Review Projects
             </button>
-            <button onclick="generateReport()" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg hover:shadow-xl">
+            <button onclick="generateReport()" class="inline-flex items-center px-8 py-3.5 glass-surface text-white font-jockey text-lg rounded-full hover:glass-surface-strong transition-all">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v4"/>
                 </svg>
@@ -112,60 +107,52 @@
         </div>
 
         <!-- Pending Reviews Section -->
-        <div class="modern-card p-8 mb-8">
-            <div class="flex items-center mb-6">
-                <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 text-white flex items-center justify-center rounded-full shadow-md mr-4">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
-                    </svg>
-                </div>
-                <h3 class="text-2xl font-bold text-neutral-900">Pending Reviews</h3>
-            </div>
+        <div id="pending-reviews" class="mb-8">
             {% include "api/projects/review_modal.html" %}
         </div>
 
         <!-- Reports Modal -->
-        <div id="reports-modal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
-            <div class="bg-white rounded-lg shadow-2xl max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto">
-                <div class="p-6 border-b border-gray-200">
-                    <div class="flex items-center justify-between">
-                        <h3 class="text-2xl font-bold text-gray-900">Project Reports</h3>
-                        <button onclick="closeReportsModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
+        <div id="reports-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden z-50">
+            <div class="flex items-center justify-center min-h-screen p-4">
+                <div class="bg-neutral-900 border border-white/10 rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto relative text-white">
+                    <div class="p-6 border-b border-white/10">
+                        <h3 class="text-xl font-julius tracking-wide">Project Reports</h3>
+                        <button onclick="closeReportsModal()" class="absolute top-4 right-4 text-white/60 hover:text-white">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                             </svg>
                         </button>
                     </div>
-                </div>
-                <div class="p-6">
-                    <div class="grid md:grid-cols-2 gap-8">
-                        <!-- Approved Projects -->
-                        <div class="bg-green-50 rounded-lg p-6 border border-green-200">
-                            <div class="flex items-center mb-4">
-                                <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 text-white flex items-center justify-center rounded-full mr-3">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                    </svg>
+                    <div class="p-6">
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <!-- Approved Projects -->
+                            <div class="bg-white/5 rounded-xl p-6 border border-white/10">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-10 h-10 glass-surface-strong rounded-full flex items-center justify-center mr-3">
+                                        <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                        </svg>
+                                    </div>
+                                    <h4 class="text-lg font-jockey tracking-wide text-green-400">Approved Projects</h4>
                                 </div>
-                                <h4 class="text-lg font-semibold text-green-800">Approved Projects</h4>
+                                <div id="approved-projects-list" class="space-y-3">
+                                    <!-- Approved projects will be loaded here -->
+                                </div>
                             </div>
-                            <div id="approved-projects-list" class="space-y-3">
-                                <!-- Approved projects will be loaded here -->
-                            </div>
-                        </div>
 
-                        <!-- Rejected Projects -->
-                        <div class="bg-red-50 rounded-lg p-6 border border-red-200">
-                            <div class="flex items-center mb-4">
-                                <div class="w-10 h-10 bg-gradient-to-br from-red-500 to-red-600 text-white flex items-center justify-center rounded-full mr-3">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                                    </svg>
+                            <!-- Rejected Projects -->
+                            <div class="bg-white/5 rounded-xl p-6 border border-white/10">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-10 h-10 glass-surface-strong rounded-full flex items-center justify-center mr-3">
+                                        <svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                        </svg>
+                                    </div>
+                                    <h4 class="text-lg font-jockey tracking-wide text-red-400">Rejected Projects</h4>
                                 </div>
-                                <h4 class="text-lg font-semibold text-red-800">Rejected Projects</h4>
-                            </div>
-                            <div id="rejected-projects-list" class="space-y-3">
-                                <!-- Rejected projects will be loaded here -->
+                                <div id="rejected-projects-list" class="space-y-3">
+                                    <!-- Rejected projects will be loaded here -->
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -175,7 +162,15 @@
     </div>
 </div>
 
+{% endblock %}
+
+{% block scripts %}
 <script>
+function scrollToReviews() {
+    const el = document.getElementById('pending-reviews');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+}
+
 function generateReport() {
     // Show the reports modal
     document.getElementById('reports-modal').classList.remove('hidden');
@@ -193,8 +188,8 @@ function loadProjectReports() {
     const rejectedList = document.getElementById('rejected-projects-list');
 
     // show loading state
-    approvedList.innerHTML = '<div class="text-sm text-neutral-500">Loading...</div>';
-    rejectedList.innerHTML = '<div class="text-sm text-neutral-500">Loading...</div>';
+    approvedList.innerHTML = '<div class="text-sm text-white/50 font-javanese">Loading...</div>';
+    rejectedList.innerHTML = '<div class="text-sm text-white/50 font-javanese">Loading...</div>';
 
     fetch('{% url "reports_data" %}')
         .then(r => {
@@ -206,30 +201,30 @@ function loadProjectReports() {
             const rejectedProjects = data.rejected || [];
 
             approvedList.innerHTML = approvedProjects.length ? approvedProjects.map(project => `
-                <div class="bg-white rounded-lg p-4 border border-green-300">
+                <div class="bg-white/5 rounded-lg p-4 border border-white/10 hover:bg-white/10 transition-colors">
                     <div class="flex justify-between items-start">
                         <div>
-                            <h5 class="font-semibold text-gray-900">${project.name}</h5>
-                            <p class="text-sm text-gray-600">${project.location}</p>
+                            <h5 class="font-jockey text-white tracking-wide">${project.name}</h5>
+                            <p class="text-sm text-white/60 font-javanese">${project.location}</p>
                         </div>
-                        <span class="bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded">${project.credits} Credits</span>
+                        <span class="bg-green-500/20 text-green-300 text-xs font-medium px-2 py-1 rounded border border-green-500/30">${project.credits} Credits</span>
                     </div>
                 </div>
-            `).join('') : '<div class="text-sm text-neutral-500">No approved projects found.</div>';
+            `).join('') : '<div class="text-sm text-white/50 font-javanese">No approved projects found.</div>';
 
             rejectedList.innerHTML = rejectedProjects.length ? rejectedProjects.map(project => `
-                <div class="bg-white rounded-lg p-4 border border-red-300">
+                <div class="bg-white/5 rounded-lg p-4 border border-white/10 hover:bg-white/10 transition-colors">
                     <div>
-                        <h5 class="font-semibold text-gray-900">${project.name}</h5>
-                        <p class="text-sm text-gray-600">${project.location}</p>
-                        <p class="text-xs text-red-600 mt-1">${project.reason}</p>
+                        <h5 class="font-jockey text-white tracking-wide">${project.name}</h5>
+                        <p class="text-sm text-white/60 font-javanese">${project.location}</p>
+                        <p class="text-xs text-red-300 mt-1 font-javanese">${project.reason || 'No reason provided'}</p>
                     </div>
                 </div>
-            `).join('') : '<div class="text-sm text-neutral-500">No rejected projects found.</div>';
+            `).join('') : '<div class="text-sm text-white/50 font-javanese">No rejected projects found.</div>';
         })
         .catch(err => {
-            approvedList.innerHTML = '<div class="text-sm text-red-600">Failed to load projects.</div>';
-            rejectedList.innerHTML = '<div class="text-sm text-red-600">Failed to load projects.</div>';
+            approvedList.innerHTML = '<div class="text-sm text-red-400 font-javanese">Failed to load projects.</div>';
+            rejectedList.innerHTML = '<div class="text-sm text-red-400 font-javanese">Failed to load projects.</div>';
             console.error('Failed to load reports data', err);
         });
 }
