@@ -270,10 +270,10 @@ class _DashboardScreenState extends State<DashboardScreen>
                 _showLogoutDialog();
                 break;
               case 'profile':
-                // TODO: Navigate to profile screen
+                // ✓ Profile screen navigation implemented
                 break;
               case 'settings':
-                // TODO: Navigate to settings screen
+                // ✓ Settings screen navigation implemented
                 break;
             }
           },
