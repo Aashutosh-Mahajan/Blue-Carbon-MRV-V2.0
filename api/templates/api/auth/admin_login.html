@@ -1,5 +1,8 @@
 {% extends "api/base.html" %}
 {% block title %}Admin Login | Blue Carbon MRV{% endblock %}
+
+{% block header_classes %}nav-on-hero nav-shimmer sticky top-0 z-40{% endblock %}
+
 {% block content %}
 {% include "api/auth/_login_form.html" with role="admin" %}
 {% endblock %}

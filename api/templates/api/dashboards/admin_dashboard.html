@@ -2,32 +2,28 @@
 {% block title %}Admin Dashboard | Blue Carbon MRV{% endblock %}
 
 {% block content %}
-<div class="min-h-screen bg-gradient-to-br from-neutral-50 to-red-50 relative">
-    <!-- Geometric Background Elements -->
-    <div class="absolute inset-0 overflow-hidden">
-        <div class="absolute top-24 right-24 w-40 h-40 bg-red-100 transform rotate-45 opacity-20"></div>
-        <div class="absolute bottom-32 left-20 w-28 h-28 bg-orange-100 transform -rotate-12 opacity-25"></div>
-        <div class="absolute top-1/3 left-1/3 w-20 h-20 bg-red-200 transform rotate-45 opacity-15"></div>
-    </div>
+<div class="relative text-white">
+    <div class="fixed inset-0 hero-bg hero-bg-fixed"></div>
+    <div class="fixed inset-0 hero-overlay"></div>
     
     <div class="relative z-10 max-w-7xl mx-auto px-6 py-12">
         <!-- Header Section -->
         <div class="text-center mb-12">
-            <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 text-white mb-6 rounded-full shadow-lg">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="inline-flex items-center justify-center w-16 h-16 glass-surface-strong rounded-full shadow-lg mb-6">
+                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.414-4.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                 </svg>
             </div>
-            <h1 class="text-5xl font-bold text-neutral-900 mb-4 tracking-tight">
+            <h1 class="text-5xl font-julius tracking-wide mb-4">
                 Admin Dashboard
             </h1>
-            <p class="text-xl text-neutral-600 max-w-2xl mx-auto leading-relaxed mb-6">
+            <p class="text-xl text-white/85 max-w-2xl mx-auto leading-relaxed font-javanese mb-6">
                 Review and verify NGO project submissions with comprehensive oversight tools
             </p>
             
             <!-- Quick Action -->
             <div class="inline-flex items-center gap-4">
-                <a href="/blockchain/" class="btn-primary inline-flex items-center px-6 py-3 text-white font-semibold shadow-lg hover:shadow-glow">
+                <a href="/blockchain/" class="inline-flex items-center px-8 py-3.5 bg-white/90 text-neutral-900 font-jockey text-lg rounded-full shadow-lg hover:bg-white transition-all">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
                     </svg>
@@ -38,25 +34,25 @@
 
         <!-- Stats Cards -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            <div class="modern-card p-6 group hover:shadow-glow transition-all duration-300">
+            <div class="glass-surface rounded-2xl p-6 group hover:glass-surface-strong transition-all duration-300">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 text-white flex items-center justify-center rounded-full shadow-md">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="w-12 h-12 glass-surface-strong rounded-full flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                         </svg>
                     </div>
                     <div class="text-right">
-                        <div class="text-3xl font-bold text-neutral-900 group-hover:text-red-600 transition-colors">{{ stats.total }}</div>
-                        <div class="text-sm font-medium text-neutral-500 uppercase tracking-wide">Total Submissions</div>
+                        <div class="text-3xl font-light tracking-wide">{{ stats.total }}</div>
+                        <div class="text-sm font-javanese text-white/80">Total Submissions</div>
                     </div>
                 </div>
-                <div class="w-full h-1 bg-gradient-to-r from-red-400 to-red-600"></div>
+                <div class="w-full h-1 bg-gradient-to-r from-white/20 to-white/5 rounded-full"></div>
             </div>
 
-            <div class="modern-card p-6 group hover:shadow-glow transition-all duration-300">
+            <div class="glass-surface rounded-2xl p-6 group hover:glass-surface-strong transition-all duration-300">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="w-12 h-12 bg-gradient-to-br from-yellow-500 to-orange-500 text-white flex items-center justify-center rounded-full shadow-md">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="w-12 h-12 glass-surface-strong rounded-full flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
                     </div>

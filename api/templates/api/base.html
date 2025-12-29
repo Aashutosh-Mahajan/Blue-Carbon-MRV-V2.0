@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +7,7 @@
     <title>{% block title %}Blue Carbon MRV{% endblock %}</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Julius+Sans+One&family=Jockey+One&display=swap" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -13,7 +15,10 @@
                 extend: {
                     fontFamily: { 
                         inter: ['Inter','sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace']
+                        mono: ['JetBrains Mono', 'monospace'],
+                        julius: ['"Julius Sans One"', 'sans-serif'],
+                        jockey: ['"Jockey One"', 'sans-serif'],
+                        javanese: ['"Javanese Text"', 'serif']
                     },
                     colors: {
                         'primary': {
@@ -175,6 +180,85 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Shared hero image + glass surfaces (Home/About) */
+        .hero-bg {
+            background-image: url("/static/api/images/bg1.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .hero-bg-fixed {
+            background-attachment: fixed;
+        }
+
+        /* Auth pages background */
+        .auth-bg {
+            background-image: url("/static/api/images/bg2.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .auth-bg-fixed {
+            background-attachment: fixed;
+        }
+
+        @media (max-width: 768px) {
+            .hero-bg-fixed, .auth-bg-fixed {
+                background-attachment: scroll;
+            }
+        }
+
+        .hero-overlay {
+            background:
+                radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0) 40%),
+                radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 45%),
+                linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.55) 100%);
+        }
+
+        .glass-surface {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .glass-surface-strong {
+            background: rgba(255, 255, 255, 0.14);
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+        }
+
+        .nav-on-hero {
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            border-bottom: none;
+            box-shadow: none;
+        }
+
+        .nav-on-hero::before {
+            display: none;
+        }
+
+        .nav-on-hero .nav-link {
+            color: rgba(255, 255, 255, 0.9);
+            font-family: "Javanese Text", serif;
+        }
+
+        .nav-on-hero .nav-link:hover {
+            color: rgba(255, 255, 255, 1);
+        }
+
+        .nav-on-hero .brand-text {
+            color: rgba(255, 255, 255, 1);
+            background: none;
+            -webkit-text-fill-color: currentColor;
+            font-family: "Javanese Text", serif;
         }
         
         .card-hover {
@@ -465,7 +549,7 @@
 </head>
 <body class="font-inter bg-white geometric-bg relative min-h-screen page-enter">
     <!-- Header -->
-    <header class="modern-nav nav-shimmer sticky top-0 z-40">
+    <header class="{% block header_classes %}modern-nav nav-shimmer sticky top-0 z-40{% endblock %}">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="flex items-center justify-between h-16 overflow-visible">
                 <a href="{% url 'home' %}" class="flex items-center group">
@@ -481,7 +565,7 @@
                             </div>
                         </div>
                     </div>
-                    <span class="ml-3 text-xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">Blue Carbon MRV</span>
+                    <span class="ml-3 text-xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent brand-text">BlueQuant</span>
                 </a>
                 <nav class="hidden lg:block overflow-visible">
                     <div class="flex space-x-1">
