@@ -1,0 +1,91 @@
+{% extends 'api/base.html' %}
+{% block title %}Post Tender | Blue Carbon MRV{% endblock %}
+{% load form_extras math_extras %}
+{% block content %}
+<div class="max-w-3xl mx-auto px-6 py-10">
+  <div class="bg-white rounded-2xl shadow-lg p-8">
+    <h1 class="text-3xl font-bold mb-4">Post a Tender</h1>
+    <p class="text-sm text-neutral-600 mb-6">Describe the requirement clearly so contributors can assess fit and capacity.</p>
+
+    <form method="post" class="space-y-6">
+      {% csrf_token %}
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-semibold text-neutral-700 mb-2">Title</label>
+          {{ form.title|add_class:"w-full pl-3 pr-3 py-3 bg-neutral-50 border border-neutral-200 rounded-lg" }}
+          {% for e in form.title.errors %}<p class="text-red-600 text-xs mt-1">{{ e }}</p>{% endfor %}
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-neutral-700 mb-2">Location</label>
+          {{ form.location|add_class:"w-full pl-3 pr-3 py-3 bg-neutral-50 border border-neutral-200 rounded-lg" }}
+          {% for e in form.location.errors %}<p class="text-red-600 text-xs mt-1">{{ e }}</p>{% endfor %}
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
+        <div>
+          <label class="block text-xs font-semibold text-neutral-700 mb-2">Credits Required</label>
+          <div class="flex items-center gap-3">
+            {{ form.credits_required|add_class:"w-40 pl-3 pr-3 py-3 bg-neutral-50 border border-neutral-200 rounded-lg text-sm" }}
+            <span id="inr-total" class="text-sm text-neutral-500">credits • ₹{{ form.credits_required.value|default:0|mul:300 }}</span>
+          </div>
+          {% for e in form.credits_required.errors %}<p class="text-red-600 text-xs mt-1">{{ e }}</p>{% endfor %}
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-neutral-700 mb-2">&nbsp;</label>
+          <div class="text-sm text-neutral-500">Tip: specify number of credits the company wants to purchase for this requirement.</div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-semibold text-neutral-700 mb-2">Location Preference (optional)</label>
+          {{ form.location_preference|add_class:"w-full pl-3 pr-3 py-3 bg-neutral-50 border border-neutral-200 rounded-lg" }}
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-neutral-700 mb-2">Budget Range (optional)</label>
+          {{ form.budget_range|add_class:"w-full pl-3 pr-3 py-3 bg-neutral-50 border border-neutral-200 rounded-lg" }}
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-semibold text-neutral-700 mb-2">Deadline</label>
+          {{ form.deadline|add_class:"w-full pl-3 pr-3 py-3 bg-neutral-50 border border-neutral-200 rounded-lg" }}
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-neutral-700 mb-2">Description</label>
+        {{ form.description|add_class:"w-full pl-3 pr-3 py-3 bg-neutral-50 border border-neutral-200 rounded-lg h-40" }}
+        {% for e in form.description.errors %}<p class="text-red-600 text-xs mt-1">{{ e }}</p>{% endfor %}
+      </div>
+
+      <div class="flex justify-end">
+        <button type="submit" class="inline-flex items-center gap-3 bg-primary-600 hover:bg-primary-700 text-white font-semibold px-6 py-3 rounded-lg shadow"> 
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          Create Tender
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  const creditsInput = document.querySelector('input[name="credits_required"]');
+  const inrEl = document.getElementById('inr-total');
+  function fmt(n){ return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+  if(creditsInput && inrEl){
+    creditsInput.addEventListener('input', function(){
+      const v = parseInt(this.value||0, 10) || 0;
+      const total = v * 300;
+      inrEl.textContent = `credits • ₹${fmt(total)}`;
+    });
+  }
+});
+</script>
+{% endblock %}

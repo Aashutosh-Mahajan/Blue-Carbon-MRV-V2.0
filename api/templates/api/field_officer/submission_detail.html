@@ -1,0 +1,64 @@
+{% extends "api/base.html" %}
+{% block title %}Submission Detail | Field Officer{% endblock %}
+{% block content %}
+<div class="max-w-5xl mx-auto px-6 py-10">
+  <a href="{% url 'field_officer_submissions' %}" class="text-primary-600 hover:underline">← Back to History</a>
+  <h1 class="text-3xl font-bold mt-4">{{ submission.project.title }}</h1>
+  <p class="text-gray-600 mb-6">Surveyed on {{ submission.survey_date|date:'M d, Y' }} by {{ submission.created_by.get_full_name|default:submission.created_by.username }}</p>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="modern-card p-6">
+      <h2 class="text-xl font-semibold mb-4">Field Summary</h2>
+      <dl class="grid grid-cols-2 gap-3 text-sm">
+        <dt class="text-gray-500">Area (Ha)</dt><dd class="text-gray-900">{{ submission.hectare_area }}</dd>
+        <dt class="text-gray-500">Latitude</dt><dd class="text-gray-900">{{ submission.latitude }}</dd>
+        <dt class="text-gray-500">Longitude</dt><dd class="text-gray-900">{{ submission.longitude }}</dd>
+        <dt class="text-gray-500">Notes</dt><dd class="text-gray-900 col-span-1 md:col-span-1">{{ submission.notes|default:'—' }}</dd>
+      </dl>
+    </div>
+    <div class="modern-card p-6">
+      <h2 class="text-xl font-semibold mb-4">Species Data</h2>
+      {% if submission.species_data %}
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-gray-200 text-left">
+              <th class="py-2 px-3">Name</th>
+              <th class="py-2 px-3">Count</th>
+              <th class="py-2 px-3">Health</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for sp in submission.species_data %}
+            <tr class="border-b border-gray-100">
+              <td class="py-2 px-3">{{ sp.name|default:sp.name|default:sp["name"] }}</td>
+              <td class="py-2 px-3">{{ sp.count|default:sp["count"] }}</td>
+              <td class="py-2 px-3">{{ sp.health|default:sp["health"] }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <p class="text-gray-500">No species records.</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="modern-card p-6 mt-6">
+    <h2 class="text-xl font-semibold mb-4">Images</h2>
+    {% if images %}
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      {% for img in images %}
+      <a href="{{ img.image.url }}" target="_blank" class="block group">
+        <img src="{{ img.image.url }}" alt="Field image" class="rounded shadow-sm aspect-square object-cover group-hover:opacity-90" />
+      </a>
+      {% endfor %}
+    </div>
+    {% else %}
+    <p class="text-gray-500">No images attached.</p>
+    {% endif %}
+  </div>
+
+</div>
+{% endblock %}

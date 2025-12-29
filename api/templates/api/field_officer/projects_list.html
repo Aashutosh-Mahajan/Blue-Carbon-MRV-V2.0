@@ -1,0 +1,38 @@
+{% extends "api/base.html" %}
+{% block title %}Projects | Field Officer{% endblock %}
+{% block content %}
+<div class="max-w-7xl mx-auto px-6 py-10">
+  <div class="flex items-center justify-between mb-6">
+    <h1 class="text-3xl font-bold text-neutral-900">Projects Needing Field Data</h1>
+    <a href="{% url 'field_officer_dashboard' %}" class="text-primary-600 hover:underline">Back to Dashboard</a>
+  </div>
+  <div class="modern-card p-6">
+    <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+      {% for proj in projects %}
+      <div class="border border-neutral-200 bg-white p-5 rounded-lg">
+        <div class="flex items-start justify-between mb-3">
+          <div class="pr-3">
+            <div class="font-semibold text-neutral-900">{{ proj.title }}</div>
+            <div class="text-sm text-neutral-500">{{ proj.location }}</div>
+          </div>
+          <div class="w-8 h-8 text-neutral-600 bg-neutral-100 rounded-full flex items-center justify-center text-xs font-bold">#{{ proj.id }}</div>
+        </div>
+        <div class="grid grid-cols-2 gap-3 text-xs mb-4">
+          <div class="bg-primary-50 border border-primary-200 px-3 py-2">
+            <div class="font-medium text-primary-700">Species</div>
+            <div class="text-primary-600 truncate">{{ proj.species }}</div>
+          </div>
+          <div class="bg-accent-50 border border-accent-200 px-3 py-2">
+            <div class="font-medium text-accent-700">Area</div>
+            <div class="text-accent-600">{{ proj.area }} ha</div>
+          </div>
+        </div>
+        <a href="{% url 'field_officer_dashboard' %}?project_id={{ proj.id }}" class="btn-primary w-full py-2 text-sm inline-flex items-center justify-center">Submit Field Data</a>
+      </div>
+      {% empty %}
+      <div class="col-span-full text-center py-8 text-neutral-500">No projects pending field data.</div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

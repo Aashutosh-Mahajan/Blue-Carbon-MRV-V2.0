@@ -1,0 +1,189 @@
+<div class="min-h-screen bg-gradient-to-br from-sky-50 via-blue-50 to-cyan-100 relative overflow-hidden flex items-center justify-center">
+    <!-- Enhanced Geometric Background Elements -->
+    <div class="absolute inset-0 overflow-hidden">
+        <!-- Animated floating elements -->
+        <div class="absolute top-20 right-20 w-72 h-72 bg-gradient-to-br from-blue-200/30 to-cyan-300/20 rounded-full opacity-60 animate-pulse"></div>
+        <div class="absolute bottom-20 left-20 w-56 h-56 bg-gradient-to-br from-sky-200/40 to-blue-300/30 rounded-full opacity-50 animate-bounce" style="animation-duration: 3s;"></div>
+        <div class="absolute top-1/2 left-1/4 w-40 h-40 bg-gradient-to-br from-cyan-200/25 to-sky-300/20 rounded-full opacity-40 animate-pulse" style="animation-delay: 1s;"></div>
+        <div class="absolute bottom-1/3 right-1/3 w-32 h-32 bg-gradient-to-br from-blue-300/30 to-cyan-200/25 rounded-full opacity-45 animate-bounce" style="animation-duration: 2.5s; animation-delay: 0.5s;"></div>
+        
+        <!-- Additional decorative elements -->
+        <div class="absolute top-10 left-10 w-20 h-20 bg-gradient-to-br from-sky-300/20 to-blue-400/15 rounded-full opacity-30 animate-pulse" style="animation-delay: 2s;"></div>
+        <div class="absolute bottom-10 right-10 w-28 h-28 bg-gradient-to-br from-cyan-300/25 to-sky-400/20 rounded-full opacity-35 animate-bounce" style="animation-duration: 4s;"></div>
+        
+        <!-- Grid pattern overlay -->
+        <div class="absolute inset-0 bg-grid-pattern opacity-5"></div>
+    </div>
+
+    <div class="relative z-10 w-full max-w-md mx-auto px-6 pt-16">
+        <!-- Enhanced Login Form Card -->
+        <div class="relative bg-white/90 backdrop-blur-xl p-10 shadow-2xl border border-white/50 rounded-2xl transform hover:scale-[1.02] transition-all duration-300">
+            <!-- Card glow effect -->
+            <div class="absolute -inset-0.5 bg-gradient-to-r from-sky-500 to-cyan-500 rounded-2xl blur opacity-20"></div>
+            <div class="relative">
+                <!-- Role-specific header with icons - All using blue theme -->
+                <div class="text-center mb-8">
+                    {% if role == 'contributor' %}
+                        <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full mb-6 shadow-xl">
+                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                            </svg>
+                        </div>
+                        <h2 class="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent mb-3">Sign in as Contributor</h2>
+                    {% elif role == 'corporate' %}
+                        <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full mb-6 shadow-xl">
+                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                            </svg>
+                        </div>
+                        <h2 class="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent mb-3">Sign in as Corporate</h2>
+                    {% elif role == 'admin' %}
+                        <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full mb-6 shadow-xl">
+                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                        </div>
+                        <h2 class="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent mb-3">Sign in as Admin</h2>
+                    {% elif role == 'field_officer' %}
+                        <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full mb-6 shadow-xl">
+                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                        </div>
+                        <h2 class="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent mb-3">Sign in as Field Officer</h2>
+                    {% elif role == 'isro_admin' %}
+                        <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full mb-6 shadow-xl">
+                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                        <h2 class="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent mb-3">Sign in as ISRO Admin</h2>
+                    {% else %}
+                        <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full mb-6 shadow-xl">
+                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zM4 20v-1a8 8 0 0116 0v1"/>
+                            </svg>
+                        </div>
+                        <h2 class="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent mb-3">Welcome Back</h2>
+                    {% endif %}
+                    <p class="text-slate-500 font-medium">Access your secure dashboard</p>
+                </div>
+
+            <form method="POST" action="{% url 'login' %}" class="space-y-6">
+                {% csrf_token %}
+                {% if role %}
+                <input type="hidden" name="role" value="{{ role }}" />
+                {% endif %}
+                
+                <!-- Enhanced Email Field -->
+                <div class="group">
+                    <label class="block text-sm font-semibold text-slate-700 mb-3">Email Address</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <svg class="w-5 h-5 text-slate-400 group-focus-within:text-blue-500 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                        <input name="email" type="email" required 
+                               placeholder="{% if role == 'contributor' %}contributor@example.com{% elif role == 'corporate' %}corporate@example.com{% elif role == 'admin' %}admin@example.com{% elif role == 'field_officer' %}fieldofficer@example.com{% elif role == 'isro_admin' %}isro@example.com{% else %}you@example.com{% endif %}" 
+                               class="w-full pl-12 pr-4 py-4 bg-slate-50/80 border-2 border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-300 hover:border-slate-300" />
+                    </div>
+                </div>
+
+                <!-- Enhanced Password Field -->
+                <div class="group">
+                    <label class="block text-sm font-semibold text-slate-700 mb-3">Password</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <svg class="w-5 h-5 text-slate-400 group-focus-within:text-blue-500 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                            </svg>
+                        </div>
+                        <input name="password" type="password" required 
+                               placeholder="••••••••••" 
+                               class="w-full pl-12 pr-4 py-4 bg-slate-50/80 border-2 border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-300 hover:border-slate-300" />
+                    </div>
+                </div>
+
+                <!-- Enhanced Submit Button -->
+                <div class="pt-2">
+                    <button type="submit" class="relative w-full group overflow-hidden bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:from-blue-600 hover:via-blue-700 hover:to-blue-800 text-white font-bold py-4 px-6 rounded-xl shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-500/50" id="signin-btn">
+                        <div class="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out"></div>
+                        <span class="relative inline-flex items-center justify-center">
+                            <span class="mr-3 text-lg">Sign in</span>
+                            <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                            </svg>
+                        </span>
+                    </button>
+                </div>
+
+                <!-- Registration Links -->
+                <div class="grid grid-cols-2 gap-3 mt-6">
+                    {% if role != 'admin' %}
+                        {% if role == 'contributor' or not role %}
+                        <a href="{% url 'register_ngo' %}" class="inline-flex items-center justify-center py-2 px-3 border border-neutral-300 text-neutral-700 font-medium hover:bg-neutral-50 transition-colors">
+                            Register as Contributor
+                        </a>
+                        {% endif %}
+                        {% if role == 'corporate' or not role %}
+                        <a href="{% url 'register_corporate' %}" class="inline-flex items-center justify-center py-2 px-3 border border-neutral-300 text-neutral-700 font-medium hover:bg-neutral-50 transition-colors">
+                            Register as Corporate
+                        </a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </form>
+
+            <!-- Enhanced Security Notice -->
+            <div class="mt-8 flex items-center justify-center space-x-2 text-sm text-slate-500">
+                <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                </svg>
+                <span class="font-medium">Secure login powered by advanced encryption</span>
+            </div>
+            </div>
+        </div>
+
+        <!-- Enhanced Footer -->
+        <div class="text-center mt-8 space-y-2">
+            <div class="flex items-center justify-center space-x-4 text-sm text-slate-400">
+                <span class="inline-flex items-center space-x-1">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span>SSL Protected</span>
+                </span>
+                <span class="inline-flex items-center space-x-1">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                    </svg>
+                    <span>Data Encrypted</span>
+                </span>
+            </div>
+            <p class="text-xs text-slate-400">© 2025 Blue Carbon MRV. All rights reserved.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+    const form = document.querySelector('form');
+    const btn = document.getElementById('signin-btn');
+    
+    if(form && btn){
+        form.addEventListener('submit', function(){
+            btn.disabled = true;
+            btn.innerHTML = `
+                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+                </svg>
+                Signing in...
+            `;
+        });
+    }
+});
+</script>

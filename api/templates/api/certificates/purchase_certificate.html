@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Carbon Credit Certificate</title>
+  <style>
+    @page { size: A4; margin: 20mm; }
+    body { font-family: Georgia, 'Times New Roman', serif; color: #1F2937; }
+    .center { text-align: center; }
+    .title { font-size: 42px; letter-spacing: 1px; margin: 10mm 0 6mm; }
+    .subtitle { font-size: 16px; color: #4B5563; }
+    .bold { font-weight: 700; }
+    .rule { height: 2px; background: #334155; margin: 10mm auto; width: 70%; }
+    .section { margin: 6mm 0; }
+    .label { color: #4B5563; font-size: 16px; }
+    .value { font-size: 26px; }
+    .quote { font-size: 12px; color: #6B7280; margin-top: 12mm; letter-spacing: 0.5px; }
+    .footer { margin-top: 12mm; font-size: 14px; color: #334155; }
+  </style>
+  {% load static %}
+</head>
+<body>
+  <div class="center">
+    <div class="title">Carbon Credit Certificate</div>
+    <div class="subtitle">
+      This certificate confirms that <span class="bold">{{ credits }} carbon credits</span>
+      equivalent to <span class="bold">{{ co2e }} metric tonnes of COe</span>
+      have been purchased by
+    </div>
+
+    <div class="section value bold">{{ company_name }}</div>
+    <div class="rule"></div>
+
+    <div class="section">
+      <span class="label">From</span>
+      <div class="value">{{ ngo_name }}</div>
+    </div>
+
+    <div class="section">
+      <span class="label">On Behalf of</span>
+      <div class="value">{{ beneficiary_name }}</div>
+    </div>
+
+    <div class="rule"></div>
+
+    {% if seal_url %}
+    <div class="section">
+      <img src="{{ seal_url }}" alt="Seal" width="56" height="56" />
+    </div>
+    {% endif %}
+
+    <div class="footer">
+      Purchased through <span class="bold">Blue Carbon</span><br/>
+      Date of Issue: {{ issue_date }}<br/>
+      Certificate ID: {{ certificate_id }}
+    </div>
+
+    <div class="quote">“WHAT WE RECORD IN NUMBERS, THE FOREST REMEMBERS IN ROOTS AND RIVERS.”</div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,547 @@
+{% extends "api/base.html" %}
+{% block title %}ISRO Admin Dashboard | Blue Carbon MRV{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-neutral-50 to-primary-50 relative">
+    <!-- Geometric Background Elements -->
+    <div class="absolute inset-0 overflow-hidden">
+        <div class="absolute top-20 right-20 w-32 h-32 bg-primary-100 rounded-full opacity-20"></div>
+        <div class="absolute bottom-40 left-16 w-24 h-24 bg-accent-100 rounded-full opacity-30"></div>
+        <div class="absolute top-1/2 left-1/4 w-16 h-16 bg-primary-200 rounded-full opacity-15"></div>
+    </div>
+    
+    <div class="relative z-10 max-w-7xl mx-auto px-6 py-12">
+        <!-- Header Section -->
+        <div class="text-center mb-12">
+            <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 text-white mb-6 rounded-full shadow-lg">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+            </div>
+            <h1 class="text-5xl font-bold text-neutral-900 mb-4 tracking-tight">
+                ISRO Admin Dashboard
+            </h1>
+            <p class="text-xl text-neutral-600 max-w-2xl mx-auto leading-relaxed">
+                Upload satellite imagery, analyze project data, and approve or reject mangrove restoration projects based on scientific verification.
+            </p>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            <div class="modern-card p-6 group hover:shadow-glow transition-all duration-300">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 text-white flex items-center justify-center rounded-full shadow-md">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                        </svg>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-3xl font-bold text-neutral-900 group-hover:text-blue-600 transition-colors">{{ isro_stats.pending_projects }}</div>
+                        <div class="text-sm font-medium text-neutral-500 uppercase tracking-wide">Pending Review</div>
+                    </div>
+                </div>
+                <div class="w-full h-1 bg-gradient-to-r from-blue-400 to-blue-600"></div>
+            </div>
+
+            <div class="modern-card p-6 group hover:shadow-glow transition-all duration-300">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 text-white flex items-center justify-center rounded-full shadow-md">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-3xl font-bold text-neutral-900 group-hover:text-green-600 transition-colors">{{ isro_stats.approved_projects }}</div>
+                        <div class="text-sm font-medium text-neutral-500 uppercase tracking-wide">Approved Projects</div>
+                    </div>
+                </div>
+                <div class="w-full h-1 bg-gradient-to-r from-green-400 to-green-600"></div>
+            </div>
+
+            <div class="modern-card p-6 group hover:shadow-glow transition-all duration-300">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 text-white flex items-center justify-center rounded-full shadow-md">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-3xl font-bold text-neutral-900 group-hover:text-purple-600 transition-colors">{{ isro_stats.satellite_images }}</div>
+                        <div class="text-sm font-medium text-neutral-500 uppercase tracking-wide">Satellite Images</div>
+                    </div>
+                </div>
+                <div class="w-full h-1 bg-gradient-to-r from-purple-400 to-purple-600"></div>
+            </div>
+
+            <div class="modern-card p-6 group hover:shadow-glow transition-all duration-300">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 text-white flex items-center justify-center rounded-full shadow-md">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-3xl font-bold text-neutral-900 group-hover:text-red-600 transition-colors">{{ isro_stats.rejected_projects }}</div>
+                        <div class="text-sm font-medium text-neutral-500 uppercase tracking-wide">Rejected Projects</div>
+                    </div>
+                </div>
+                <div class="w-full h-1 bg-gradient-to-r from-red-400 to-red-600"></div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-wrap gap-4 mb-12 justify-center">
+            <button onclick="openSatelliteUploadModal()" class="btn-primary inline-flex items-center px-6 py-3 text-white font-semibold shadow-lg hover:shadow-glow {% if pending_projects|length == 0 %}opacity-50 cursor-not-allowed{% endif %}" {% if pending_projects|length == 0 %}disabled aria-disabled="true"{% endif %}>
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                </svg>
+                Upload Satellite Images
+            </button>
+            <button onclick="viewPendingProjects()" class="btn-secondary inline-flex items-center px-6 py-3 font-semibold shadow-lg hover:shadow-glow">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                Review Pending Projects
+            </button>
+            <button onclick="viewAnalyticsReport()" class="btn-secondary inline-flex items-center px-6 py-3 font-semibold shadow-lg hover:shadow-glow">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                </svg>
+                Analytics Report
+            </button>
+        </div>
+
+        <!-- Pending Projects (need satellite data) -->
+        <div class="modern-card p-8 mb-8">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-bold text-neutral-900">Projects Needing Satellite Data</h2>
+                <span class="text-sm text-neutral-500">{{ pending_projects|length }} pending</span>
+            </div>
+            <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+                {% for proj in pending_projects %}
+                <div class="border border-neutral-200 bg-white p-5 rounded-lg">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="pr-3">
+                            <div class="font-semibold text-neutral-900">{{ proj.title }}</div>
+                            <div class="text-sm text-neutral-500">{{ proj.location }}</div>
+                        </div>
+                        <div class="w-8 h-8 text-neutral-600 bg-neutral-100 rounded-full flex items-center justify-center text-xs font-bold">#{{ proj.id }}</div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3 text-xs mb-4">
+                        <div class="bg-primary-50 border border-primary-200 px-3 py-2">
+                            <div class="font-medium text-primary-700">Species</div>
+                            <div class="text-primary-600 truncate">{{ proj.species }}</div>
+                        </div>
+                        <div class="bg-accent-50 border border-accent-200 px-3 py-2">
+                            <div class="font-medium text-accent-700">Area</div>
+                            <div class="text-accent-600">{{ proj.area }} ha</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Status indicator -->
+                    <div class="mb-3 text-xs">
+                        <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium
+                            {% if proj.status == 'approved' %}bg-green-100 text-green-800
+                            {% elif proj.status == 'rejected' %}bg-red-100 text-red-800
+                            {% elif proj.isro_verified_at %}bg-blue-100 text-blue-800
+                            {% else %}bg-yellow-100 text-yellow-800{% endif %}">
+                            {% if proj.status == 'approved' %}✓ Approved
+                            {% elif proj.status == 'rejected' %}✗ Rejected  
+                            {% elif proj.isro_verified_at %}🛰️ Satellite Data Uploaded
+                            {% else %}⏳ Pending Satellite Data{% endif %}
+                        </span>
+                    </div>
+                    
+                    <!-- Conditional button - only show if no satellite data yet and not approved/rejected -->
+                    {% if not proj.isro_verified_at and proj.status != 'approved' and proj.status != 'rejected' %}
+                        <button class="btn-primary w-full py-2 text-sm" onclick="openSatelliteFor('{{ proj.id }}')">Upload Satellite Data</button>
+                    {% else %}
+                        <button class="bg-gray-300 text-gray-500 w-full py-2 text-sm cursor-not-allowed" disabled>
+                            {% if proj.isro_verified_at %}Data Already Uploaded{% else %}Project Finalized{% endif %}
+                        </button>
+                    {% endif %}
+                </div>
+                {% empty %}
+                <div class="col-span-full text-center py-8 text-neutral-500">No projects pending satellite data.</div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Satellite Upload Modal -->
+        <div id="satelliteUploadModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+            <div class="flex items-center justify-center min-h-screen p-4">
+                <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto relative">
+                    <div class="p-6 border-b border-gray-200">
+                        <h3 class="text-lg font-semibold text-gray-900">Upload Satellite Images</h3>
+                        <button onclick="closeSatelliteUploadModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <form id="satelliteUploadForm" class="p-6 space-y-6" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <!-- Project Selection -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Select Project</label>
+                            <select name="project_id" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500">
+                                <option value="">Choose a project...</option>
+                                {% for project in pending_projects %}
+                                <option value="{{ project.id }}">{{ project.title }} - {{ project.location }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- Image Type and Date -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Image Type</label>
+                                <select name="image_type" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500">
+                                    <option value="">Select image type...</option>
+                                    <option value="pre_project">Pre-Project (Baseline)</option>
+                                    <option value="during_project">During Project</option>
+                                    <option value="post_project">Post-Project</option>
+                                    <option value="monitoring">Monitoring</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Capture Date</label>
+                                <input type="date" name="capture_date" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500">
+                            </div>
+                        </div>
+
+                        <!-- Satellite Information -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Satellite Name</label>
+                                <select name="satellite_name" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500">
+                                    <option value="">Select satellite...</option>
+                                    <option value="cartosat">Cartosat-2</option>
+                                    <option value="resourcesat">ResourceSat-2</option>
+                                    <option value="risat">RISAT-1</option>
+                                    <option value="hypersat">HysIS</option>
+                                    <option value="landsat">Landsat-8</option>
+                                    <option value="sentinel">Sentinel-2</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Resolution (m)</label>
+                                <input type="number" name="resolution" step="0.1" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500" placeholder="0.0">
+                            </div>
+                        </div>
+
+                        <!-- Coverage Area -->
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">North Bound (°)</label>
+                                <input type="number" name="north_bound" step="0.000001" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">South Bound (°)</label>
+                                <input type="number" name="south_bound" step="0.000001" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">East Bound (°)</label>
+                                <input type="number" name="east_bound" step="0.000001" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">West Bound (°)</label>
+                                <input type="number" name="west_bound" step="0.000001" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500">
+                            </div>
+                        </div>
+
+                        <!-- Satellite Images Upload -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Satellite Images</label>
+                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                                <input type="file" name="satellite_images" multiple accept="image/*,.tif,.tiff" class="hidden" id="satelliteImages">
+                                <label for="satelliteImages" class="cursor-pointer">
+                                    <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                                        <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <p class="mt-2 text-sm text-gray-600">Click to upload satellite images</p>
+                                    <p class="text-xs text-gray-500">TIF, TIFF, PNG, JPG up to 100MB each</p>
+                                </label>
+                            </div>
+                            <div id="selectedSatelliteImages" class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+                        </div>
+
+                        <!-- Analysis Notes -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Analysis Notes</label>
+                            <textarea name="analysis_notes" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500" placeholder="Technical analysis, vegetation indices, change detection notes..."></textarea>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="flex justify-end space-x-4">
+                            <button type="button" onclick="closeSatelliteUploadModal()" class="px-4 py-2 text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300">
+                                Cancel
+                            </button>
+                            <button type="submit" class="px-6 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700">
+                                Upload Images
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Projects Pending Review -->
+        <div class="modern-card p-8 mb-8">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-bold text-neutral-900">Projects Pending Review</h2>
+                <button class="text-primary-600 hover:text-primary-800 font-medium">View All</button>
+            </div>
+            
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr class="border-b border-gray-200">
+                            <th class="text-left py-3 px-4 font-semibold text-gray-700">Project</th>
+                            <th class="text-left py-3 px-4 font-semibold text-gray-700">Submitted</th>
+                            <th class="text-left py-3 px-4 font-semibold text-gray-700">Area (Ha)</th>
+                            <th class="text-left py-3 px-4 font-semibold text-gray-700">Field Data</th>
+                            <th class="text-left py-3 px-4 font-semibold text-gray-700">Satellite</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for project in pending_projects %}
+                        <tr class="border-b border-gray-100 hover:bg-gray-50">
+                            <td class="py-3 px-4">
+                                <div class="font-medium text-gray-900">{{ project.title }}</div>
+                                <div class="text-sm text-gray-500">{{ project.location }}</div>
+                                <button onclick="showProjectModal('{{ project.id }}')" class="text-primary-600 hover:text-primary-800 text-xs font-medium mt-1">
+                                    View
+                                </button>
+                            </td>
+                            <td class="py-3 px-4 text-gray-700">{{ project.submission_date|date:"M d, Y" }}</td>
+                            <td class="py-3 px-4 text-gray-700">{{ project.area_hectares|default:"-" }}</td>
+                            <td class="py-3 px-4">
+                                <span class="px-2 py-1 text-xs font-semibold rounded-full
+                                    {% if project.has_field_data %}bg-green-100 text-green-800{% else %}bg-gray-100 text-gray-800{% endif %}">
+                                    {% if project.has_field_data %}Available{% else %}Pending{% endif %}
+                                </span>
+                            </td>
+                            <td class="py-3 px-4">
+                                <span class="px-2 py-1 text-xs font-semibold rounded-full
+                                    {% if project.has_satellite_data %}bg-green-100 text-green-800{% else %}bg-gray-100 text-gray-800{% endif %}">
+                                    {% if project.has_satellite_data %}Available{% else %}Pending{% endif %}
+                                </span>
+                            </td>
+                            
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" class="py-8 text-center text-gray-500">
+                                No projects pending review.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Recent Activities -->
+        <div class="modern-card p-8">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-bold text-neutral-900">Recent Activities</h2>
+                <button class="text-primary-600 hover:text-primary-800 font-medium">View All</button>
+            </div>
+            
+            <div class="space-y-4">
+                {% for activity in recent_activities %}
+                <div class="flex items-start space-x-4 p-4 bg-gray-50 rounded-lg">
+                    <div class="flex-shrink-0">
+                        <div class="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center">
+                            {% if activity.type == 'approval' %}
+                            <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            {% elif activity.type == 'rejection' %}
+                            <svg class="w-4 h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                            {% else %}
+                            <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                            </svg>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-sm font-medium text-gray-900">{{ activity.description }}</p>
+                        <p class="text-xs text-gray-500">{{ activity.timestamp|timesince }} ago</p>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-center text-gray-500 py-8">No recent activities.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function openSatelliteUploadModal() {
+    // Guard: ensure there is at least one eligible project option
+    const sel = document.querySelector('#satelliteUploadForm select[name="project_id"]');
+    if (!sel || sel.options.length <= 1) { // only placeholder present
+        alert('No pending projects available for satellite upload.');
+        return;
+    }
+    document.getElementById('satelliteUploadModal').classList.remove('hidden');
+    // Set default date to today
+    document.querySelector('input[name="capture_date"]').value = new Date().toISOString().split('T')[0];
+}
+
+function closeSatelliteUploadModal() {
+    document.getElementById('satelliteUploadModal').classList.add('hidden');
+    document.getElementById('satelliteUploadForm').reset();
+}
+
+// Handle satellite image preview
+document.getElementById('satelliteImages').addEventListener('change', function(e) {
+    const container = document.getElementById('selectedSatelliteImages');
+    container.innerHTML = '';
+    
+    Array.from(e.target.files).forEach((file, index) => {
+        const div = document.createElement('div');
+        div.className = 'relative border rounded-lg p-4';
+        
+        const fileName = file.name;
+        const fileSize = (file.size / (1024 * 1024)).toFixed(2); // Convert to MB
+        
+        div.innerHTML = `
+            <div class="flex items-center space-x-3">
+                <svg class="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                </svg>
+                <div class="flex-1">
+                    <p class="text-sm font-medium text-gray-900">${fileName}</p>
+                    <p class="text-xs text-gray-500">${fileSize} MB</p>
+                </div>
+                <button type="button" onclick="removeSatelliteImage(this, ${index})" class="text-red-500 hover:text-red-700">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+        `;
+        container.appendChild(div);
+    });
+});
+
+function removeSatelliteImage(button, index) {
+    button.closest('.relative').remove();
+}
+
+// Handle satellite upload form submission
+document.getElementById('satelliteUploadForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    
+    fetch('/api/upload-satellite-images/', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Satellite images uploaded successfully!');
+            closeSatelliteUploadModal();
+            location.reload();
+        } else {
+            alert('Error: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while uploading the images.');
+    });
+});
+
+function viewPendingProjects() {
+    window.location.href = '/isro/pending-projects/';
+}
+
+function viewAnalyticsReport() {
+    window.location.href = '/isro/analytics/';
+}
+
+function reviewProject(projectId) {
+    // Using admin panel review route defined as 'panel/review-project/<int:project_id>/'
+    window.location.href = `/panel/review-project/${projectId}/`;
+}
+
+function approveProject(projectId) {
+    if (confirm('Are you sure you want to approve this project?')) {
+    // Approve via API route 'api/approve-project/<int:project_id>/'
+    fetch(`/api/approve-project/${projectId}/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Project approved successfully!');
+                location.reload();
+            } else {
+                alert('Error: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while approving the project.');
+        });
+    }
+}
+
+function rejectProject(projectId) {
+    const reason = prompt('Please provide a reason for rejection:');
+    if (reason) {
+    // Reject via API route 'api/reject-project/<int:project_id>/'
+    fetch(`/api/reject-project/${projectId}/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ reason: reason })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Project rejected successfully!');
+                location.reload();
+            } else {
+                alert('Error: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while rejecting the project.');
+        });
+    }
+}
+</script>
+
+<script>
+function openSatelliteFor(projectId){
+    openSatelliteUploadModal();
+    const sel = document.querySelector('#satelliteUploadForm select[name="project_id"]');
+    if(sel){ sel.value = String(projectId); }
+}
+</script>
+{% endblock %}

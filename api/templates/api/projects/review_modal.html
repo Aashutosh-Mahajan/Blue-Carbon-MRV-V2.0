@@ -1,0 +1,249 @@
+<section class="modern-card backdrop-blur border border-gray-200 p-8 animate-slideUp" style="animation-delay:.2s;">
+	<!-- Header with geometric decoration -->
+	<div class="flex items-center justify-between mb-8">
+		<div class="flex items-center gap-3">
+			<div class="w-8 h-8 bg-gradient-to-br from-sky-600 to-sky-700 rounded-full flex items-center justify-center shadow-md">
+				<div class="w-3 h-3 bg-white rounded-full"></div>
+			</div>
+			<h2 class="text-2xl font-semibold text-gray-900">Pending Reviews</h2>
+		</div>
+		<div class="relative">
+			<div class="w-6 h-6 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full absolute -top-1 -right-1 shadow-sm"></div>
+			<span class="relative bg-gray-100 px-4 py-2 text-sm font-mono text-gray-800 border border-gray-300">
+				{{ pending|length }} Projects
+			</span>
+		</div>
+	</div>
+
+	{% if pending %}
+		<div class="space-y-4">
+			{% for pr in pending %}
+			<div class="group relative bg-white border border-gray-200 p-6 transition-all hover:shadow-glow">
+				<!-- Project header with geometric accent -->
+				<div class="flex items-center justify-between mb-4">
+					<div class="flex items-center gap-3">
+						<div class="w-3 h-3 bg-gradient-to-br from-sky-600 to-sky-700 rounded-full shadow-sm"></div>
+						<h3 class="font-semibold text-gray-900">{% firstof pr.title pr.name %}</h3>
+					</div>
+					<div class="relative">
+						<div class="w-4 h-4 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full absolute -top-1 -right-1 shadow-sm"></div>
+						<span class="relative bg-gray-100 px-3 py-1 text-xs font-mono text-gray-700 border border-gray-300">
+							#{{ pr.id }}
+						</span>
+					</div>
+				</div>
+
+				<!-- Project metadata -->
+				<div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+					<div class="bg-gray-50 border border-gray-200 p-3">
+						<div class="text-xs font-medium text-gray-500 mb-1">Species</div>
+						<div class="text-sm font-semibold text-gray-900">{{ pr.species }}</div>
+					</div>
+					{% if pr.area %}
+					<div class="bg-gray-50 border border-gray-200 p-3">
+						<div class="text-xs font-medium text-gray-500 mb-1">Area</div>
+						<div class="text-sm font-semibold text-gray-900">{{ pr.area }} ha</div>
+					</div>
+					{% endif %}
+					{% if pr.latitude and pr.longitude %}
+					<div class="bg-gray-50 border border-gray-200 p-3">
+						<div class="text-xs font-medium text-gray-500 mb-1">Latitude</div>
+						<div class="text-sm font-mono text-gray-900">{{ pr.latitude }}</div>
+					</div>
+					<div class="bg-gray-50 border border-gray-200 p-3">
+						<div class="text-xs font-medium text-gray-500 mb-1">Longitude</div>
+						<div class="text-sm font-mono text-gray-900">{{ pr.longitude }}</div>
+					</div>
+					{% endif %}
+				</div>
+
+				<!-- Location info -->
+				<div class="mb-4">
+					<div class="text-xs font-medium text-gray-500 mb-1">Location</div>
+					<div class="text-sm text-gray-700">{{ pr.location }}</div>
+				</div>
+
+				<!-- Metrics grid -->
+				<div class="grid grid-cols-2 gap-4 mb-4">
+					<div class="relative bg-sky-50 border border-sky-200 p-4">
+						<div class="w-2 h-2 bg-gradient-to-br from-sky-600 to-sky-700 rounded-full absolute top-2 right-2 shadow-sm"></div>
+						<div class="text-xs font-medium text-sky-700 mb-1">Estimated Credits</div>
+						<div class="text-lg font-mono text-sky-900">{{ pr.preview_credits }}</div>
+					</div>
+					{% if pr.preview_details %}
+					<div class="relative bg-green-50 border border-green-200 p-4">
+						<div class="w-2 h-2 bg-gradient-to-br from-green-600 to-green-700 rounded-full absolute top-2 right-2 shadow-sm"></div>
+						<div class="text-xs font-medium text-green-700 mb-1">Biomass/ha</div>
+						<div class="text-lg font-mono text-green-900">{{ pr.preview_details.biomass_t_per_ha|floatformat:2 }} t</div>
+					</div>
+					{% endif %}
+				</div>
+
+				<!-- Additional details -->
+				{% if pr.preview_details %}
+				<div class="bg-gray-50 border border-gray-200 p-4 mb-4">
+					<div class="grid grid-cols-3 gap-4 text-sm">
+						<div>
+							<div class="text-xs font-medium text-gray-500 mb-1">Total Biomass</div>
+							<div class="font-mono text-gray-900">{{ pr.preview_details.biomass_total_t|floatformat:2 }} t</div>
+						</div>
+						<div>
+							<div class="text-xs font-medium text-gray-500 mb-1">Carbon</div>
+							<div class="font-mono text-gray-900">{{ pr.preview_details.carbon_t|floatformat:2 }} t</div>
+						</div>
+						<div>
+							<div class="text-xs font-medium text-gray-500 mb-1">CO₂ Equivalent</div>
+							<div class="font-mono text-gray-900">{{ pr.preview_details.co2e_t|floatformat:2 }} t</div>
+						</div>
+					</div>
+				</div>
+				{% endif %}
+
+				<!-- Actions: timestamp, thumbnail (if any) and approve/reject -->
+				<div class="mb-4 flex items-start gap-4">
+					{% if pr.document %}
+					<div class="w-24 h-16 bg-neutral-50 rounded-md overflow-hidden border border-gray-100 flex items-center justify-center shadow-sm">
+						{% if pr.document.url|lower|slice:"-4:" == ".jpg" or pr.document.url|lower|slice:"-4:" == ".png" or pr.document.url|lower|slice:"-5:" == ".jpeg" %}
+							<img src="{{ pr.document.url }}" alt="doc" class="w-full h-full object-cover" />
+						{% else %}
+							<span class="text-xs text-neutral-500 px-2">Document</span>
+						{% endif %}
+					</div>
+					{% endif %}
+					<div class="flex-1">
+						<div class="flex items-center justify-between">
+							<div class="flex items-center gap-3">
+								<div class="text-sm text-neutral-600">Submitted</div>
+								<div class="text-sm font-mono text-neutral-800">{{ pr.submitted_at|date:"M d, Y H:i" }}</div>
+							</div>
+							<div class="text-sm text-neutral-500">by <span class="font-medium text-neutral-700">{{ pr.ngo.username }}</span></div>
+						</div>
+					</div>
+				</div>
+
+				<div class="flex items-center justify-between">
+					<div class="flex items-center gap-2 flex-wrap">
+						{% if not pr.has_field_data %}
+						<span class="inline-flex items-center gap-1 text-xs font-semibold px-2 py-1 rounded-full bg-yellow-100 text-yellow-800 ring-1 ring-yellow-300">Waiting on Field Officer</span>
+						{% endif %}
+						{% if not pr.has_satellite_data %}
+						<span class="inline-flex items-center gap-1 text-xs font-semibold px-2 py-1 rounded-full bg-yellow-100 text-yellow-800 ring-1 ring-yellow-300">Waiting on ISRO</span>
+						{% endif %}
+						{% if pr.has_field_data and pr.has_satellite_data %}
+						<span class="inline-flex items-center gap-1 text-xs font-semibold px-2 py-1 rounded-full bg-green-100 text-green-800 ring-1 ring-green-300">Data complete</span>
+						{% endif %}
+					</div>
+					<div class="flex items-center gap-2">
+						{% if pr.latitude and pr.longitude %}
+						<button type="button" class="inline-flex items-center px-3 py-2 border border-sky-300 text-sky-700 bg-white rounded-md text-sm hover:bg-sky-50"
+							data-target="sat-map-{{ pr.id }}" data-lat="{{ pr.latitude|stringformat:'f' }}" data-lng="{{ pr.longitude|stringformat:'f' }}" onclick="handleSatelliteClick(event)">
+							<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7l9 6 9-6M3 17l9 6 9-6M3 12l9 6 9-6"/>
+							</svg>
+							Satellite Images
+						</button>
+						{% endif %}
+						<form method="post" action="{% url 'review_project' pr.id %}" onsubmit="return confirm('Approve this project and issue credits?');">
+							{% csrf_token %}
+							<input type="hidden" name="action" value="approve">
+							<button type="submit" {% if not pr.has_field_data or not pr.has_satellite_data %}disabled aria-disabled="true"{% endif %} class="inline-flex items-center px-4 py-2 bg-emerald-600 disabled:bg-emerald-300 disabled:cursor-not-allowed text-white rounded-md text-sm font-semibold shadow hover:bg-emerald-700 transition-colors">
+								Approve
+							</button>
+						</form>
+
+						<form method="post" action="{% url 'review_project' pr.id %}" onsubmit="return confirm('Reject this project?');">
+							{% csrf_token %}
+							<input type="hidden" name="action" value="reject">
+							<button type="submit" {% if not pr.has_field_data or not pr.has_satellite_data %}disabled aria-disabled="true"{% endif %} class="inline-flex items-center px-4 py-2 bg-red-600 disabled:bg-red-300 disabled:cursor-not-allowed text-white rounded-md text-sm font-semibold shadow hover:bg-red-700 transition-colors">
+								Reject
+							</button>
+						</form>
+
+						<button type="button" onclick="showProjectModal('{{ pr.id }}')" class="inline-flex items-center px-3 py-2 border border-neutral-200 text-neutral-700 bg-white rounded-md text-sm hover:shadow-sm">
+							<svg class="w-4 h-4 mr-2 text-neutral-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
+							</svg>
+							Details
+						</button>
+					</div>
+				</div>
+
+				{% if pr.latitude and pr.longitude %}
+				<div id="sat-map-{{ pr.id }}" class="hidden mt-3 h-64 w-full rounded-md overflow-hidden border border-neutral-200"></div>
+				{% endif %}
+
+				<!-- Hover decoration -->
+				<div class="absolute top-0 right-0 w-16 h-16 overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity">
+					<div class="w-8 h-8 bg-sky-200 rounded-full translate-x-4 -translate-y-4"></div>
+				</div>
+
+				<!-- Satellite map helpers -->
+				<script>
+				(function(){
+					function loadLeaflet(cb){
+						if (window.L) { cb && cb(); return; }
+						// CSS
+						if (!document.getElementById('leaflet-css')) {
+							var link = document.createElement('link');
+							link.id = 'leaflet-css';
+							link.rel = 'stylesheet';
+							link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+							document.head.appendChild(link);
+						}
+						// JS
+						var existing = document.getElementById('leaflet-js');
+						if (existing) { existing.addEventListener('load', function(){ cb && cb(); }); return; }
+						var s = document.createElement('script');
+						s.id = 'leaflet-js';
+						s.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+						s.onload = function(){ cb && cb(); };
+						document.body.appendChild(s);
+					}
+
+					function ensureMap(targetEl, lat, lng){
+						if (!targetEl._leaflet_map) {
+							var map = L.map(targetEl).setView([lat, lng], 15);
+							L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+								attribution: '&copy; Esri World Imagery'
+							}).addTo(map);
+							L.marker([lat, lng]).addTo(map);
+							targetEl._leaflet_map = map;
+							setTimeout(function(){ map.invalidateSize(); }, 100);
+						} else {
+							setTimeout(function(){ targetEl._leaflet_map.invalidateSize(); }, 50);
+						}
+					}
+
+					function toggleSatellite(targetId, lat, lng){
+						var el = document.getElementById(targetId);
+						if (!el) return;
+						var isHidden = el.classList.toggle('hidden');
+						if (!isHidden) {
+							loadLeaflet(function(){ ensureMap(el, lat, lng); });
+						}
+					}
+
+					window.handleSatelliteClick = function(ev){
+						var btn = ev.currentTarget;
+						var targetId = btn.getAttribute('data-target');
+						var lat = parseFloat(btn.getAttribute('data-lat'));
+						var lng = parseFloat(btn.getAttribute('data-lng'));
+						toggleSatellite(targetId, lat, lng);
+					};
+
+					// Expose if needed elsewhere
+					window.toggleSatellite = toggleSatellite;
+				})();
+				</script>
+			</div>
+			{% endfor %}
+		</div>
+	{% else %}
+		<div class="text-center py-12">
+			<div class="w-16 h-16 bg-gradient-to-br from-gray-200 to-gray-300 rounded-full mx-auto mb-4 flex items-center justify-center shadow-sm">
+				<div class="w-6 h-6 bg-gray-400 rounded-full"></div>
+			</div>
+			<p class="text-gray-500">No projects pending review</p>
+		</div>
+	{% endif %}
+</section>

@@ -1,0 +1,361 @@
+{% extends 'api/base.html' %}
+{% load form_extras %}
+{% block content %}
+<style>
+  /* Append red asterisk to all labels on this page */
+  .register-form label::after {
+    content: " *";
+    color: #dc2626; /* Tailwind red-600 */
+    font-weight: 700;
+  }
+  /* But do not add stars to buttons or spans we use as headings */
+  .register-form button label::after,
+  .register-form h1 label::after,
+  .register-form h2 label::after { content: none; }
+</style>
+<div class="max-w-3xl mx-auto card-bg backdrop-blur-sm rounded-2xl shadow-lg border p-8 animate-slideUp register-form">
+  <h1 class="text-2xl font-bold mb-6 text-slate-800">Contributor Registration (NGOs / Forest Dept / Project Owners / Individuals)</h1>
+  <form method="post" enctype="multipart/form-data" class="space-y-5">
+    {% csrf_token %}
+    {{ form.username }}
+    <div class="space-y-8">
+      <!-- Section: Account Verification -->
+      <section>
+        <h2 class="text-xl font-semibold text-slate-800 mb-4">Account Verification</h2>
+        <div class="space-y-5">
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wide text-slate-700 mb-2">Email Address</label>
+            <div class="flex gap-2">
+              <div class="flex-1">{{ form.email|add_class:"w-full pl-3 pr-3 py-3 bg-white border border-slate-300 rounded-lg|id=email" }}</div>
+              <button type="button" id="btn-send-email-otp" class="px-3 py-2 border rounded-lg text-blue-700 border-blue-300 hover:bg-blue-50">Send OTP</button>
+            </div>
+            <div class="mt-2 flex gap-2 items-center">
+              <div class="flex-1">{{ form.email_otp|add_class:"w-full pl-3 pr-3 py-3 bg-white border border-slate-300 rounded-lg|id=email_otp|placeholder=Enter Email OTP" }}</div>
+              <button type="button" id="btn-verify-email-otp" class="px-3 py-2 border rounded-lg text-green-700 border-green-300 hover:bg-green-50">Verify</button>
+              <span id="email-otp-status" class="text-xs text-slate-600"></span>
+            </div>
+            {% for e in form.email.errors %}<p class="text-red-700 text-xs mt-1">{{ e }}</p>{% endfor %}
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wide text-slate-700 mb-2">Contact Number</label>
+            <div class="flex gap-2">
+              <div class="flex-1">{{ form.contact_number|add_class:"w-full pl-3 pr-3 py-3 bg-white border border-slate-300 rounded-lg|id=phone" }}</div>
+              <button type="button" id="btn-send-phone-otp" class="px-3 py-2 border rounded-lg text-blue-700 border-blue-300 hover:bg-blue-50">Send OTP</button>
+            </div>
+            <div class="mt-2 flex gap-2 items-center">
+              <div class="flex-1">{{ form.phone_otp|add_class:"w-full pl-3 pr-3 py-3 bg-white border border-slate-300 rounded-lg|id=phone_otp|placeholder=Enter Phone OTP" }}</div>
+              <button type="button" id="btn-verify-phone-otp" class="px-3 py-2 border rounded-lg text-green-700 border-green-300 hover:bg-green-50">Verify</button>
+              <span id="phone-otp-status" class="text-xs text-slate-600"></span>
+            </div>
+            {% for e in form.contact_number.errors %}<p class="text-red-700 text-xs mt-1">{{ e }}</p>{% endfor %}
+          </div>
+        </div>
+      </section>
+
+      <!-- Section: Organization Details -->
+      <section>
+        <h2 class="text-xl font-semibold text-slate-800 mb-4">Organization Details</h2>
+        <div class="space-y-5">
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wide text-slate-700 mb-2">Password</label>
+            <div class="relative">
+              {{ form.password|add_class:"w-full pl-3 pr-10 py-3 bg-white border border-slate-300 rounded-lg|id=ngo_password" }}
+              <button type="button" id="toggle-ngo-password" class="absolute inset-y-0 right-2 my-auto text-slate-500 hover:text-slate-700">👁️</button>
+            </div>
+            {% for e in form.password.errors %}<p class="text-red-700 text-xs mt-1">{{ e }}</p>{% endfor %}
+          </div>
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wide text-slate-700 mb-2">Confirm Password</label>
+            <div class="relative">
+              {{ form.confirm_password|add_class:"w-full pl-3 pr-10 py-3 bg-white border border-slate-300 rounded-lg|id=ngo_confirm_password" }}
+              <button type="button" id="toggle-ngo-confirm" class="absolute inset-y-0 right-2 my-auto text-slate-500 hover:text-slate-700">👁️</button>
+            </div>
+            <p id="ngo-password-match" class="text-xs mt-1"></p>
+            {% for e in form.confirm_password.errors %}<p class="text-red-700 text-xs mt-1">{{ e }}</p>{% endfor %}
+          </div>
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wide text-slate-700 mb-2">Name/Organization Name</label>
+            {{ form.name|add_class:"w-full pl-3 pr-3 py-3 bg-white border border-slate-300 rounded-lg text-slate-800 placeholder-slate-400 focus:outline-none focus-ring-blue focus:border-blue-500" }}
+            {% for e in form.name.errors %}<p class="text-red-700 text-xs mt-1">{{ e }}</p>{% endfor %}
+          </div>
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wide text-slate-700 mb-2">Type of Carbon Project</label>
+            {{ form.project_type|add_class:"w-full pl-3 pr-3 py-3 bg-white border border-slate-300 rounded-lg" }}
+            {% for e in form.project_type.errors %}<p class="text-red-700 text-xs mt-1">{{ e }}</p>{% endfor %}
+          </div>
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wide text-slate-700 mb-2">Wallet Address</label>
+            {{ form.wallet_address|add_class:"w-full pl-3 pr-3 py-3 bg-white border border-slate-300 rounded-lg" }}
+            {% for e in form.wallet_address.errors %}<p class="text-red-700 text-xs mt-1">{{ e }}</p>{% endfor %}
+            {% if form.wallet_address.help_text %}<p class="text-[11px] text-slate-500 mt-1">{{ form.wallet_address.help_text }}</p>{% endif %}
+          </div>
+        </div>
+      </section>
+
+      <!-- Section: Address -->
+      <section>
+        <h2 class="text-xl font-semibold text-slate-800 mb-4">Address</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wide text-slate-700 mb-2">Pincode</label>
+            {{ form.pincode|add_class:"w-full pl-3 pr-3 py-3 bg-white border border-slate-300 rounded-lg|id=pincode|placeholder=Enter Pincode" }}
+            {% for e in form.pincode.errors %}<p class="text-red-700 text-xs mt-1">{{ e }}</p>{% endfor %}
+          </div>
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wide text-slate-700 mb-2">State</label>
+            <select name="state" id="state" class="w-full pl-3 pr-3 py-3 bg-white border border-slate-300 rounded-lg">
+              <option value="">Select State</option>
+              <option>Andhra Pradesh</option>
+              <option>Arunachal Pradesh</option>
+              <option>Assam</option>
+              <option>Bihar</option>
+              <option>Chhattisgarh</option>
+              <option>Goa</option>
+              <option>Gujarat</option>
+              <option>Haryana</option>
+              <option>Himachal Pradesh</option>
+              <option>Jharkhand</option>
+              <option>Karnataka</option>
+              <option>Kerala</option>
+              <option>Madhya Pradesh</option>
+              <option>Maharashtra</option>
+              <option>Manipur</option>
+              <option>Meghalaya</option>
+              <option>Mizoram</option>
+              <option>Nagaland</option>
+              <option>Odisha</option>
+              <option>Punjab</option>
+              <option>Rajasthan</option>
+              <option>Sikkim</option>
+              <option>Tamil Nadu</option>
+              <option>Telangana</option>
+              <option>Tripura</option>
+              <option>Uttar Pradesh</option>
+              <option>Uttarakhand</option>
+              <option>West Bengal</option>
+              <option>Andaman and Nicobar Islands</option>
+              <option>Chandigarh</option>
+              <option>Dadra and Nagar Haveli and Daman and Diu</option>
+              <option>Delhi</option>
+              <option>Jammu and Kashmir</option>
+              <option>Ladakh</option>
+              <option>Lakshadweep</option>
+              <option>Puducherry</option>
+            </select>
+            {% for e in form.state.errors %}<p class="text-red-700 text-xs mt-1">{{ e }}</p>{% endfor %}
+          </div>
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wide text-slate-700 mb-2">District</label>
+            {{ form.district|add_class:"w-full pl-3 pr-3 py-3 bg-white border border-slate-300 rounded-lg|id=district|placeholder=Enter District" }}
+            {% for e in form.district.errors %}<p class="text-red-700 text-xs mt-1">{{ e }}</p>{% endfor %}
+          </div>
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wide text-slate-700 mb-2">Taluka / Block</label>
+            {{ form.taluka|add_class:"w-full pl-3 pr-3 py-3 bg-white border border-slate-300 rounded-lg|id=taluka|placeholder=Enter Taluka / Block" }}
+            {% for e in form.taluka.errors %}<p class="text-red-700 text-xs mt-1">{{ e }}</p>{% endfor %}
+          </div>
+          <div class="md:col-span-2">
+            <label class="block text-xs font-semibold uppercase tracking-wide text-slate-700 mb-2">Address</label>
+            {{ form.address|add_class:"w-full pl-3 pr-3 py-3 bg-white border border-slate-300 rounded-lg" }}
+            {% for e in form.address.errors %}<p class="text-red-700 text-xs mt-1">{{ e }}</p>{% endfor %}
+          </div>
+        </div>
+      </section>
+
+      <!-- Section: Contact Person -->
+      <section>
+        <h2 class="text-xl font-semibold text-slate-800 mb-4">Contact Person</h2>
+        <div class="space-y-5">
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wide text-slate-700 mb-2">Contact Person Name</label>
+            {{ form.contact_person_name|add_class:"w-full pl-3 pr-3 py-3 bg-white border border-slate-300 rounded-lg" }}
+            {% for e in form.contact_person_name.errors %}<p class="text-red-700 text-xs mt-1">{{ e }}</p>{% endfor %}
+          </div>
+        </div>
+      </section>
+
+      <!-- Section: Identity & Compliance Documents -->
+      <section>
+        <h2 class="text-xl font-semibold text-slate-800 mb-4">Identity & Compliance Documents</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wide text-slate-700 mb-2">Aadhaar / PAN (Individuals)</label>
+            {{ form.aadhaar_pan_document|add_class:"w-full pl-3 pr-3 py-2 bg-white border border-slate-300 rounded-lg" }}
+            {% for e in form.aadhaar_pan_document.errors %}<p class="text-red-700 text-xs mt-1">{{ e }}</p>{% endfor %}
+          </div>
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wide text-slate-700 mb-2">GST / Registration Certificate (NGOs/Organizations)</label>
+            {{ form.gst_registration_certificate|add_class:"w-full pl-3 pr-3 py-2 bg-white border border-slate-300 rounded-lg" }}
+            {% for e in form.gst_registration_certificate.errors %}<p class="text-red-700 text-xs mt-1">{{ e }}</p>{% endfor %}
+          </div>
+          <div class="md:col-span-2">
+            <label class="block text-xs font-semibold uppercase tracking-wide text-slate-700 mb-2">Government-issued ID</label>
+            {{ form.government_id_document|add_class:"w-full pl-3 pr-3 py-2 bg-white border border-slate-300 rounded-lg" }}
+            {% for e in form.government_id_document.errors %}<p class="text-red-700 text-xs mt-1">{{ e }}</p>{% endfor %}
+          </div>
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wide text-slate-700 mb-2">Land ownership proof / MoU with govt body</label>
+            {{ form.land_ownership_proof|add_class:"w-full pl-3 pr-3 py-2 bg-white border border-slate-300 rounded-lg" }}
+            {% for e in form.land_ownership_proof.errors %}<p class="text-red-700 text-xs mt-1">{{ e }}</p>{% endfor %}
+          </div>
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wide text-slate-700 mb-2">Environmental clearance or Forest Dept certificate</label>
+            {{ form.environmental_clearance_certificate|add_class:"w-full pl-3 pr-3 py-2 bg-white border border-slate-300 rounded-lg" }}
+            {% for e in form.environmental_clearance_certificate.errors %}<p class="text-red-700 text-xs mt-1">{{ e }}</p>{% endfor %}
+          </div>
+        </div>
+      </section>
+
+      <!-- Section: Bank Details -->
+      <section>
+        <h2 class="text-xl font-semibold text-slate-800 mb-4">Bank Details</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wide text-slate-700 mb-2">Account Holder Name</label>
+            {{ form.bank_account_name|add_class:"w-full pl-3 pr-3 py-3 bg-white border border-slate-300 rounded-lg|placeholder=As per bank records" }}
+            {% for e in form.bank_account_name.errors %}<p class="text-red-700 text-xs mt-1">{{ e }}</p>{% endfor %}
+          </div>
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wide text-slate-700 mb-2">Account Number</label>
+            {{ form.bank_account_number|add_class:"w-full pl-3 pr-3 py-3 bg-white border border-slate-300 rounded-lg|placeholder=XXXXXXXXXXXX" }}
+            {% for e in form.bank_account_number.errors %}<p class="text-red-700 text-xs mt-1">{{ e }}</p>{% endfor %}
+          </div>
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wide text-slate-700 mb-2">IFSC Code</label>
+            {{ form.bank_ifsc|add_class:"w-full pl-3 pr-3 py-3 bg-white border border-slate-300 rounded-lg|placeholder=ABCD0123456|maxlength=11" }}
+            {% for e in form.bank_ifsc.errors %}<p class="text-red-700 text-xs mt-1">{{ e }}</p>{% endfor %}
+          </div>
+        </div>
+      </section>
+
+      <!-- Section: Agreements -->
+      <section>
+        <h2 class="text-xl font-semibold text-slate-800 mb-4">Agreements</h2>
+        <div class="space-y-3">
+          <label class="inline-flex items-center space-x-3">
+            {{ form.agreement }}
+            <span class="text-sm text-slate-700">I confirm that the information provided is accurate and our organization is legally registered.</span>
+          </label>
+          {% for e in form.agreement.errors %}<p class="text-red-700 text-xs mt-1">{{ e }}</p>{% endfor %}
+          <label class="inline-flex items-center space-x-3">
+            {{ form.accept_terms }}
+            <span class="text-sm text-slate-700">I accept the <a href="/terms/" class="text-blue-600 underline">Terms & Conditions</a> &amp; <a href="/privacy/" class="text-blue-600 underline">Privacy Policy</a></span>
+          </label>
+          {% for e in form.accept_terms.errors %}<p class="text-red-700 text-xs mt-1">{{ e }}</p>{% endfor %}
+        </div>
+      </section>
+    </div>
+  <button id="submit-btn" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold py-3 rounded-xl shadow hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-blue-500/30 disabled:opacity-50" disabled>Create Contributor Account</button>
+  </form>
+</div>
+<!-- Removed auto-fill: user selects Pincode, Taluka, District, State manually -->
+
+<script>
+// OTP handling for Email and Phone; enable submit only after both verified
+document.addEventListener('DOMContentLoaded', function(){
+  const emailEl = document.getElementById('email');
+  const emailOtpEl = document.getElementById('email_otp');
+  const phoneEl = document.getElementById('phone');
+  const phoneOtpEl = document.getElementById('phone_otp');
+  const emailSendBtn = document.getElementById('btn-send-email-otp');
+  const emailVerifyBtn = document.getElementById('btn-verify-email-otp');
+  const phoneSendBtn = document.getElementById('btn-send-phone-otp');
+  const phoneVerifyBtn = document.getElementById('btn-verify-phone-otp');
+  const emailStatus = document.getElementById('email-otp-status');
+  const phoneStatus = document.getElementById('phone-otp-status');
+  const submitBtn = document.getElementById('submit-btn');
+  const pwd = document.getElementById('ngo_password');
+  const cpwd = document.getElementById('ngo_confirm_password');
+  const pwdMsg = document.getElementById('ngo-password-match');
+
+  let emailVerified = false;
+  let phoneVerified = false;
+  let passwordMatch = false;
+
+  function updateSubmit(){
+    submitBtn.disabled = !(emailVerified && phoneVerified && passwordMatch);
+  }
+
+  function checkPasswords(){
+    const p = (pwd?.value || '');
+    const c = (cpwd?.value || '');
+    if(!c){
+      passwordMatch = false;
+      if(pwdMsg){ pwdMsg.textContent = ''; pwdMsg.className = 'text-xs mt-1'; }
+      return updateSubmit();
+    }
+    if(p && c && p === c){
+      passwordMatch = true;
+      if(pwdMsg){ pwdMsg.textContent = 'Passwords match'; pwdMsg.className = 'text-xs text-green-700 mt-1'; }
+    } else {
+      passwordMatch = false;
+      if(pwdMsg){ pwdMsg.textContent = 'Passwords do not match'; pwdMsg.className = 'text-xs text-red-600 mt-1'; }
+    }
+    updateSubmit();
+  }
+
+  pwd?.addEventListener('input', checkPasswords);
+  cpwd?.addEventListener('input', checkPasswords);
+
+  emailSendBtn?.addEventListener('click', async () => {
+    const email = (emailEl?.value || '').trim();
+    if(!email){ emailStatus.textContent = 'Enter email first'; emailStatus.className='text-xs text-red-600'; return; }
+    emailStatus.textContent = 'Sending...'; emailStatus.className='text-xs text-slate-600';
+    try{
+      const r = await fetch('{% url "send_email_otp" %}', {method:'POST', headers:{'X-CSRFToken': '{{ csrf_token }}'}, body: new URLSearchParams({email})});
+      const j = await r.json();
+      if(j.ok){ emailStatus.textContent = 'OTP sent to email'; emailStatus.className='text-xs text-green-700'; }
+      else { emailStatus.textContent = j.error || 'Failed to send OTP'; emailStatus.className='text-xs text-red-600'; }
+    }catch(e){ emailStatus.textContent = 'Network error'; emailStatus.className='text-xs text-red-600'; }
+  });
+
+  emailVerifyBtn?.addEventListener('click', async () => {
+    const email = (emailEl?.value || '').trim();
+    const code = (emailOtpEl?.value || '').trim();
+    if(!code){ emailStatus.textContent = 'Enter email OTP'; emailStatus.className='text-xs text-red-600'; return; }
+    try{
+      const r = await fetch('{% url "verify_email_otp" %}', {method:'POST', headers:{'X-CSRFToken': '{{ csrf_token }}'}, body: new URLSearchParams({email, code})});
+      const j = await r.json();
+      if(j.ok){ emailVerified = true; emailStatus.textContent = 'Email verified'; emailStatus.className='text-xs text-green-700'; updateSubmit(); }
+      else { emailVerified = false; emailStatus.textContent = j.error || 'Invalid code'; emailStatus.className='text-xs text-red-600'; updateSubmit(); }
+    }catch(e){ emailVerified = false; emailStatus.textContent = 'Network error'; emailStatus.className='text-xs text-red-600'; updateSubmit(); }
+  });
+
+  phoneSendBtn?.addEventListener('click', async () => {
+    const phone = (phoneEl?.value || '').trim();
+    if(!phone){ phoneStatus.textContent = 'Enter phone first'; phoneStatus.className='text-xs text-red-600'; return; }
+    phoneStatus.textContent = 'Sending...'; phoneStatus.className='text-xs text-slate-600';
+    try{
+      const r = await fetch('{% url "send_phone_otp" %}', {method:'POST', headers:{'X-CSRFToken': '{{ csrf_token }}'}, body: new URLSearchParams({phone})});
+      const j = await r.json();
+      if(j.ok){ phoneStatus.textContent = 'OTP sent to phone'; phoneStatus.className='text-xs text-green-700'; }
+      else { phoneStatus.textContent = j.error || 'Failed to send OTP'; phoneStatus.className='text-xs text-red-600'; }
+    }catch(e){ phoneStatus.textContent = 'Network error'; phoneStatus.className='text-xs text-red-600'; }
+  });
+
+  phoneVerifyBtn?.addEventListener('click', async () => {
+    const phone = (phoneEl?.value || '').trim();
+    const code = (phoneOtpEl?.value || '').trim();
+    if(!code){ phoneStatus.textContent = 'Enter phone OTP'; phoneStatus.className='text-xs text-red-600'; return; }
+    try{
+      const r = await fetch('{% url "verify_phone_otp" %}', {method:'POST', headers:{'X-CSRFToken': '{{ csrf_token }}'}, body: new URLSearchParams({phone, code})});
+      const j = await r.json();
+      if(j.ok){ phoneVerified = true; phoneStatus.textContent = 'Phone verified'; phoneStatus.className='text-xs text-green-700'; updateSubmit(); }
+      else { phoneVerified = false; phoneStatus.textContent = j.error || 'Invalid code'; phoneStatus.className='text-xs text-red-600'; updateSubmit(); }
+    }catch(e){ phoneVerified = false; phoneStatus.textContent = 'Network error'; phoneStatus.className='text-xs text-red-600'; updateSubmit(); }
+  });
+});
+
+// Show/hide password for NGO
+document.addEventListener('DOMContentLoaded', function(){
+  const pwd = document.getElementById('ngo_password');
+  const cpwd = document.getElementById('ngo_confirm_password');
+  const tp = document.getElementById('toggle-ngo-password');
+  const tc = document.getElementById('toggle-ngo-confirm');
+  function toggle(el){ if(!el) return; el.type = (el.type === 'password') ? 'text' : 'password'; }
+  tp?.addEventListener('click', ()=> toggle(pwd));
+  tc?.addEventListener('click', ()=> toggle(cpwd));
+});
+</script>
+{% endblock %}

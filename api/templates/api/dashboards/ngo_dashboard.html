@@ -1,0 +1,141 @@
+{% extends "api/base.html" %}
+{% block title %}Contributor Dashboard | Blue Carbon MRV{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-neutral-50 to-primary-50 relative">
+    <!-- Geometric Background Elements -->
+    <div class="absolute inset-0 overflow-hidden">
+        <div class="absolute top-20 right-20 w-32 h-32 bg-primary-100 rounded-full opacity-20"></div>
+        <div class="absolute bottom-40 left-16 w-24 h-24 bg-accent-100 rounded-full opacity-30"></div>
+        <div class="absolute top-1/2 left-1/4 w-16 h-16 bg-primary-200 rounded-full opacity-15"></div>
+    </div>
+    
+    <div class="relative z-10 max-w-7xl mx-auto px-6 py-12">
+        <!-- Header Section -->
+        <div class="text-center mb-12">
+            <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 text-white mb-6 rounded-full shadow-lg">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                </svg>
+            </div>
+            <h1 class="text-5xl font-bold text-neutral-900 mb-4 tracking-tight">
+                Contributor Dashboard
+            </h1>
+                <p class="text-xl text-neutral-600 max-w-2xl mx-auto leading-relaxed">
+                    Submit and track your mangrove restoration projects. Generate verified carbon credits that benefit communities and the planet.
+                </p>
+                <div class="mt-6">
+                    <a href="{% url 'tenders_browse' %}" class="px-5 py-3 bg-primary-600 text-white text-sm font-semibold hover:bg-primary-700 transition">Browse Tenders</a>
+                </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            <div class="modern-card p-6 group hover:shadow-glow transition-all duration-300">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 text-white flex items-center justify-center rounded-full shadow-md">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                        </svg>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-3xl font-bold text-neutral-900 group-hover:text-primary-600 transition-colors">{{ stats.total }}</div>
+                        <div class="text-sm font-medium text-neutral-500 uppercase tracking-wide">Total Projects</div>
+                    </div>
+                </div>
+                <div class="w-full h-1 bg-gradient-to-r from-primary-400 to-primary-600"></div>
+            </div>
+
+            <div class="modern-card p-6 group hover:shadow-glow transition-all duration-300">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-yellow-500 to-orange-500 text-white flex items-center justify-center rounded-full shadow-md">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-3xl font-bold text-neutral-900 group-hover:text-yellow-600 transition-colors">{{ stats.pending }}</div>
+                        <div class="text-sm font-medium text-neutral-500 uppercase tracking-wide">Under Review</div>
+                    </div>
+                </div>
+                <div class="w-full h-1 bg-gradient-to-r from-yellow-400 to-yellow-600"></div>
+            </div>
+
+            <div class="modern-card p-6 group hover:shadow-glow transition-all duration-300">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-accent-500 to-accent-600 text-white flex items-center justify-center rounded-full shadow-md">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-3xl font-bold text-neutral-900 group-hover:text-accent-600 transition-colors">{{ stats.verified }}</div>
+                        <div class="text-sm font-medium text-neutral-500 uppercase tracking-wide">Verified</div>
+                    </div>
+                </div>
+                <div class="w-full h-1 bg-gradient-to-r from-accent-400 to-accent-600"></div>
+            </div>
+
+            <div class="modern-card p-6 group hover:shadow-glow transition-all duration-300">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-primary-600 to-primary-700 text-white flex items-center justify-center rounded-full shadow-md">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"/>
+                        </svg>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-3xl font-bold text-neutral-900 group-hover:text-primary-600 transition-colors">{{ stats.credits }}</div>
+                        <div class="text-sm font-medium text-neutral-500 uppercase tracking-wide">Credits Earned</div>
+                    </div>
+                </div>
+                <div class="w-full h-1 bg-gradient-to-r from-primary-500 to-primary-700"></div>
+            </div>
+        </div>
+
+        {% if recent_apps %}
+        <!-- Recent Proposals Alerts -->
+        <div class="modern-card p-6 mb-12">
+            <div class="flex items-center mb-4">
+                <div class="w-1 h-6 bg-primary-500 mr-3"></div>
+                <h2 class="text-xl font-semibold text-neutral-900">Recent Proposal Updates</h2>
+            </div>
+            <div class="grid gap-3">
+                {% for a in recent_apps %}
+                <div class="flex items-center justify-between text-sm">
+                    <div>
+                        <span class="font-medium">{{ a.tender.title }}</span>
+                        <span class="text-neutral-500 ml-2">{{ a.created_at|date:'M d, Y H:i' }}</span>
+                    </div>
+                    <div>
+                        <span class="px-2 py-1 text-xs {% if a.status == 'Accepted' %}bg-green-100 text-green-700{% elif a.status == 'Rejected' %}bg-red-100 text-red-700{% else %}bg-neutral-100 text-neutral-700{% endif %}">{{ a.status }}</span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Action Buttons -->
+        <div class="flex flex-wrap gap-4 mb-12 justify-center">
+            <button class="btn-primary inline-flex items-center px-6 py-3 text-white font-semibold shadow-lg hover:shadow-glow">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                </svg>
+                Submit New Project
+            </button>
+            <a href="#submitted-projects" class="inline-flex items-center px-6 py-3 border border-neutral-300 text-neutral-700 font-semibold hover:bg-neutral-50 transition-colors">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v4"/>
+                </svg>
+                View Analytics
+            </a>
+        </div>
+
+        <!-- Content sections -->
+        <div class="space-y-8">
+            {% include "api/projects/upload_form.html" %}
+            <div id="submitted-projects">{% include "api/projects/project_list.html" %}</div>
+        </div>
+    </div>
+</div>
+{% endblock %}

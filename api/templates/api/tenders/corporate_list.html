@@ -1,0 +1,30 @@
+{% extends 'api/base.html' %}
+{% block title %}Your Tenders | Blue Carbon MRV{% endblock %}
+{% block content %}
+<div class="max-w-5xl mx-auto px-6 py-10">
+  <div class="flex items-center justify-between mb-8">
+    <h1 class="text-3xl font-bold">Your Tenders</h1>
+    <a href="{% url 'tender_create' %}" class="btn-primary px-4 py-2 text-white">Create Tender</a>
+  </div>
+  <div class="grid gap-4">
+    {% for t in tenders %}
+    <div class="p-6 border bg-white">
+      <div class="flex items-center justify-between">
+        <div>
+          <div class="text-xl font-semibold">{{ t.title }}</div>
+          <div class="text-sm text-neutral-500">Location: {{ t.location }} • Requirement: {{ t.credits_required }} credits • Status: {{ t.status }} • Applications: {{ t.applications.count }}</div>
+          <div class="text-xs text-neutral-500 mt-1">
+            {% if t.location_preference %}Preference: {{ t.location_preference }} • {% endif %}
+            {% if t.budget_range %}Budget: {{ t.budget_range }} • {% endif %}
+            {% if t.deadline %}Deadline: {{ t.deadline|date:'M d, Y' }}{% endif %}
+          </div>
+        </div>
+        <a href="{% url 'tender_review' t.id %}" class="px-3 py-2 bg-neutral-900 text-white text-sm">Review</a>
+      </div>
+    </div>
+    {% empty %}
+    <div class="text-neutral-600">No tenders yet.</div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
