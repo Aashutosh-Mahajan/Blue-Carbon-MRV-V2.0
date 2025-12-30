@@ -46,6 +46,10 @@ urlpatterns = [
     # ISRO Admin URLs
     # --------------------
     path("isro/dashboard/", views.isro_admin_dashboard, name="isro_admin_dashboard"),
+    # Pending projects list view
+    path("isro/pending-projects/", views.isro_pending_projects, name="isro_pending_projects"),
+    # Analytics view
+    path("isro/analytics/", views.isro_analytics, name="isro_analytics"),
     path("api/upload-satellite-images/", views.upload_satellite_images, name="upload_satellite_images"),
 
     # --------------------
@@ -94,3 +98,5 @@ urlpatterns = [
     path("ngo/tenders/v2/", views.tenders_v2_browse, name="tenders_v2_browse"),
     path("ngo/tenders/v2/<int:tender_id>/apply/", views.tender_v2_apply, name="tender_v2_apply"),
 ]
+# Force reload
+

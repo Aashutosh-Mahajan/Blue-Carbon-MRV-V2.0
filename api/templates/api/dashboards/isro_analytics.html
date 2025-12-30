@@ -1,0 +1,101 @@
+{% extends "api/base.html" %}
+{% block title %}Analytics Report | ISRO Admin{% endblock %}
+
+{% block content %}
+<div class="relative text-white min-h-screen">
+    <div class="fixed inset-0 hero-bg hero-bg-fixed"></div>
+    <div class="fixed inset-0 hero-overlay"></div>
+    
+    <div class="relative z-10 max-w-7xl mx-auto px-6 py-12">
+        <!-- Header Section -->
+        <div class="flex items-center justify-between mb-12">
+            <div>
+                <h1 class="text-4xl font-julius tracking-wide mb-2">
+                    Analytics Report
+                </h1>
+                <p class="text-lg text-white/85 font-javanese">
+                    Comprehensive analysis of project data and satellite verification metrics.
+                </p>
+            </div>
+            <a href="{% url 'isro_admin_dashboard' %}" class="glass-surface border border-white/20 px-6 py-3 text-white font-jockey tracking-wide hover:bg-white/10 transition-all duration-300 rounded-lg flex items-center">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                </svg>
+                Back to Dashboard
+            </a>
+        </div>
+
+        <!-- Stats Overview -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <div class="glass-surface rounded-2xl p-6">
+                <h3 class="text-lg font-julius text-white/80 mb-2">Total Projects</h3>
+                <div class="text-4xl font-light tracking-wide text-white">{{ stats.total_projects }}</div>
+                <div class="mt-2 text-sm text-white/60 font-javanese">
+                    <span class="text-emerald-400">{{ stats.approved_projects }} approved</span> • 
+                    <span class="text-red-400">{{ stats.rejected_projects }} rejected</span>
+                </div>
+            </div>
+            
+            <div class="glass-surface rounded-2xl p-6">
+                <h3 class="text-lg font-julius text-white/80 mb-2">Total Area Covered</h3>
+                <div class="text-4xl font-light tracking-wide text-white">{{ stats.total_area|floatformat:1 }} <span class="text-xl">ha</span></div>
+                <div class="mt-2 text-sm text-white/60 font-javanese">
+                    {{ stats.verified_area|floatformat:1 }} ha verified
+                </div>
+            </div>
+            
+            <div class="glass-surface rounded-2xl p-6">
+                <h3 class="text-lg font-julius text-white/80 mb-2">Pending Review</h3>
+                <div class="text-4xl font-light tracking-wide text-white">{{ stats.pending_projects }}</div>
+                <div class="mt-2 text-sm text-white/60 font-javanese">
+                    Projects awaiting verification
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Satellite Submissions -->
+        <div class="glass-surface rounded-2xl p-8 mb-8">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-julius text-white">Recent Satellite Submissions</h2>
+            </div>
+            
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr class="border-b border-white/10">
+                            <th class="text-left py-3 px-4 font-julius text-white/80">Project</th>
+                            <th class="text-left py-3 px-4 font-julius text-white/80">Satellite</th>
+                            <th class="text-left py-3 px-4 font-julius text-white/80">Date</th>
+                            <th class="text-left py-3 px-4 font-julius text-white/80">Resolution</th>
+                            <th class="text-left py-3 px-4 font-julius text-white/80">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for submission in recent_submissions %}
+                        <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+                            <td class="py-3 px-4">
+                                <div class="font-medium text-white font-javanese">{{ submission.project.title }}</div>
+                            </td>
+                            <td class="py-3 px-4 text-white/80 font-javanese">{{ submission.satellite_name }}</td>
+                            <td class="py-3 px-4 text-white/80 font-javanese">{{ submission.created_at|date:"M d, Y" }}</td>
+                            <td class="py-3 px-4 text-white/80 font-javanese">{{ submission.resolution }}m</td>
+                            <td class="py-3 px-4">
+                                <span class="px-2 py-1 text-xs font-jockey tracking-wide rounded-full border bg-emerald-500/20 text-emerald-300 border-emerald-500/30">
+                                    Uploaded
+                                </span>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" class="py-8 text-center text-white/40 font-javanese">
+                                No recent satellite submissions found.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -2063,6 +2063,58 @@ def isro_admin_dashboard(request):
     return render(request, 'api/dashboards/isro_admin_dashboard.html', context)
 
 
+def isro_pending_projects(request):
+    """View for listing all pending projects for ISRO admin"""
+    
+    # Get all projects pending review
+    pending_projects_list = (
+        Project.objects
+        .filter(isro_verified_at__isnull=True)
+        .filter(~Q(status__iexact='approved') & ~Q(status__iexact='rejected'))
+        .filter(Q(isro_admin__isnull=True) | Q(isro_admin=request.user))
+        .order_by('-updated_at')
+    )
+    
+    context = {
+        'pending_projects': pending_projects_list,
+    }
+    
+    return render(request, 'api/dashboards/isro_pending_projects.html', context)
+
+
+@login_required
+@user_passes_test(is_isro_admin)
+def isro_analytics(request):
+    """View for ISRO analytics dashboard"""
+    
+    # Calculate statistics
+    total_projects = Project.objects.count()
+    approved_projects = Project.objects.filter(status__iexact='approved').count()
+    rejected_projects = Project.objects.filter(status__iexact='rejected').count()
+    pending_projects = Project.objects.filter(status__iexact='pending').count()
+    
+    # Calculate total area covered
+    total_area = Project.objects.aggregate(total_area=models.Sum('area'))['total_area'] or 0
+    verified_area = Project.objects.filter(status__iexact='approved').aggregate(total_area=models.Sum('area'))['total_area'] or 0
+    
+    # Get recent satellite submissions
+    recent_submissions = SatelliteImageSubmission.objects.filter(isro_admin=request.user).order_by('-created_at')[:10]
+    
+    context = {
+        'stats': {
+            'total_projects': total_projects,
+            'approved_projects': approved_projects,
+            'rejected_projects': rejected_projects,
+            'pending_projects': pending_projects,
+            'total_area': total_area,
+            'verified_area': verified_area,
+        },
+        'recent_submissions': recent_submissions,
+    }
+    
+    return render(request, 'api/dashboards/isro_analytics.html', context)
+
+
 # --------------------
 # API Endpoints for Field Data Submission
 # --------------------
