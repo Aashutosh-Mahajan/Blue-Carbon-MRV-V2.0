@@ -14,3 +14,8 @@ venv/
 
 ## Node modules
 node_modules/
+
+## Hardhat
+contracts/artifacts/
+contracts/cache/
+contracts/deployments/localhost.json
