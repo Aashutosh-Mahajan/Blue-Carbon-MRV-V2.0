@@ -1000,21 +1000,12 @@ git merge upstream/main
 - **Hardhat** - Ethereum development environment
 - **Django** - Web framework
 - **Flutter** - Mobile framework
-- **ISRO** - Satellite imagery standards reference
 
 ---
 
 ## License
 
 This project is developed for Blue Carbon ecosystem monitoring and verification.
-
----
-
-## Support
-
-For issues and questions:
-- Create a GitHub issue
-- Contact: support@bluecarbon-mrv.org
 
 ---
 
