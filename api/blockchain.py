@@ -309,11 +309,11 @@ class Web3BlockchainManager:
                 return tx_hash.hex()
             else:
                 logger.error(f"Transfer transaction failed: {tx_hash.hex()}")
-                return None
+                raise Exception(f"Transaction failed on chain. Hash: {tx_hash.hex()}")
                 
         except Exception as e:
             logger.error(f"Failed to transfer credits on blockchain: {e}")
-            return None
+            raise e
     
     def get_balance(self, address: str) -> int:
         """Get token balance for an address"""

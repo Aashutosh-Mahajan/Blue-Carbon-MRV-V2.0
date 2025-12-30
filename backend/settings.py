@@ -108,6 +108,8 @@ _clean = _raw_db.strip().strip('"').strip("'")
 os.environ["DATABASE_URL"] = _clean
 try:
     DATABASES = {"default": env.db("DATABASE_URL")}
+    # Enable persistent connection health checks to prevent SSL errors
+    DATABASES["default"]["CONN_HEALTH_CHECKS"] = True
 except Exception as e:
     raise ImproperlyConfigured(f"Invalid DATABASE_URL; cannot parse: {e}")
 
