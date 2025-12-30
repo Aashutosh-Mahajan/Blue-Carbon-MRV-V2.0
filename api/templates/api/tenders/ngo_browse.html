@@ -1,85 +1,121 @@
 {% extends 'api/base.html' %}
 {% block title %}Tenders | Blue Carbon MRV{% endblock %}
 {% block content %}
-<div class="max-w-7xl mx-auto px-6 py-12">
-  <!-- Header -->
-  <div class="mb-10">
-    <div class="flex items-center mb-4">
-      <div class="w-1 h-8 bg-emerald-500 mr-4"></div>
-      <h1 class="text-3xl font-julius text-white">Open Tenders</h1>
-    </div>
-  <p class="font-javanese text-white/60">Review company requirements and apply with a short message about your capacity and experience.</p>
-  </div>
+<div class="relative text-white min-h-screen">
+    <div class="fixed inset-0 hero-bg hero-bg-fixed"></div>
+    <div class="fixed inset-0 hero-overlay"></div>
 
-  <!-- Tenders list -->
-  <div class="grid gap-8">
-    {% for t in tenders %}
-    <div class="glass-surface p-6 border border-white/10 rounded-xl hover:border-emerald-500/30 transition-all duration-300">
-      <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8">
-        <!-- Left content -->
-        <div class="flex-1">
-          <div class="flex items-start gap-4 mb-3">
-            <div class="w-10 h-10 bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-lg flex items-center justify-center">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A2 2 0 013 15.382V6a2 2 0 011-1.732l7-4a2 2 0 012 0l7 4A2 2 0 0121 6v9.382a2 2 0 01-1.553 1.894L14 20"/></svg>
+    <div class="relative z-10 max-w-7xl mx-auto px-6 py-12">
+        <!-- Header -->
+        <div class="mb-12 text-center">
+            <div class="inline-flex items-center justify-center w-16 h-16 glass-surface-strong rounded-full shadow-lg mb-6">
+                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                </svg>
             </div>
-            <div class="flex-1">
-              <div class="text-2xl font-julius text-white mb-1">{{ t.title }}</div>
-              <div class="text-sm font-javanese text-white/60">Posted by: <span class="text-emerald-400">{{ t.corporate.first_name|default:t.corporate.username }}</span></div>
-            </div>
-          </div>
-          <div class="flex flex-wrap items-center gap-3 mb-4 text-sm font-javanese">
-            <span class="inline-flex items-center px-3 py-1 bg-white/5 text-white/80 border border-white/10 rounded">
-              <svg class="w-4 h-4 mr-2 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-              {{ t.location }}
-            </span>
-            <span class="inline-flex items-center px-3 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded">
-              <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"/></svg>
-              Requirement: {{ t.credits_required }} credits
-            </span>
-          </div>
-          {% if t.description %}
-          <p class="font-javanese text-white/80 leading-relaxed">{{ t.description }}</p>
-          {% endif %}
+            <h1 class="text-4xl font-julius tracking-wide mb-4">Open Tenders</h1>
+            <p class="text-lg text-white/85 max-w-2xl mx-auto leading-relaxed font-javanese">
+                Review company requirements and apply with a short message about your capacity and experience.
+            </p>
         </div>
 
-        <!-- Right: apply form -->
-        <form method="post" enctype="multipart/form-data" action="{% url 'tender_apply' t.id %}" class="w-full lg:w-96 p-6 bg-white/5 border border-white/10 rounded-xl backdrop-blur-sm">
-          {% csrf_token %}
-          <div class="grid gap-4 mb-6">
-            <div>
-              <label class="block text-xs font-javanese text-emerald-400 uppercase tracking-wider mb-2">Offered Credits</label>
-              <input type="number" name="offered_credits" min="1" class="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-white/20 focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 transition-all" placeholder="e.g., 2,000" />
+        <!-- Tenders list -->
+        <div class="grid gap-8">
+            {% for t in tenders %}
+            <div class="glass-surface p-8 border border-white/10 rounded-2xl hover:glass-surface-strong transition-all duration-300 shadow-xl">
+                <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8">
+                    <!-- Left content -->
+                    <div class="flex-1">
+                        <div class="flex items-start gap-6 mb-6">
+                            <div class="w-12 h-12 glass-surface-strong text-white rounded-full flex items-center justify-center shadow-lg">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                            </div>
+                            <div class="flex-1">
+                                <h2 class="text-3xl font-julius text-white mb-2 group-hover:text-emerald-400 transition-colors">{{ t.title }}</h2>
+                                <div class="text-sm font-javanese text-white/60 flex items-center gap-2">
+                                    <span>Posted by:</span>
+                                    <span class="text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">{{ t.corporate.first_name|default:t.corporate.username }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex flex-wrap items-center gap-4 mb-6 text-sm font-javanese">
+                            <span class="inline-flex items-center px-4 py-2 bg-white/5 text-white/90 border border-white/10 rounded-full">
+                                <svg class="w-4 h-4 mr-2 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                {{ t.location }}
+                            </span>
+                            <span class="inline-flex items-center px-4 py-2 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 rounded-full">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"/></svg>
+                                Requirement: {{ t.credits_required }} credits
+                            </span>
+                        </div>
+                        
+                        {% if t.description %}
+                        <div class="bg-white/5 rounded-xl p-6 border border-white/5 mb-6">
+                            <h3 class="text-xs font-javanese text-white/40 uppercase tracking-wider mb-2">Description</h3>
+                            <p class="font-javanese text-white/80 leading-relaxed">{{ t.description }}</p>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Right: apply form -->
+                    <div class="w-full lg:w-96">
+                        <div class="glass-surface-strong p-6 rounded-xl border border-white/10 shadow-2xl relative overflow-hidden">
+                            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-500 to-blue-500"></div>
+                            <h3 class="text-xl font-julius text-white mb-6 flex items-center gap-2">
+                                <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                Apply Now
+                            </h3>
+                            
+                            <form method="post" enctype="multipart/form-data" action="{% url 'tender_apply' t.id %}" class="space-y-5">
+                                {% csrf_token %}
+                                <div>
+                                    <label class="block text-xs font-javanese text-emerald-400 uppercase tracking-wider mb-2">Offered Credits</label>
+                                    <input type="number" name="offered_credits" min="1" class="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-white/20 focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 transition-all font-jockey tracking-wide" placeholder="e.g., 2,000" />
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-javanese text-emerald-400 uppercase tracking-wider mb-2">Price per Credit</label>
+                                    <input type="number" step="0.01" name="price_per_credit" class="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-white/20 focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 transition-all font-jockey tracking-wide" placeholder="e.g., 9.50" />
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-javanese text-emerald-400 uppercase tracking-wider mb-2">Project Location</label>
+                                    <input type="text" name="project_location" class="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-white/20 focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 transition-all font-javanese" placeholder="e.g., Sundarbans, Andhra Coast" />
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-javanese text-emerald-400 uppercase tracking-wider mb-2">Supporting Documents</label>
+                                    <input type="file" name="supporting_documents" class="w-full text-sm text-white/60 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-emerald-500/20 file:text-emerald-400 hover:file:bg-emerald-500/30 transition-all cursor-pointer" />
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-javanese text-emerald-400 uppercase tracking-wider mb-2">Project Description</label>
+                                    <textarea name="project_description" rows="3" class="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-white/20 focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 transition-all font-javanese" placeholder="Short explanation..."></textarea>
+                                </div>
+                                
+                                {% if t.id in my_applied_ids %}
+                                    <button type="button" disabled class="w-full px-4 py-3 bg-white/5 text-white/40 font-jockey tracking-wide rounded-lg cursor-not-allowed border border-white/5 flex items-center justify-center gap-2">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                        Application Sent
+                                    </button>
+                                {% else %}
+                                    <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-jockey tracking-wide px-4 py-3 rounded-lg shadow-lg shadow-emerald-900/20 transition-all flex items-center justify-center gap-2 group">
+                                        Apply Now
+                                        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                                    </button>
+                                {% endif %}
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div>
-              <label class="block text-xs font-javanese text-emerald-400 uppercase tracking-wider mb-2">Price per Credit</label>
-              <input type="number" step="0.01" name="price_per_credit" class="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-white/20 focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 transition-all" placeholder="e.g., 9.50" />
+            {% empty %}
+            <div class="text-center py-20 glass-surface rounded-2xl border border-white/10">
+                <div class="inline-flex items-center justify-center w-16 h-16 glass-surface-strong rounded-full mb-4 text-white/40">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/></svg>
+                </div>
+                <h3 class="text-xl font-julius text-white mb-2">No Open Tenders</h3>
+                <p class="text-white/60 font-javanese">Check back later for new opportunities.</p>
             </div>
-            <div>
-              <label class="block text-xs font-javanese text-emerald-400 uppercase tracking-wider mb-2">Project Location</label>
-              <input type="text" name="project_location" class="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-white/20 focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 transition-all" placeholder="e.g., Sundarbans, Andhra Coast" />
-            </div>
-            <div>
-              <label class="block text-xs font-javanese text-emerald-400 uppercase tracking-wider mb-2">Supporting Documents</label>
-              <input type="file" name="supporting_documents" class="w-full text-sm text-white/60 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-emerald-500/20 file:text-emerald-400 hover:file:bg-emerald-500/30 transition-all" />
-            </div>
-            <div>
-              <label class="block text-xs font-javanese text-emerald-400 uppercase tracking-wider mb-2">Project Description</label>
-              <textarea name="project_description" rows="4" class="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-white/20 focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 transition-all" placeholder="Short explanation of your carbon project and its impact."></textarea>
-            </div>
-          </div>
-          {% if t.id in my_applied_ids %}
-            <button type="button" disabled class="w-full px-4 py-3 bg-white/10 text-white/40 font-jockey tracking-wide rounded-lg cursor-not-allowed border border-white/5">Applied</button>
-          {% else %}
-            <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-jockey tracking-wide px-4 py-3 rounded-lg shadow-lg shadow-emerald-900/20 transition-all">Apply Now</button>
-          {% endif %}
-        </form>
-      </div>
+            {% endfor %}
+        </div>
     </div>
-    {% empty %}
-    <div class="text-white/60 font-javanese text-center py-12 glass-surface rounded-xl border border-white/10">
-      No open tenders right now.
-    </div>
-    {% endfor %}
-  </div>
 </div>
 {% endblock %}

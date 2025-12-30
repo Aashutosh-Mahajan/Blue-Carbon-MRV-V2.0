@@ -1,77 +1,168 @@
 {% extends 'api/base.html' %}
 {% block title %}Review Tender | Blue Carbon MRV{% endblock %}
 {% block content %}
-<div class="max-w-6xl mx-auto px-6 py-10 space-y-8">
-  <div class="p-6 glass-surface border border-white/10 rounded-xl">
-    <div class="text-2xl font-julius text-white mb-1">{{ tender.title }}</div>
-    <div class="font-javanese text-white/60 mb-2">
-      <span class="text-white/40">Location:</span> {{ tender.location }} • 
-      <span class="text-white/40">Credits:</span> {{ tender.credits_required }} • 
-      <span class="text-white/40">Status:</span> <span class="text-emerald-400">{{ tender.status }}</span>
-    </div>
-    <div class="text-sm font-javanese text-white/40 mb-4">
-      {% if tender.location_preference %}Preference: <span class="text-white/60">{{ tender.location_preference }}</span> • {% endif %}
-      {% if tender.budget_range %}Budget: <span class="text-white/60">{{ tender.budget_range }}</span> • {% endif %}
-      {% if tender.deadline %}Deadline: <span class="text-white/60">{{ tender.deadline|date:'M d, Y' }}</span>{% endif %}
-    </div>
-    <p class="font-javanese text-white/80 leading-relaxed">{{ tender.description }}</p>
-  </div>
+<div class="relative text-white min-h-screen">
+    <div class="fixed inset-0 hero-bg hero-bg-fixed"></div>
+    <div class="fixed inset-0 hero-overlay"></div>
+    
+    <div class="relative z-10 max-w-7xl mx-auto px-6 py-12">
+        <!-- Header -->
+        <div class="mb-12">
+            <a href="{% url 'tenders_list' %}" class="inline-flex items-center text-white/60 hover:text-white mb-6 transition-colors font-javanese">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+                Back to Tenders
+            </a>
+            
+            <div class="glass-surface p-8 border border-white/10 rounded-2xl shadow-xl">
+                <div class="flex flex-col md:flex-row md:items-start justify-between gap-6">
+                    <div>
+                        <h1 class="text-3xl font-julius text-white mb-2">{{ tender.title }}</h1>
+                        <div class="flex flex-wrap items-center gap-4 text-sm font-javanese text-white/60 mb-4">
+                            <span class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                {{ tender.location }}
+                            </span>
+                            <span class="w-1 h-1 bg-white/20 rounded-full"></span>
+                            <span class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"/></svg>
+                                {{ tender.credits_required }} Credits
+                            </span>
+                            <span class="w-1 h-1 bg-white/20 rounded-full"></span>
+                            <span class="px-2 py-0.5 rounded text-xs border {% if tender.status == 'Open' %}bg-emerald-500/20 text-emerald-300 border-emerald-500/30{% else %}bg-white/10 text-white/60 border-white/10{% endif %}">
+                                {{ tender.status }}
+                            </span>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-javanese text-white/50 mb-6">
+                            {% if tender.location_preference %}
+                            <div class="bg-white/5 px-3 py-2 rounded-lg border border-white/5">
+                                <span class="block text-white/30 uppercase tracking-wider text-[10px] mb-1">Preference</span>
+                                {{ tender.location_preference }}
+                            </div>
+                            {% endif %}
+                            {% if tender.budget_range %}
+                            <div class="bg-white/5 px-3 py-2 rounded-lg border border-white/5">
+                                <span class="block text-white/30 uppercase tracking-wider text-[10px] mb-1">Budget</span>
+                                {{ tender.budget_range }}
+                            </div>
+                            {% endif %}
+                            {% if tender.deadline %}
+                            <div class="bg-white/5 px-3 py-2 rounded-lg border border-white/5">
+                                <span class="block text-white/30 uppercase tracking-wider text-[10px] mb-1">Deadline</span>
+                                {{ tender.deadline|date:'M d, Y' }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="bg-black/20 rounded-xl p-6 border border-white/5">
+                            <h3 class="text-xs font-javanese text-white/40 uppercase tracking-wider mb-2">Description</h3>
+                            <p class="font-javanese text-white/80 leading-relaxed">{{ tender.description }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-  <div>
-    <h2 class="text-xl font-julius text-white mb-4">Proposals</h2>
-    <div class="overflow-x-auto glass-surface border border-white/10 rounded-xl">
-      <table class="min-w-full text-sm">
-        <thead class="bg-white/5 text-emerald-400 font-javanese uppercase tracking-wider">
-          <tr>
-            <th class="text-left p-4 font-normal">NGO</th>
-            <th class="text-left p-4 font-normal">Offered Credits</th>
-            <th class="text-left p-4 font-normal">Price/Credit</th>
-            <th class="text-left p-4 font-normal">Project Location</th>
-            <th class="text-left p-4 font-normal">Documents</th>
-            <th class="text-left p-4 font-normal">Status</th>
-            <th class="text-left p-4 font-normal">Actions</th>
-          </tr>
-        </thead>
-        <tbody class="divide-y divide-white/10">
-          {% for a in applications %}
-          <tr class="hover:bg-white/5 transition-colors">
-            <td class="p-4 font-medium text-white">{{ a.ngo.first_name|default:a.ngo.username }}</td>
-            <td class="p-4 text-white/80">{{ a.offered_credits|default:'—' }}</td>
-            <td class="p-4 text-white/80">{% if a.price_per_credit %}{{ a.price_per_credit }}{% else %}—{% endif %}</td>
-            <td class="p-4 text-white/80">{{ a.project_location|default:'—' }}</td>
-            <td class="p-4">
-              {% if a.supporting_documents %}
-                <a href="{{ a.supporting_documents.url }}" target="_blank" class="text-emerald-400 hover:text-emerald-300 underline decoration-emerald-500/30 underline-offset-4">Download</a>
-              {% else %}<span class="text-white/40">—</span>{% endif %}
-            </td>
-            <td class="p-4">
-              <span class="px-2 py-1 text-xs rounded border {% if a.status == 'Accepted' %}bg-emerald-500/20 text-emerald-400 border-emerald-500/30{% elif a.status == 'Rejected' %}bg-red-500/20 text-red-400 border-red-500/30{% else %}bg-white/10 text-white/60 border-white/10{% endif %}">
-                {{ a.status }}
-              </span>
-            </td>
-            <td class="p-4">
-              {% if tender.status == 'Open' %}
-              <div class="flex items-center gap-2">
-                <form method="post" action="{% url 'tender_accept' tender.id a.id %}">
-                  {% csrf_token %}
-                  <button type="submit" class="px-3 py-1.5 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 border border-emerald-500/30 rounded font-jockey tracking-wide transition-all text-xs">Accept</button>
-                </form>
-                <form method="post" action="{% url 'tender_reject' tender.id a.id %}">
-                  {% csrf_token %}
-                  <button type="submit" class="px-3 py-1.5 bg-white/5 hover:bg-white/10 text-white/60 border border-white/10 rounded font-jockey tracking-wide transition-all text-xs">Reject</button>
-                </form>
-              </div>
-              {% else %}
-                <span class="text-white/40">—</span>
-              {% endif %}
-            </td>
-          </tr>
-          {% empty %}
-          <tr><td colspan="7" class="p-8 text-center text-white/40 font-javanese">No proposals yet.</td></tr>
-          {% endfor %}
-        </tbody>
-      </table>
+        <!-- Proposals -->
+        <div>
+            <div class="flex items-center gap-4 mb-6">
+                <div class="w-1 h-8 bg-emerald-500"></div>
+                <h2 class="text-2xl font-julius text-white">Received Proposals <span class="text-white/40 text-lg ml-2">({{ applications.count }})</span></h2>
+            </div>
+            
+            <div class="glass-surface border border-white/10 rounded-2xl overflow-hidden shadow-xl">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full text-sm">
+                        <thead class="bg-white/5 text-emerald-400 font-javanese uppercase tracking-wider text-xs">
+                            <tr>
+                                <th class="text-left p-6 font-medium">NGO</th>
+                                <th class="text-left p-6 font-medium">Offered Credits</th>
+                                <th class="text-left p-6 font-medium">Price/Credit</th>
+                                <th class="text-left p-6 font-medium">Location</th>
+                                <th class="text-left p-6 font-medium">Documents</th>
+                                <th class="text-left p-6 font-medium">Status</th>
+                                <th class="text-left p-6 font-medium">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-white/5">
+                            {% for a in applications %}
+                            <tr class="hover:bg-white/5 transition-colors group">
+                                <td class="p-6">
+                                    <div class="font-medium text-white text-base">{{ a.ngo.first_name|default:a.ngo.username }}</div>
+                                    <div class="text-xs text-white/40 mt-1">{{ a.created_at|date:"M d, Y" }}</div>
+                                </td>
+                                <td class="p-6">
+                                    <div class="text-white/90 font-jockey text-lg">{{ a.offered_credits|default:'—' }}</div>
+                                </td>
+                                <td class="p-6">
+                                    <div class="text-white/90 font-jockey text-lg">{% if a.price_per_credit %}₹{{ a.price_per_credit }}{% else %}—{% endif %}</div>
+                                </td>
+                                <td class="p-6 text-white/70 font-javanese">{{ a.project_location|default:'—' }}</td>
+                                <td class="p-6">
+                                    {% if a.supporting_documents %}
+                                        <a href="{{ a.supporting_documents.url }}" target="_blank" class="inline-flex items-center gap-2 px-3 py-1.5 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 rounded-lg border border-emerald-500/20 transition-all text-xs">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                            Download
+                                        </a>
+                                    {% else %}<span class="text-white/40">—</span>{% endif %}
+                                </td>
+                                <td class="p-6">
+                                    <span class="px-3 py-1 text-xs rounded-full border font-medium tracking-wide
+                                        {% if a.status == 'Accepted' %}bg-emerald-500/20 text-emerald-400 border-emerald-500/30
+                                        {% elif a.status == 'Rejected' %}bg-red-500/20 text-red-400 border-red-500/30
+                                        {% else %}bg-blue-500/20 text-blue-300 border-blue-500/30{% endif %}">
+                                        {{ a.status }}
+                                    </span>
+                                </td>
+                                <td class="p-6">
+                                    {% if tender.status == 'Open' or tender.status == 'Under Review' %}
+                                        {% if a.status == 'Pending' %}
+                                        <div class="flex items-center gap-2">
+                                            <form method="post" action="{% url 'tender_accept' tender.id a.id %}">
+                                                {% csrf_token %}
+                                                <button type="submit" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg shadow-lg shadow-emerald-900/20 font-jockey tracking-wide transition-all text-xs flex items-center gap-1">
+                                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                                    Accept
+                                                </button>
+                                            </form>
+                                            <form method="post" action="{% url 'tender_reject' tender.id a.id %}">
+                                                {% csrf_token %}
+                                                <button type="submit" class="px-4 py-2 bg-white/5 hover:bg-red-500/20 text-white/60 hover:text-red-400 border border-white/10 hover:border-red-500/30 rounded-lg font-jockey tracking-wide transition-all text-xs">Reject</button>
+                                            </form>
+                                        </div>
+                                        {% else %}
+                                        <span class="text-white/20 text-xs italic">Processed</span>
+                                        {% endif %}
+                                    {% else %}
+                                        <span class="text-white/20 text-xs italic">Tender Closed</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% if a.project_description %}
+                            <tr class="bg-white/[0.02] border-b border-white/5">
+                                <td colspan="7" class="px-6 py-4">
+                                    <div class="flex items-start gap-3">
+                                        <svg class="w-4 h-4 text-white/40 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                        <p class="text-sm text-white/60 font-javanese italic">"{{ a.project_description }}"</p>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endif %}
+                            {% empty %}
+                            <tr>
+                                <td colspan="7" class="p-12 text-center">
+                                    <div class="inline-flex items-center justify-center w-12 h-12 glass-surface-strong rounded-full mb-3 text-white/20">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/></svg>
+                                    </div>
+                                    <p class="text-white/40 font-javanese">No proposals received yet.</p>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 {% endblock %}

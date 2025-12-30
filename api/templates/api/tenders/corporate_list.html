@@ -1,51 +1,89 @@
 {% extends 'api/base.html' %}
 {% block title %}Your Tenders | Blue Carbon MRV{% endblock %}
 {% block content %}
-<div class="max-w-5xl mx-auto px-6 py-10">
-  <div class="flex items-center justify-between mb-8">
-    <h1 class="text-3xl font-julius text-white">Your Tenders</h1>
-    <a href="{% url 'tender_create' %}" class="px-6 py-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 border border-emerald-500/30 rounded-lg font-jockey tracking-wide transition-all">
-      Create Tender
-    </a>
-  </div>
-  <div class="grid gap-4">
-    {% for t in tenders %}
-    <div class="p-6 glass-surface border border-white/10 rounded-xl hover:border-emerald-500/30 transition-colors group">
-      <div class="flex items-center justify-between">
-        <div>
-          <div class="text-xl font-julius text-white mb-2 group-hover:text-emerald-400 transition-colors">{{ t.title }}</div>
-          <div class="text-sm font-javanese text-white/60 space-y-1">
+<div class="relative text-white min-h-screen">
+    <div class="fixed inset-0 hero-bg hero-bg-fixed"></div>
+    <div class="fixed inset-0 hero-overlay"></div>
+    
+    <div class="relative z-10 max-w-7xl mx-auto px-6 py-12">
+        <div class="flex items-center justify-between mb-12">
             <div>
-              <span class="text-white/40">Location:</span> {{ t.location }} • 
-              <span class="text-white/40">Requirement:</span> {{ t.credits_required }} credits • 
-              <span class="text-white/40">Status:</span> <span class="text-emerald-400">{{ t.status }}</span>
+                <h1 class="text-4xl font-julius tracking-wide mb-2">Your Tenders</h1>
+                <p class="text-lg text-white/60 font-javanese">Manage and track your posted requirements</p>
             </div>
-            <div>
-              <span class="text-white/40">Applications:</span> {{ t.applications.count }}
-            </div>
-          </div>
-          <div class="text-xs font-javanese text-white/40 mt-3 flex gap-4">
-            {% if t.location_preference %}
-            <span>Preference: <span class="text-white/60">{{ t.location_preference }}</span></span>
-            {% endif %}
-            {% if t.budget_range %}
-            <span>Budget: <span class="text-white/60">{{ t.budget_range }}</span></span>
-            {% endif %}
-            {% if t.deadline %}
-            <span>Deadline: <span class="text-white/60">{{ t.deadline|date:'M d, Y' }}</span></span>
-            {% endif %}
-          </div>
+            <a href="{% url 'tender_create' %}" class="px-8 py-3 bg-white text-neutral-900 hover:bg-emerald-400 hover:text-white rounded-full font-jockey tracking-wide shadow-lg transition-all duration-300 flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                Create Tender
+            </a>
         </div>
-        <a href="{% url 'tender_review' t.id %}" class="px-4 py-2 bg-white/5 hover:bg-white/10 text-white border border-white/10 rounded-lg font-jockey tracking-wide transition-all">
-          Review
-        </a>
-      </div>
+
+        <div class="grid gap-6">
+            {% for t in tenders %}
+            <div class="p-8 glass-surface border border-white/10 rounded-2xl hover:glass-surface-strong transition-all duration-300 group">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-4 mb-3">
+                            <h2 class="text-2xl font-julius text-white group-hover:text-emerald-400 transition-colors">{{ t.title }}</h2>
+                            <span class="px-3 py-1 rounded-full text-xs font-jockey tracking-wide 
+                                {% if t.status == 'OPEN' %}bg-emerald-500/20 text-emerald-300 border border-emerald-500/30
+                                {% elif t.status == 'CLOSED' %}bg-neutral-500/20 text-neutral-300 border border-neutral-500/30
+                                {% else %}bg-blue-500/20 text-blue-300 border border-blue-500/30{% endif %}">
+                                {{ t.status }}
+                            </span>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm font-javanese text-white/70 mb-4">
+                            <div class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                {{ t.location }}
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"/></svg>
+                                {{ t.credits_required }} credits
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                                {{ t.applications.count }} Applications
+                            </div>
+                            {% if t.deadline %}
+                            <div class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                {{ t.deadline|date:'M d, Y' }}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="flex flex-wrap gap-3 text-xs font-javanese text-white/50">
+                            {% if t.location_preference %}
+                            <span class="bg-white/5 px-3 py-1 rounded-lg border border-white/5">Pref: {{ t.location_preference }}</span>
+                            {% endif %}
+                            {% if t.budget_range %}
+                            <span class="bg-white/5 px-3 py-1 rounded-lg border border-white/5">Budget: {{ t.budget_range }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center">
+                        <a href="{% url 'tender_review' t.id %}" class="px-6 py-3 bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-xl font-jockey tracking-wide transition-all flex items-center gap-2 whitespace-nowrap">
+                            Review Applications
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="text-center py-20 glass-surface rounded-2xl border border-white/10">
+                <div class="inline-flex items-center justify-center w-16 h-16 glass-surface-strong rounded-full mb-4 text-white/40">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                </div>
+                <h3 class="text-xl font-julius text-white mb-2">No Tenders Yet</h3>
+                <p class="text-white/60 font-javanese mb-6">Post your first tender to start receiving proposals.</p>
+                <a href="{% url 'tender_create' %}" class="inline-flex items-center gap-2 px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg font-jockey tracking-wide transition-all">
+                    Create First Tender
+                </a>
+            </div>
+            {% endfor %}
+        </div>
     </div>
-    {% empty %}
-    <div class="text-white/60 font-javanese text-center py-10 glass-surface rounded-xl border border-white/10">
-      No tenders yet.
-    </div>
-    {% endfor %}
-  </div>
 </div>
 {% endblock %}

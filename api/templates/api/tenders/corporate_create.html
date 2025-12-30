@@ -2,75 +2,90 @@
 {% block title %}Post Tender | Blue Carbon MRV{% endblock %}
 {% load form_extras math_extras %}
 {% block content %}
-<div class="max-w-3xl mx-auto px-6 py-10">
-  <div class="glass-surface rounded-2xl p-8 border border-white/10">
-    <h1 class="text-3xl font-julius text-white mb-4">Post a Tender</h1>
-    <p class="text-sm font-javanese text-white/60 mb-8">Describe the requirement clearly so contributors can assess fit and capacity.</p>
-
-    <form method="post" class="space-y-6">
-      {% csrf_token %}
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label class="block text-xs font-javanese text-emerald-400 uppercase tracking-wider mb-2">Title</label>
-          {{ form.title|add_class:"w-full pl-3 pr-3 py-3 bg-white/5 border border-white/10 rounded-lg text-white focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 placeholder-white/20 transition-all" }}
-          {% for e in form.title.errors %}<p class="text-red-400 text-xs mt-1">{{ e }}</p>{% endfor %}
+<div class="relative text-white min-h-screen">
+    <div class="fixed inset-0 hero-bg hero-bg-fixed"></div>
+    <div class="fixed inset-0 hero-overlay"></div>
+    
+    <div class="relative z-10 max-w-3xl mx-auto px-6 py-12">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <div class="inline-flex items-center justify-center w-16 h-16 glass-surface-strong rounded-full shadow-lg mb-6">
+                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                </svg>
+            </div>
+            <h1 class="text-4xl font-julius tracking-wide mb-4">Post a Tender</h1>
+            <p class="text-lg text-white/85 max-w-xl mx-auto leading-relaxed font-javanese">
+                Describe the requirement clearly so contributors can assess fit and capacity.
+            </p>
         </div>
 
-        <div>
-          <label class="block text-xs font-javanese text-emerald-400 uppercase tracking-wider mb-2">Location</label>
-          {{ form.location|add_class:"w-full pl-3 pr-3 py-3 bg-white/5 border border-white/10 rounded-lg text-white focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 placeholder-white/20 transition-all" }}
-          {% for e in form.location.errors %}<p class="text-red-400 text-xs mt-1">{{ e }}</p>{% endfor %}
-        </div>
-      </div>
+        <div class="glass-surface rounded-2xl p-8 border border-white/10 shadow-2xl">
+            <form method="post" class="space-y-8">
+                {% csrf_token %}
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label class="block text-xs font-javanese text-emerald-400 uppercase tracking-wider">Title</label>
+                        {{ form.title|add_class:"w-full pl-4 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 placeholder-white/20 transition-all font-jockey tracking-wide" }}
+                        {% for e in form.title.errors %}<p class="text-red-400 text-xs mt-1">{{ e }}</p>{% endfor %}
+                    </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
-        <div>
-          <label class="block text-xs font-javanese text-emerald-400 uppercase tracking-wider mb-2">Credits Required</label>
-          <div class="flex items-center gap-3">
-            {{ form.credits_required|add_class:"w-40 pl-3 pr-3 py-3 bg-white/5 border border-white/10 rounded-lg text-white text-sm focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 placeholder-white/20 transition-all" }}
-            <span id="inr-total" class="text-sm font-javanese text-white/40">credits • ₹{{ form.credits_required.value|default:0|mul:300 }}</span>
-          </div>
-          {% for e in form.credits_required.errors %}<p class="text-red-400 text-xs mt-1">{{ e }}</p>{% endfor %}
-        </div>
+                    <div class="space-y-2">
+                        <label class="block text-xs font-javanese text-emerald-400 uppercase tracking-wider">Location</label>
+                        {{ form.location|add_class:"w-full pl-4 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 placeholder-white/20 transition-all font-jockey tracking-wide" }}
+                        {% for e in form.location.errors %}<p class="text-red-400 text-xs mt-1">{{ e }}</p>{% endfor %}
+                    </div>
+                </div>
 
-        <div>
-          <label class="block text-xs font-javanese text-emerald-400 uppercase tracking-wider mb-2">&nbsp;</label>
-          <div class="text-sm font-javanese text-white/40">Tip: specify number of credits the company wants to purchase for this requirement.</div>
-        </div>
-      </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                    <div class="space-y-2">
+                        <label class="block text-xs font-javanese text-emerald-400 uppercase tracking-wider">Credits Required</label>
+                        <div class="flex items-center gap-3">
+                            {{ form.credits_required|add_class:"w-full pl-4 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 placeholder-white/20 transition-all font-jockey tracking-wide" }}
+                        </div>
+                        <div id="inr-total" class="text-sm font-javanese text-white/40 mt-1">credits • ₹{{ form.credits_required.value|default:0|mul:300 }}</div>
+                        {% for e in form.credits_required.errors %}<p class="text-red-400 text-xs mt-1">{{ e }}</p>{% endfor %}
+                    </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label class="block text-xs font-javanese text-emerald-400 uppercase tracking-wider mb-2">Location Preference (optional)</label>
-          {{ form.location_preference|add_class:"w-full pl-3 pr-3 py-3 bg-white/5 border border-white/10 rounded-lg text-white focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 placeholder-white/20 transition-all" }}
-        </div>
-        <div>
-          <label class="block text-xs font-javanese text-emerald-400 uppercase tracking-wider mb-2">Budget Range (optional)</label>
-          {{ form.budget_range|add_class:"w-full pl-3 pr-3 py-3 bg-white/5 border border-white/10 rounded-lg text-white focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 placeholder-white/20 transition-all" }}
-        </div>
-      </div>
+                    <div class="pt-8">
+                        <div class="text-sm font-javanese text-white/40 italic">Tip: specify number of credits the company wants to purchase for this requirement.</div>
+                    </div>
+                </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label class="block text-xs font-javanese text-emerald-400 uppercase tracking-wider mb-2">Deadline</label>
-          {{ form.deadline|add_class:"w-full pl-3 pr-3 py-3 bg-white/5 border border-white/10 rounded-lg text-white focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 placeholder-white/20 transition-all" }}
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label class="block text-xs font-javanese text-emerald-400 uppercase tracking-wider">Location Preference (optional)</label>
+                        {{ form.location_preference|add_class:"w-full pl-4 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 placeholder-white/20 transition-all font-jockey tracking-wide" }}
+                    </div>
+                    <div class="space-y-2">
+                        <label class="block text-xs font-javanese text-emerald-400 uppercase tracking-wider">Budget Range (optional)</label>
+                        {{ form.budget_range|add_class:"w-full pl-4 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 placeholder-white/20 transition-all font-jockey tracking-wide" }}
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label class="block text-xs font-javanese text-emerald-400 uppercase tracking-wider">Deadline</label>
+                        {{ form.deadline|add_class:"w-full pl-4 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 placeholder-white/20 transition-all font-jockey tracking-wide" }}
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="block text-xs font-javanese text-emerald-400 uppercase tracking-wider">Description</label>
+                    {{ form.description|add_class:"w-full pl-4 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl h-40 text-white focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 placeholder-white/20 transition-all font-javanese" }}
+                    {% for e in form.description.errors %}<p class="text-red-400 text-xs mt-1">{{ e }}</p>{% endfor %}
+                </div>
+
+                <div class="flex justify-end pt-4">
+                    <button type="submit" class="inline-flex items-center gap-3 bg-white text-neutral-900 hover:bg-emerald-400 hover:text-white font-jockey tracking-wide px-8 py-4 rounded-full shadow-lg transition-all duration-300 text-lg"> 
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                        Create Tender
+                    </button>
+                </div>
+            </form>
         </div>
-      </div>
-
-      <div>
-        <label class="block text-xs font-javanese text-emerald-400 uppercase tracking-wider mb-2">Description</label>
-        {{ form.description|add_class:"w-full pl-3 pr-3 py-3 bg-white/5 border border-white/10 rounded-lg h-40 text-white focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 placeholder-white/20 transition-all" }}
-        {% for e in form.description.errors %}<p class="text-red-400 text-xs mt-1">{{ e }}</p>{% endfor %}
-      </div>
-
-      <div class="flex justify-end">
-        <button type="submit" class="inline-flex items-center gap-3 bg-emerald-600 hover:bg-emerald-500 text-white font-jockey tracking-wide px-6 py-3 rounded-lg shadow-lg shadow-emerald-900/20 transition-all"> 
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-          Create Tender
-        </button>
-      </div>
-    </form>
-  </div>
+    </div>
 </div>
 {% endblock %}
 {% block scripts %}

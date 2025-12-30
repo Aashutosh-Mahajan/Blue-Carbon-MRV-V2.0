@@ -1363,8 +1363,11 @@ def tender_accept(request, tender_id, application_id):
         messages.error(request, "Tender is not open for acceptance.")
         return redirect('tender_review', tender_id=tender.id)
     # Close tender and update proposal statuses
-    tender.status = "Closed"
-    tender.save(update_fields=["status"])
+    tender.status = "Allotted"
+    tender.allotted_to = app.ngo
+    tender.allotted_project = app.project
+    tender.save(update_fields=["status", "allotted_to", "allotted_project"])
+
     TenderApplication.objects.filter(tender=tender).exclude(id=app.id).update(status="Rejected")
     app.status = "Accepted"
     # Optional blockchain transaction (demo): corporate -> ngo for offered_credits
