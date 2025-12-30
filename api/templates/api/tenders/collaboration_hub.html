@@ -1,36 +1,75 @@
 {% extends 'api/base.html' %}
 {% block title %}Collaboration Hub | Blue Carbon MRV{% endblock %}
-{% block content %}
-<div class="max-w-6xl mx-auto px-6 py-10">
-  <div class="flex items-center justify-between mb-8">
-    <h1 class="text-3xl font-julius text-white">Collaboration Hub</h1>
-    <div class="text-sm font-javanese text-white/60">Showcase of allotted tenders</div>
-  </div>
+{% block header_classes %}nav-on-hero nav-shimmer sticky top-0 z-40{% endblock %}
 
-  <div class="grid gap-6">
-    {% for t in collaborations %}
-    <div class="p-6 glass-surface border border-white/10 rounded-xl hover:border-emerald-500/30 transition-colors">
-      <div class="text-xl font-julius text-white mb-1">{{ t.title }}</div>
-      <div class="font-javanese text-white/60 mb-4">
-        <span class="text-white/40">Location:</span> {{ t.location }} • 
-        <span class="text-white/40">Credits Required:</span> {{ t.credits_required }}
-      </div>
-      <div class="flex flex-wrap gap-4 text-sm font-javanese">
-        <span class="px-3 py-1 bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded">Corporate: {{ t.corporate.username }}</span>
-        {% if t.allotted_to %}
-        <span class="px-3 py-1 bg-blue-500/20 text-blue-400 border border-blue-500/30 rounded">Contributor: {{ t.allotted_to.username }}</span>
-        {% endif %}
-        {% if t.allotted_project %}
-        <span class="px-3 py-1 bg-white/10 text-white/80 border border-white/10 rounded">Project: {% firstof t.allotted_project.title t.allotted_project.name %}</span>
-        {% endif %}
-        <span class="px-3 py-1 bg-white/5 text-white/40 border border-white/5 rounded">Updated: {{ t.updated_at|date:'M d, Y H:i' }}</span>
-      </div>
+{% block content %}
+<div class="relative text-white">
+    <div class="fixed inset-0 hero-bg hero-bg-fixed"></div>
+    <div class="fixed inset-0 hero-overlay"></div>
+
+    <div class="relative z-10">
+        <section class="min-h-screen pt-32 pb-20">
+            <div class="max-w-6xl mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h1 class="text-4xl md:text-6xl font-julius tracking-[0.15em] uppercase">
+                        COLLABORATION HUB
+                    </h1>
+                    <p class="mt-4 text-lg text-white/85 font-javanese">
+                        Showcase of allotted tenders and successful partnerships
+                    </p>
+                </div>
+
+                <div class="grid gap-6">
+                    {% for t in collaborations %}
+                    <div class="glass-surface-strong rounded-2xl p-8 border border-white/10 hover:border-emerald-500/30 transition-all duration-300">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                            <h3 class="text-2xl font-julius text-white">{{ t.title }}</h3>
+                            <span class="px-4 py-1.5 bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-full text-sm font-javanese">
+                                {{ t.status }}
+                            </span>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 font-javanese text-white/80">
+                            <div>
+                                <span class="text-white/40 block text-sm mb-1">Location</span>
+                                {{ t.location }}
+                            </div>
+                            <div>
+                                <span class="text-white/40 block text-sm mb-1">Credits Required</span>
+                                {{ t.credits_required }}
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap gap-3 text-sm font-javanese pt-6 border-t border-white/10">
+                            <div class="flex items-center gap-2 px-3 py-1.5 bg-white/5 rounded-lg border border-white/5">
+                                <span class="text-white/40">Corporate:</span>
+                                <span class="text-white/90">{{ t.corporate.username }}</span>
+                            </div>
+                            {% if t.allotted_to %}
+                            <div class="flex items-center gap-2 px-3 py-1.5 bg-blue-500/10 rounded-lg border border-blue-500/20">
+                                <span class="text-blue-300/60">Contributor:</span>
+                                <span class="text-blue-200">{{ t.allotted_to.username }}</span>
+                            </div>
+                            {% endif %}
+                            {% if t.allotted_project %}
+                            <div class="flex items-center gap-2 px-3 py-1.5 bg-emerald-500/10 rounded-lg border border-emerald-500/20">
+                                <span class="text-emerald-300/60">Project:</span>
+                                <span class="text-emerald-200">{% firstof t.allotted_project.title t.allotted_project.name %}</span>
+                            </div>
+                            {% endif %}
+                            <div class="ml-auto text-white/40 flex items-center">
+                                Updated {{ t.updated_at|date:'M d, Y' }}
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="text-center py-20 glass-surface-strong rounded-3xl border border-white/10">
+                        <p class="text-xl text-white/60 font-javanese">No collaborations to display yet.</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
     </div>
-    {% empty %}
-    <div class="text-white/60 font-javanese text-center py-10 glass-surface rounded-xl border border-white/10">
-      No collaborations yet.
-    </div>
-    {% endfor %}
-  </div>
 </div>
 {% endblock %}
