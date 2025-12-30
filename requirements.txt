@@ -22,3 +22,7 @@ py-solc-x==2.0.3
 eth-account==0.13.4
 eth-keys==0.6.0
 hexbytes==1.2.1
+
+# Production server
+gunicorn==21.2.0
+whitenoise==6.6.0
