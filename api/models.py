@@ -38,9 +38,11 @@ class UserProfile(models.Model):
 
 
 class Wallet(models.Model):
-    """Simple wallet storing an on-chain address for a user."""
+    """Blockchain wallet storing an on-chain address for a user."""
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="wallet")
-    address = models.CharField(max_length=255, unique=True)
+    address = models.CharField(max_length=42, unique=True)  # Ethereum address format
+    private_key = models.CharField(max_length=66, blank=True, help_text="Encrypted private key (optional)")
+    is_external = models.BooleanField(default=False, help_text="True if user provided their own wallet")
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -48,11 +50,32 @@ class Wallet(models.Model):
 
     @staticmethod
     def ensure(user: User):
-        wallet, _ = Wallet.objects.get_or_create(
+        """Ensure user has a wallet, create one if needed"""
+        wallet, created = Wallet.objects.get_or_create(
             user=user,
-            defaults={"address": f"0x{secrets.token_hex(20)}"},
+            defaults={"address": Wallet._generate_address()},
         )
         return wallet
+    
+    @staticmethod
+    def _generate_address():
+        """Generate a new Ethereum address"""
+        try:
+            from eth_account import Account
+            account = Account.create()
+            return account.address
+        except ImportError:
+            # Fallback to mock address if eth_account not available
+            import secrets
+            return f"0x{secrets.token_hex(20)}"
+    
+    def get_balance(self):
+        """Get the current token balance for this wallet"""
+        from .blockchain import get_blockchain_manager
+        manager = get_blockchain_manager()
+        if hasattr(manager, 'get_balance'):
+            return manager.get_balance(self.address)
+        return 0
 
 
 # --------------------
@@ -454,6 +477,50 @@ class MobileToken(models.Model):
 # --------------------
 # Blockchain Models
 # --------------------
+class BlockchainConfig(models.Model):
+    """Configuration for blockchain network connection"""
+    NETWORK_CHOICES = [
+        ('local', 'Local Development'),
+        ('sepolia', 'Sepolia Testnet'),
+        ('goerli', 'Goerli Testnet'),
+        ('mainnet', 'Ethereum Mainnet'),
+    ]
+    
+    name = models.CharField(max_length=100, unique=True)
+    network_type = models.CharField(max_length=20, choices=NETWORK_CHOICES)
+    rpc_url = models.URLField(help_text="RPC endpoint URL")
+    chain_id = models.IntegerField()
+    
+    # Contract addresses (set after deployment)
+    carbon_token_address = models.CharField(max_length=42, blank=True, help_text="Carbon Credit Token contract address")
+    marketplace_address = models.CharField(max_length=42, blank=True, help_text="Marketplace contract address")
+    
+    # Account configuration
+    private_key = models.CharField(max_length=66, blank=True, help_text="Private key for contract interactions (keep secure!)")
+    
+    # Status
+    is_active = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        ordering = ['-is_active', 'name']
+    
+    def __str__(self):
+        return f"{self.name} ({self.network_type})"
+    
+    @classmethod
+    def get_active_config(cls):
+        """Get the currently active blockchain configuration"""
+        return cls.objects.filter(is_active=True).first()
+    
+    def save(self, *args, **kwargs):
+        # Ensure only one config is active at a time
+        if self.is_active:
+            BlockchainConfig.objects.filter(is_active=True).update(is_active=False)
+        super().save(*args, **kwargs)
+
+
 class ChainBlock(models.Model):
     """Persisted blockchain block for durability across restarts."""
     index = models.IntegerField()
@@ -479,6 +546,11 @@ class ChainTransaction(models.Model):
     kind = models.CharField(max_length=32)
     meta = models.JSONField(null=True, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
+    
+    # Real blockchain transaction data
+    tx_hash = models.CharField(max_length=66, blank=True, help_text="Blockchain transaction hash")
+    block_number = models.BigIntegerField(null=True, blank=True, help_text="Blockchain block number")
+    gas_used = models.BigIntegerField(null=True, blank=True)
 
     def __str__(self):
         return f"{self.kind} {self.amount} -> {self.recipient}"

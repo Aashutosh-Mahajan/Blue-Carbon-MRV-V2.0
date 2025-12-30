@@ -15,3 +15,10 @@ sqlparse==0.5.4
 threadpoolctl==3.6.0
 tzdata==2025.2
 Pillow
+
+# Blockchain dependencies
+web3==7.6.0
+py-solc-x==2.0.3
+eth-account==0.13.4
+eth-keys==0.6.0
+hexbytes==1.2.1

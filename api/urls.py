@@ -23,6 +23,9 @@ urlpatterns = [
     path("api/otp/send-phone/", views.send_phone_otp, name="send_phone_otp"),
     path("api/otp/verify-phone/", views.verify_phone_otp, name="verify_phone_otp"),
     path("blockchain/", views.blockchain_explorer, name="blockchain_explorer"),
+    path("api/blockchain/status/", views.api_blockchain_status, name="api_blockchain_status"),
+    path("admin/blockchain/status/", views.blockchain_status, name="blockchain_status"),
+    path("api/wallet/info/", views.user_wallet_info, name="user_wallet_info"),
 
     # --------------------
     # NGO URLs

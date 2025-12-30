@@ -14,10 +14,14 @@ from .models import (
     FieldImage, SatelliteImageSubmission, SatelliteImage
 )
 from .forms import NGORegisterForm, CorporateRegisterForm, TenderForm, TenderApplicationForm, TenderV2Form, ProposalV2Form
-from .blockchain import blockchain, get_chain
+from .blockchain import get_chain
+from .blockchain_service import BlockchainService
 from .forms import ProjectForm
 import joblib
 import os
+import logging
+
+logger = logging.getLogger(__name__)
 from PIL import Image
 import numpy as np
 import json
@@ -688,10 +692,22 @@ def review_project(request, project_id):
             project.save()
             # Mint credits on blockchain exactly once
             if hasattr(project, 'chain_issued') and not project.chain_issued:
-                ngo_wallet = Wallet.ensure(project.ngo)
-                blockchain.issue_credits(ngo_wallet.address, project.credits, project.id)
-                project.chain_issued = True
-                project.save(update_fields=["chain_issued"])
+                # Use BlockchainService to ensure proper transaction recording
+                try:
+                    from .blockchain_service import BlockchainService
+                    tx_hash = BlockchainService.mint_credits_for_project(project)
+                    if tx_hash:
+                        logger.info(f"Credits minted for project {project.id}: {tx_hash}")
+                        messages.success(request, f"Project verified and {project.credits} credits minted on blockchain!")
+                    else:
+                        logger.error(f"Failed to mint credits for project {project.id}")
+                        messages.error(request, "Project approved but blockchain minting failed")
+                except Exception as e:
+                    logger.error(f"Blockchain error for project {project.id}: {e}")
+                    messages.error(request, f"Project approved but blockchain error: {str(e)}")
+                    # Don't mark as chain_issued if blockchain failed
+                    project.chain_issued = False
+                    project.save(update_fields=['chain_issued'])
 
             messages.success(
                 request, f"Project verified and {project.credits} credits issued!"
@@ -1279,9 +1295,13 @@ def purchase_credits(request, project_id):
             project.credits -= credits
             project.save(update_fields=["credits"])
             # Chain transfer (buyer -> seller)
-            buyer_wallet = Wallet.ensure(request.user)
-            seller_wallet = Wallet.ensure(project.ngo)
-            blockchain.transfer_credits(buyer_wallet.address, seller_wallet.address, credits, project.id)
+            # Use BlockchainService to ensure proper transaction recording
+            from .blockchain_service import BlockchainService
+            tx_hash = BlockchainService.transfer_credits(project.ngo, request.user, credits, project.id)
+            if tx_hash:
+                logger.info(f"Credits purchased: {tx_hash}")
+            else:
+                logger.error("Failed to transfer credits on blockchain")
             messages.success(
                 request,
                 f"Purchased {credits} credits from project '{project.title}'."
@@ -1352,9 +1372,15 @@ def tender_accept(request, tender_id, application_id):
         from .models import Wallet
         corp_wallet = Wallet.ensure(request.user)
         ngo_wallet = Wallet.ensure(app.ngo)
+        # Use BlockchainService to ensure proper transaction recording
+        from .blockchain_service import BlockchainService
         amount = float(app.offered_credits or 0)
         if amount > 0:
-            blockchain.transfer_credits(corp_wallet.address, ngo_wallet.address, amount, project_id=None)
+            tx_hash = BlockchainService.transfer_credits(request.user, app.ngo, int(amount), project_id=None)
+            if tx_hash:
+                logger.info(f"Tender credits transferred: {tx_hash}")
+            else:
+                logger.error("Failed to transfer tender credits on blockchain")
             chain = get_chain()
             # store surrogate hash only if ChainTransaction exists for v1? We skip storing on app to keep schema clean
     except Exception:
@@ -1509,9 +1535,13 @@ def tender_v2_accept(request, tender_id, proposal_id):
     proposal.status = "Accepted"
     # Trigger on-chain transfer (demo): corporate -> contributor wallet amount = offered_credits
     try:
-        corp_wallet = Wallet.ensure(request.user)
-        contrib_wallet = Wallet.ensure(proposal.contributor)
-        blockchain.transfer_credits(corp_wallet.address, contrib_wallet.address, float(proposal.offered_credits), project_id=None)
+        # Use BlockchainService to ensure proper transaction recording
+        from .blockchain_service import BlockchainService
+        tx_hash = BlockchainService.transfer_credits(request.user, proposal.contributor, int(proposal.offered_credits), project_id=None)
+        if tx_hash:
+            logger.info(f"Tender v2 credits transferred: {tx_hash}")
+        else:
+            logger.error("Failed to transfer tender v2 credits on blockchain")
         # attempt to fetch last block hash as tx hash surrogate
         chain = get_chain()
         last_hash = chain[-1].get('hash') if chain else ''
@@ -1595,233 +1625,87 @@ def tender_v2_apply(request, tender_id):
 # Blockchain Explorer
 # --------------------
 @login_required
+@login_required
 @user_passes_test(is_admin)
 def blockchain_explorer(request):
-    """Return a JSON snapshot of the in-memory blockchain.
-
-    Lightweight explorer endpoint used by admin/developers. If you later
-    persist blocks in the database, adapt this to query those models.
-    """
-    # get_chain() currently returns the raw chain list. For safety accept
-    # either the SimpleBlockchain instance or its internal list.
-    # Prefer reading persisted ChainBlock/ChainTransaction for richer info. Fall
-    # back to the in-memory chain if DB access fails (migrations, etc.).
+    """Blockchain explorer showing real blockchain transactions only"""
+    
+    # Import blockchain service for status
+    from .blockchain_service import BlockchainService
+    
+    # Get blockchain status
+    blockchain_status = BlockchainService.get_blockchain_status()
+    
     enriched_chain = []
-    pending = []
+    
     try:
         # Import models lazily to avoid app registry issues
-        from .models import ChainBlock, ChainTransaction, Wallet, Project
-
-        blocks = list(ChainBlock.objects.all().order_by("index"))
-        for b in blocks:
-            block_dict = {
-                "index": b.index,
-                "timestamp": b.timestamp,
-                "previous_hash": b.previous_hash,
-                "nonce": b.nonce,
-                "hash": b.hash,
-                "transactions": [],
+        from .models import ChainTransaction, Wallet, Project, Purchase
+        
+        # Get only real blockchain transactions (those with tx_hash)
+        real_blockchain_txs = ChainTransaction.objects.filter(
+            tx_hash__isnull=False, 
+            tx_hash__gt=''
+        ).order_by('-timestamp')
+        
+        # Create "blocks" from real blockchain transactions
+        for i, tx in enumerate(real_blockchain_txs):
+            real_block = {
+                "index": f"TX-{i+1}",
+                "timestamp": tx.timestamp.timestamp() if tx.timestamp else 0,
+                "previous_hash": "Real Blockchain Network",
+                "nonce": 0,
+                "hash": tx.tx_hash or "N/A",
+                "transactions": [_enrich_transaction(tx)],
+                "total_credits": float(tx.amount or 0),
+                "block_type": "real_blockchain",
+                "block_number": tx.block_number,
+                "gas_used": tx.gas_used
             }
-            block_total = 0.0
-            for tx in b.txs.all().order_by("id"):
-                # Resolve sender/recipient users via Wallet table when possible
-                sender_user = None
-                recipient_user = None
-                try:
-                    sw = Wallet.objects.select_related("user").filter(address=tx.sender).first()
-                    if sw:
-                        sender_user = {"username": sw.user.username, "email": sw.user.email, "id": sw.user.id}
-                except Exception:
-                    sender_user = None
-
-                try:
-                    rw = Wallet.objects.select_related("user").filter(address=tx.recipient).first()
-                    if rw:
-                        recipient_user = {"username": rw.user.username, "email": rw.user.email, "id": rw.user.id}
-                except Exception:
-                    recipient_user = None
-
-                project = None
-                if tx.project_id:
-                    try:
-                        p = Project.objects.filter(id=tx.project_id).first()
-                        if p:
-                            project = {"id": p.id, "name": getattr(p, "title", None) or getattr(p, "name", "")}
-                    except Exception:
-                        project = None
-
-                # compute total purchased by this corporate (if sender is a corporate user)
-                corporate_total = None
-                try:
-                    from .models import Purchase
-                    from django.contrib.auth.models import User as DJUser
-                    from django.db.models import Sum
-                    if sender_user and tx.project_id:
-                        cu = DJUser.objects.filter(id=sender_user.get("id")).first()
-                        if cu:
-                            total = Purchase.objects.filter(corporate=cu, project__id=tx.project_id).aggregate(models_sum=Sum('credits'))
-                            corporate_total = float(total.get('models_sum') or 0)
-                except Exception:
-                    corporate_total = None
-
-                # try to resolve locations for sender/recipient users if available
-                sender_location = None
-                recipient_location = None
-                try:
-                    from django.contrib.auth.models import User as DJUser
-                    if sender_user and sender_user.get('id'):
-                        su_obj = DJUser.objects.filter(id=sender_user.get('id')).first()
-                        if su_obj:
-                            sender_location = getattr(su_obj, 'location', None) or getattr(getattr(su_obj, 'profile', None), 'location', None)
-                    if recipient_user and recipient_user.get('id'):
-                        ru_obj = DJUser.objects.filter(id=recipient_user.get('id')).first()
-                        if ru_obj:
-                            recipient_location = getattr(ru_obj, 'location', None) or getattr(getattr(ru_obj, 'profile', None), 'location', None)
-                except Exception:
-                    sender_location = sender_location
-                    recipient_location = recipient_location
-
-                tx_dict = {
-                    "id": tx.id,
-                    "kind": tx.kind,
-                    "amount": float(tx.amount),
-                    "project_id": tx.project_id,
-                    "project": project,
-                    "sender": tx.sender,
-                    "recipient": tx.recipient,
-                    "sender_user": sender_user,
-                    "recipient_user": recipient_user,
-                    "sender_location": sender_location,
-                    "recipient_location": recipient_location,
-                    "corporate_total_purchased": corporate_total,
-                    "meta": tx.meta,
-                    "timestamp": tx.timestamp.isoformat() if getattr(tx, "timestamp", None) else None,
-                }
-                block_total += float(tx.amount or 0)
-                block_dict["transactions"].append(tx_dict)
-
-            block_dict["total_credits"] = block_total
-            enriched_chain.append(block_dict)
-
+            enriched_chain.append(real_block)
+        
+        # Get comprehensive statistics for real blockchain only
+        total_credits_issued = sum(tx.amount for tx in real_blockchain_txs.filter(kind__in=['MINT']))
+        total_credits_transferred = sum(tx.amount for tx in real_blockchain_txs.filter(kind='TRANSFER'))
+        unique_wallets = Wallet.objects.count()
+        total_projects = Project.objects.count()
+        
         data = {
             "length": len(enriched_chain),
             "pending_transactions": [],
             "chain": enriched_chain,
+            "blockchain_status": blockchain_status,
+            "statistics": {
+                "total_credits_issued": float(total_credits_issued or 0),
+                "total_credits_transferred": float(total_credits_transferred or 0),
+                "total_transactions": real_blockchain_txs.count(),
+                "real_blockchain_transactions": real_blockchain_txs.count(),
+                "simple_blockchain_transactions": 0,  # No simple blockchain transactions shown
+                "unique_wallets": unique_wallets,
+                "total_projects": total_projects
+            }
         }
 
-    except Exception:
-        # DB not available or models not ready; fallback to in-memory chain
-        ch = get_chain()
-        if isinstance(ch, list):
-            chain_list = ch
-            pending = []
-            last_block = chain_list[-1] if chain_list else None
-        else:
-            chain_list = ch.chain
-            pending = [t.__dict__ for t in getattr(ch, "pending", [])]
-            last_block = getattr(ch, "last_block", None)
-
-        # Try to enrich transactions with Wallet->User mapping where possible
-        enriched_chain = []
-        try:
-            from .models import Wallet, Project
-            for block in chain_list:
-                block_total = 0.0
-                txs = []
-                for tx in block.get("transactions", []):
-                    sender_user = None
-                    recipient_user = None
-                    try:
-                        sw = Wallet.objects.select_related("user").filter(address=tx.get("sender")).first()
-                        if sw:
-                            sender_user = {"username": sw.user.username, "email": sw.user.email, "id": sw.user.id}
-                    except Exception:
-                        sender_user = None
-
-                    try:
-                        rw = Wallet.objects.select_related("user").filter(address=tx.get("recipient")).first()
-                        if rw:
-                            recipient_user = {"username": rw.user.username, "email": rw.user.email, "id": rw.user.id}
-                    except Exception:
-                        recipient_user = None
-
-                    project = None
-                    if tx.get("project_id"):
-                        try:
-                            p = Project.objects.filter(id=tx.get("project_id")).first()
-                            if p:
-                                project = {"id": p.id, "name": getattr(p, "title", None) or getattr(p, "name", "")}
-                        except Exception:
-                            project = None
-
-                    # compute corporate total purchased for in-memory txs
-                    corporate_total = None
-                    sender_location = None
-                    recipient_location = None
-                    try:
-                        from django.contrib.auth.models import User as DJUser
-                        from .models import Purchase
-                        from django.db.models import Sum
-                        if sender_user and tx.get("project_id"):
-                            cu = DJUser.objects.filter(id=sender_user.get('id')).first()
-                            if cu:
-                                total = Purchase.objects.filter(corporate=cu, project__id=tx.get('project_id')).aggregate(models_sum=Sum('credits'))
-                                corporate_total = float(total.get('models_sum') or 0)
-                        if sender_user and sender_user.get('id'):
-                            su_obj = DJUser.objects.filter(id=sender_user.get('id')).first()
-                            if su_obj:
-                                sender_location = getattr(su_obj, 'location', None) or getattr(getattr(su_obj, 'profile', None), 'location', None)
-                        if recipient_user and recipient_user.get('id'):
-                            ru_obj = DJUser.objects.filter(id=recipient_user.get('id')).first()
-                            if ru_obj:
-                                recipient_location = getattr(ru_obj, 'location', None) or getattr(getattr(ru_obj, 'profile', None), 'location', None)
-                    except Exception:
-                        corporate_total = corporate_total
-
-                    amount = float(tx.get("amount") or 0)
-                    block_total += amount
-                    txs.append({
-                        "kind": tx.get("kind"),
-                        "amount": amount,
-                        "project": project,
-                        "sender": tx.get("sender"),
-                        "recipient": tx.get("recipient"),
-                        "sender_user": sender_user,
-                        "recipient_user": recipient_user,
-                        "sender_location": sender_location,
-                        "recipient_location": recipient_location,
-                        "corporate_total_purchased": corporate_total,
-                        "meta": tx.get("meta"),
-                    })
-
-                enriched_chain.append({
-                    "index": block.get("index"),
-                    "timestamp": block.get("timestamp"),
-                    "previous_hash": block.get("previous_hash"),
-                    "nonce": block.get("nonce"),
-                    "hash": block.get("hash"),
-                    "transactions": txs,
-                    "total_credits": block_total,
-                })
-
-        except Exception:
-            # As last resort, present raw chain
-            for block in chain_list:
-                enriched_chain.append({
-                    "index": block.get("index"),
-                    "timestamp": block.get("timestamp"),
-                    "previous_hash": block.get("previous_hash"),
-                    "nonce": block.get("nonce"),
-                    "hash": block.get("hash"),
-                    "transactions": block.get("transactions", []),
-                    "total_credits": sum(float(t.get("amount") or 0) for t in block.get("transactions", [])),
-                })
-
+    except Exception as e:
+        # Error fallback
+        import logging
+        logging.error(f"Error in blockchain explorer: {e}")
+        
         data = {
-            "length": len(enriched_chain),
-            "pending_transactions": pending,
-            "chain": enriched_chain,
-            "last_block": last_block,
+            "length": 0,
+            "pending_transactions": [],
+            "chain": [],
+            "blockchain_status": blockchain_status,
+            "statistics": {
+                "total_credits_issued": 0,
+                "total_credits_transferred": 0,
+                "total_transactions": 0,
+                "real_blockchain_transactions": 0,
+                "simple_blockchain_transactions": 0,
+                "unique_wallets": 0,
+                "total_projects": 0
+            },
+            "error": str(e)
         }
 
     # If user requested HTML view, render admin explorer page
@@ -1829,6 +1713,177 @@ def blockchain_explorer(request):
         return render(request, "api/blockchain/explorer.html", {"data": data})
 
     return JsonResponse(data, safe=False)
+
+
+def _enrich_transaction(tx):
+    """Enrich a ChainTransaction object with user and project information"""
+    from .models import Wallet, Project, Purchase
+    from django.contrib.auth.models import User
+    from django.db.models import Sum
+    
+    # Resolve sender/recipient users via Wallet table
+    sender_user = None
+    recipient_user = None
+    sender_location = None
+    recipient_location = None
+    
+    try:
+        sw = Wallet.objects.select_related("user").filter(address=tx.sender).first()
+        if sw:
+            sender_user = {
+                "username": sw.user.username, 
+                "email": sw.user.email, 
+                "id": sw.user.id,
+                "role": getattr(sw.user.profile, 'role', 'unknown') if hasattr(sw.user, 'profile') else 'unknown'
+            }
+            # Try to get location from user profile
+            if hasattr(sw.user, 'profile'):
+                sender_location = getattr(sw.user.profile, 'organization', None)
+    except Exception:
+        pass
+
+    try:
+        rw = Wallet.objects.select_related("user").filter(address=tx.recipient).first()
+        if rw:
+            recipient_user = {
+                "username": rw.user.username, 
+                "email": rw.user.email, 
+                "id": rw.user.id,
+                "role": getattr(rw.user.profile, 'role', 'unknown') if hasattr(rw.user, 'profile') else 'unknown'
+            }
+            # Try to get location from user profile
+            if hasattr(rw.user, 'profile'):
+                recipient_location = getattr(rw.user.profile, 'organization', None)
+    except Exception:
+        pass
+
+    # Resolve project information
+    project = None
+    if tx.project_id:
+        try:
+            p = Project.objects.filter(id=tx.project_id).first()
+            if p:
+                project = {
+                    "id": p.id, 
+                    "title": getattr(p, "title", None) or getattr(p, "name", ""),
+                    "location": p.location,
+                    "status": p.status,
+                    "ngo": p.ngo.username if p.ngo else None
+                }
+        except Exception:
+            pass
+
+    # Calculate corporate total purchased (if applicable)
+    corporate_total = None
+    try:
+        if sender_user and tx.project_id:
+            cu = User.objects.filter(id=sender_user.get("id")).first()
+            if cu:
+                total = Purchase.objects.filter(corporate=cu, project__id=tx.project_id).aggregate(total=Sum('credits'))
+                corporate_total = float(total.get('total') or 0)
+    except Exception:
+        pass
+
+    return {
+        "id": getattr(tx, 'id', None),
+        "kind": tx.kind,
+        "amount": float(tx.amount),
+        "project_id": tx.project_id,
+        "project": project,
+        "sender": tx.sender,
+        "recipient": tx.recipient,
+        "sender_user": sender_user,
+        "recipient_user": recipient_user,
+        "sender_location": sender_location,
+        "recipient_location": recipient_location,
+        "corporate_total_purchased": corporate_total,
+        "meta": tx.meta,
+        "timestamp": tx.timestamp.isoformat() if getattr(tx, "timestamp", None) else None,
+        "tx_hash": getattr(tx, 'tx_hash', None),
+        "block_number": getattr(tx, 'block_number', None),
+        "gas_used": getattr(tx, 'gas_used', None),
+        "transaction_type": "real_blockchain" if getattr(tx, 'tx_hash', None) else "simple_blockchain"
+    }
+
+
+def _enrich_simple_transaction(tx_dict):
+    """Enrich a simple blockchain transaction dictionary"""
+    from .models import Wallet, Project, Purchase
+    from django.contrib.auth.models import User
+    from django.db.models import Sum
+    
+    sender_user = None
+    recipient_user = None
+    sender_location = None
+    recipient_location = None
+    
+    try:
+        sw = Wallet.objects.select_related("user").filter(address=tx_dict.get("sender")).first()
+        if sw:
+            sender_user = {
+                "username": sw.user.username, 
+                "email": sw.user.email, 
+                "id": sw.user.id,
+                "role": getattr(sw.user.profile, 'role', 'unknown') if hasattr(sw.user, 'profile') else 'unknown'
+            }
+            if hasattr(sw.user, 'profile'):
+                sender_location = getattr(sw.user.profile, 'organization', None)
+    except Exception:
+        pass
+
+    try:
+        rw = Wallet.objects.select_related("user").filter(address=tx_dict.get("recipient")).first()
+        if rw:
+            recipient_user = {
+                "username": rw.user.username, 
+                "email": rw.user.email, 
+                "id": rw.user.id,
+                "role": getattr(rw.user.profile, 'role', 'unknown') if hasattr(rw.user, 'profile') else 'unknown'
+            }
+            if hasattr(rw.user, 'profile'):
+                recipient_location = getattr(rw.user.profile, 'organization', None)
+    except Exception:
+        pass
+
+    project = None
+    if tx_dict.get("project_id"):
+        try:
+            p = Project.objects.filter(id=tx_dict.get("project_id")).first()
+            if p:
+                project = {
+                    "id": p.id, 
+                    "title": getattr(p, "title", None) or getattr(p, "name", ""),
+                    "location": p.location,
+                    "status": p.status,
+                    "ngo": p.ngo.username if p.ngo else None
+                }
+        except Exception:
+            pass
+
+    corporate_total = None
+    try:
+        if sender_user and tx_dict.get("project_id"):
+            cu = User.objects.filter(id=sender_user.get('id')).first()
+            if cu:
+                total = Purchase.objects.filter(corporate=cu, project__id=tx_dict.get('project_id')).aggregate(total=Sum('credits'))
+                corporate_total = float(total.get('total') or 0)
+    except Exception:
+        pass
+
+    return {
+        "kind": tx_dict.get("kind"),
+        "amount": float(tx_dict.get("amount") or 0),
+        "project": project,
+        "sender": tx_dict.get("sender"),
+        "recipient": tx_dict.get("recipient"),
+        "sender_user": sender_user,
+        "recipient_user": recipient_user,
+        "sender_location": sender_location,
+        "recipient_location": recipient_location,
+        "corporate_total_purchased": corporate_total,
+        "meta": tx_dict.get("meta"),
+        "transaction_type": "simple_blockchain"
+    }
 
 
 # --------------------
@@ -2200,3 +2255,53 @@ def collaboration_hub(request):
     from .models import Tender
     collaborations = Tender.objects.filter(allotted_to__isnull=False).order_by('-updated_at')
     return render(request, "api/tenders/collaboration_hub.html", {"collaborations": collaborations})
+
+@login_required
+@user_passes_test(is_admin)
+def blockchain_status(request):
+    """API endpoint to check blockchain connection status"""
+    try:
+        status = BlockchainService.get_blockchain_status()
+        return JsonResponse(status)
+    except Exception as e:
+        return JsonResponse({
+            'connected': False,
+            'error': str(e)
+        }, status=500)
+
+
+@csrf_exempt
+def api_blockchain_status(request):
+    """Public API endpoint for blockchain status (for mobile/external apps)"""
+    if request.method != 'GET':
+        return JsonResponse({'error': 'GET required'}, status=405)
+    
+    try:
+        status = BlockchainService.get_blockchain_status()
+        return JsonResponse({
+            'success': True,
+            'blockchain': status
+        })
+    except Exception as e:
+        return JsonResponse({
+            'success': False,
+            'error': str(e)
+        }, status=500)
+
+
+@login_required
+def user_wallet_info(request):
+    """Get current user's wallet information and balance"""
+    try:
+        wallet = Wallet.ensure(request.user)
+        balance = BlockchainService.get_user_balance(request.user)
+        
+        return JsonResponse({
+            'address': wallet.address,
+            'balance': balance,
+            'is_external': wallet.is_external
+        })
+    except Exception as e:
+        return JsonResponse({
+            'error': str(e)
+        }, status=500)
