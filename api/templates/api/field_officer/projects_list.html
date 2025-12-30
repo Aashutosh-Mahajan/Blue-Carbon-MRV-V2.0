@@ -1,38 +1,82 @@
 {% extends "api/base.html" %}
+{% load static %}
 {% block title %}Projects | Field Officer{% endblock %}
+
 {% block content %}
-<div class="max-w-7xl mx-auto px-6 py-10">
-  <div class="flex items-center justify-between mb-6">
-    <h1 class="text-3xl font-bold text-neutral-900">Projects Needing Field Data</h1>
-    <a href="{% url 'field_officer_dashboard' %}" class="text-primary-600 hover:underline">Back to Dashboard</a>
-  </div>
-  <div class="modern-card p-6">
-    <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-      {% for proj in projects %}
-      <div class="border border-neutral-200 bg-white p-5 rounded-lg">
-        <div class="flex items-start justify-between mb-3">
-          <div class="pr-3">
-            <div class="font-semibold text-neutral-900">{{ proj.title }}</div>
-            <div class="text-sm text-neutral-500">{{ proj.location }}</div>
-          </div>
-          <div class="w-8 h-8 text-neutral-600 bg-neutral-100 rounded-full flex items-center justify-center text-xs font-bold">#{{ proj.id }}</div>
+<!-- Full page hero background -->
+<div class="relative text-white">
+  <div class="fixed inset-0 hero-bg hero-bg-fixed"></div>
+  <div class="fixed inset-0 hero-overlay"></div>
+  
+  <div class="relative z-10 max-w-7xl mx-auto px-6 py-12">
+      
+      <!-- Header Section -->
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
+        <div>
+          <h1 class="text-4xl md:text-5xl font-bold text-white mb-2">Projects Needing Field Data</h1>
+          <p class="text-white/70">Select a project to submit field survey data</p>
         </div>
-        <div class="grid grid-cols-2 gap-3 text-xs mb-4">
-          <div class="bg-primary-50 border border-primary-200 px-3 py-2">
-            <div class="font-medium text-primary-700">Species</div>
-            <div class="text-primary-600 truncate">{{ proj.species }}</div>
-          </div>
-          <div class="bg-accent-50 border border-accent-200 px-3 py-2">
-            <div class="font-medium text-accent-700">Area</div>
-            <div class="text-accent-600">{{ proj.area }} ha</div>
-          </div>
-        </div>
-        <a href="{% url 'field_officer_dashboard' %}?project_id={{ proj.id }}" class="btn-primary w-full py-2 text-sm inline-flex items-center justify-center">Submit Field Data</a>
+        <a href="{% url 'field_officer_dashboard' %}" class="inline-flex items-center gap-2 glass-surface px-5 py-3 rounded-xl text-white hover:bg-white/20 transition-colors group">
+          <svg class="w-5 h-5 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+          </svg>
+          Back to Dashboard
+        </a>
       </div>
-      {% empty %}
-      <div class="col-span-full text-center py-8 text-neutral-500">No projects pending field data.</div>
-      {% endfor %}
-    </div>
+
+      <!-- Projects Grid -->
+      <div class="glass-surface-strong rounded-2xl p-6">
+        <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {% for proj in projects %}
+          <div class="glass-surface rounded-xl p-5 hover:bg-white/15 transition-all duration-300 group">
+            <div class="flex items-start justify-between mb-4">
+              <div class="pr-3 flex-1">
+                <div class="font-semibold text-white text-lg group-hover:text-white transition-colors">{{ proj.title }}</div>
+                <div class="text-sm text-white/60 flex items-center gap-1 mt-1">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  </svg>
+                  {{ proj.location }}
+                </div>
+              </div>
+              <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-white text-sm font-bold">
+                #{{ proj.id }}
+              </div>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-3 text-sm mb-5">
+              <div class="glass-surface px-3 py-3 rounded-lg">
+                <div class="font-medium text-white/70 text-xs uppercase tracking-wide mb-1">Species</div>
+                <div class="text-white font-semibold truncate">{{ proj.species }}</div>
+              </div>
+              <div class="glass-surface px-3 py-3 rounded-lg">
+                <div class="font-medium text-white/70 text-xs uppercase tracking-wide mb-1">Area</div>
+                <div class="text-white font-semibold">{{ proj.area }} ha</div>
+              </div>
+            </div>
+            
+            <a href="{% url 'field_officer_dashboard' %}?project_id={{ proj.id }}" class="w-full py-3 bg-white/20 hover:bg-white/30 text-white rounded-xl transition-all duration-300 text-sm font-semibold inline-flex items-center justify-center gap-2 group-hover:bg-white/25">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+              </svg>
+              Submit Field Data
+            </a>
+          </div>
+          {% empty %}
+          <div class="col-span-full text-center py-16">
+            <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+              </svg>
+            </div>
+            <p class="text-white/60 text-lg">No projects pending field data</p>
+            <p class="text-white/40 text-sm mt-1">Check back later for new assignments</p>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
   </div>
 </div>
 {% endblock %}

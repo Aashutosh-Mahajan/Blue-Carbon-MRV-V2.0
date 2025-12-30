@@ -202,7 +202,7 @@ class _LoginScreenState extends State<LoginScreen>
         ),
         const SizedBox(height: 24),
         Text(
-          'Blue Carbon MRV',
+          'BlueQuant',
           style: Theme.of(context).textTheme.displayLarge?.copyWith(
                 color: AppTheme.primaryBlue,
                 fontWeight: FontWeight.w700,
@@ -389,7 +389,7 @@ class _LoginScreenState extends State<LoginScreen>
         ),
         const SizedBox(height: 24),
         Text(
-          '© 2025 Blue Carbon MRV. All rights reserved.',
+          '© 2025 BlueQuant. All rights reserved.',
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 color: AppTheme.gray500,
               ),

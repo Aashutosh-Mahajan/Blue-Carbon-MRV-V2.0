@@ -28,7 +28,7 @@ class BlueCarbonMRVApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Blue Carbon MRV',
+      title: 'BlueQuant',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       initialRoute: '/',

@@ -16,6 +16,6 @@ void main() {
 
     // Verify a stable piece of UI from the Login screen is present.
     expect(find.text('Sign In'), findsAtLeastNWidgets(1));
-    expect(find.text('Blue Carbon MRV'), findsOneWidget);
+    expect(find.text('BlueQuant'), findsOneWidget);
   });
 }

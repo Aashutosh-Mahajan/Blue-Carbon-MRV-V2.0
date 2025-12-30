@@ -180,8 +180,8 @@ EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD', default=None)
 DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL', default=(EMAIL_HOST_USER or 'no-reply@example.org'))
 
 # Organization/branding for emails
-ORG_NAME = os.getenv('ORG_NAME', 'Blue Carbon MRV')
-SENDER_NAME = os.getenv('SENDER_NAME', 'Blue Carbon MRV Support')
+ORG_NAME = os.getenv('ORG_NAME', 'BlueQuant')
+SENDER_NAME = os.getenv('SENDER_NAME', 'BlueQuant Support')
 SENDER_TITLE = os.getenv('SENDER_TITLE', 'Support Team')
 SUPPORT_EMAIL = os.getenv('SUPPORT_EMAIL', EMAIL_HOST_USER)
 SUPPORT_PHONE = os.getenv('SUPPORT_PHONE', '+00-0000-000-000')

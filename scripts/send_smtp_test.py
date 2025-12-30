@@ -5,7 +5,7 @@ print('purchase:', p)
 buyer = p.corporate
 print('buyer username:', buyer.username, 'email:', repr(buyer.email))
 try:
-    msg=EmailMessage('SMTP test - Blue Carbon MRV', 'This is a test email body.', to=[buyer.email or buyer.username])
+    msg=EmailMessage('SMTP test - BlueQuant', 'This is a test email body.', to=[buyer.email or buyer.username])
     sent = msg.send()
     print('send returned:', sent)
 except Exception as e:

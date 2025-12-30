@@ -267,9 +267,9 @@ def register_ngo(request):
                 generated = getattr(form, "generated_password", None)
                 if generated:
                     from django.core.mail import send_mail
-                    subject = "Your Blue Carbon MRV Account Password"
+                    subject = "Your BlueQuant Account Password"
                     body = (
-                        "Welcome to Blue Carbon MRV!\n\n"
+                        "Welcome to BlueQuant!\n\n"
                         f"Your account has been created for {user.email}.\n"
                         f"Temporary Password: {generated}\n\n"
                         "For security, please log in and change your password immediately.\n"
@@ -519,7 +519,7 @@ def request_certificate(request, purchase_id):
             'transaction_id': purchase.id,
             'purchase_date': purchase.timestamp,
             'dashboard_link': settings.DASHBOARD_URL if hasattr(settings, 'DASHBOARD_URL') else 'http://127.0.0.1:8080/',
-            'org_name': getattr(settings, 'ORG_NAME', 'Blue Carbon MRV'),
+            'org_name': getattr(settings, 'ORG_NAME', 'BlueQuant'),
         }
         subject = f"Your Certificate for Purchase #{purchase.id}"
         html = render_to_string('api/emails/corporate_purchase_confirmation.html', ctx)

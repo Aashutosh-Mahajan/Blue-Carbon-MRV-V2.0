@@ -14,7 +14,7 @@ import re
 DEFAULT_FROM = getattr(settings, 'DEFAULT_FROM_EMAIL', 'no-reply@example.org')
 SUPPORT_EMAIL = getattr(settings, 'SUPPORT_EMAIL', 'support@example.org')
 SUPPORT_PHONE = getattr(settings, 'SUPPORT_PHONE', '+00-0000-000-000')
-ORG_NAME = getattr(settings, 'ORG_NAME', 'Blue Carbon MRV')
+ORG_NAME = getattr(settings, 'ORG_NAME', 'BlueQuant')
 SENDER_TITLE = getattr(settings, 'SENDER_TITLE', 'Support Team')
 SENDER_NAME = getattr(settings, 'SENDER_NAME', ORG_NAME)
 DASHBOARD_URL = getattr(settings, 'DASHBOARD_URL', 'http://127.0.0.1:8080/')

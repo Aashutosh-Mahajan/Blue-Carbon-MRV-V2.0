@@ -22,5 +22,5 @@ from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', None) or 'no-reply@example.
 to_email = getattr(settings, 'SUPPORT_EMAIL', None) or from_email
 
 print('Sending test email from', from_email, 'to', to_email)
-res = send_mail('BCMRV test email', 'This is an automated test from the Blue Carbon MRV project.', from_email, [to_email], fail_silently=False)
+res = send_mail('BCMRV test email', 'This is an automated test from the BlueQuant project.', from_email, [to_email], fail_silently=False)
 print('send_mail returned', res)

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block title %}Blue Carbon MRV{% endblock %}</title>
+    <title>{% block title %}BlueQuant{% endblock %}</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Julius+Sans+One&family=Jockey+One&display=swap" rel="stylesheet" />
@@ -550,7 +550,7 @@
 <body class="font-inter bg-white geometric-bg relative min-h-screen page-enter">
     <!-- Header -->
     <header class="{% block header_classes %}nav-on-hero nav-shimmer sticky top-0 z-40{% endblock %}">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="w-full px-6 lg:px-8">
             <div class="flex items-center justify-between h-16 overflow-visible">
                 <a href="{% url 'home' %}" class="flex items-center group">
                     <div class="relative">
@@ -662,7 +662,7 @@
                 <div class="md:col-span-2">
                     <div class="flex items-center mb-6">
                         <img src="{% static 'api/images/logo.png' %}" alt="BlueQuant Logo" class="w-10 h-10 object-contain">
-                        <span class="ml-3 text-xl font-bold">Blue Carbon MRV</span>
+                        <span class="ml-3 text-xl font-bold">BlueQuant</span>
                     </div>
                     <p class="text-neutral-400 max-w-md leading-relaxed mb-6">Empowering coastal communities to protect and restore mangrove ecosystems while earning verified carbon credits.</p>
                 </div>
@@ -685,7 +685,7 @@
                 </div>
             </div>
             <div class="mt-12 pt-6 border-t border-neutral-800 text-center text-neutral-500 text-sm">
-                <p>&copy; 2025 Blue Carbon MRV Platform. All rights reserved.</p>
+                <p>&copy; 2025 BlueQuant Platform. All rights reserved.</p>
             </div>
         </div>
     </footer>

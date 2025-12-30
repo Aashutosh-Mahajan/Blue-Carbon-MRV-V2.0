@@ -1,64 +1,279 @@
 {% extends "api/base.html" %}
+{% load static %}
 {% block title %}Submission Detail | Field Officer{% endblock %}
+
 {% block content %}
-<div class="max-w-5xl mx-auto px-6 py-10">
-  <a href="{% url 'field_officer_submissions' %}" class="text-primary-600 hover:underline">← Back to History</a>
-  <h1 class="text-3xl font-bold mt-4">{{ submission.project.title }}</h1>
-  <p class="text-gray-600 mb-6">Surveyed on {{ submission.survey_date|date:'M d, Y' }} by {{ submission.created_by.get_full_name|default:submission.created_by.username }}</p>
-
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <div class="modern-card p-6">
-      <h2 class="text-xl font-semibold mb-4">Field Summary</h2>
-      <dl class="grid grid-cols-2 gap-3 text-sm">
-        <dt class="text-gray-500">Area (Ha)</dt><dd class="text-gray-900">{{ submission.hectare_area }}</dd>
-        <dt class="text-gray-500">Latitude</dt><dd class="text-gray-900">{{ submission.latitude }}</dd>
-        <dt class="text-gray-500">Longitude</dt><dd class="text-gray-900">{{ submission.longitude }}</dd>
-        <dt class="text-gray-500">Notes</dt><dd class="text-gray-900 col-span-1 md:col-span-1">{{ submission.notes|default:'—' }}</dd>
-      </dl>
-    </div>
-    <div class="modern-card p-6">
-      <h2 class="text-xl font-semibold mb-4">Species Data</h2>
-      {% if submission.species_data %}
-      <div class="overflow-x-auto">
-        <table class="w-full text-sm">
-          <thead>
-            <tr class="border-b border-gray-200 text-left">
-              <th class="py-2 px-3">Name</th>
-              <th class="py-2 px-3">Count</th>
-              <th class="py-2 px-3">Health</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for sp in submission.species_data %}
-            <tr class="border-b border-gray-100">
-              <td class="py-2 px-3">{{ sp.name|default:sp.name|default:sp["name"] }}</td>
-              <td class="py-2 px-3">{{ sp.count|default:sp["count"] }}</td>
-              <td class="py-2 px-3">{{ sp.health|default:sp["health"] }}</td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
-      {% else %}
-      <p class="text-gray-500">No species records.</p>
-      {% endif %}
-    </div>
-  </div>
-
-  <div class="modern-card p-6 mt-6">
-    <h2 class="text-xl font-semibold mb-4">Images</h2>
-    {% if images %}
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-      {% for img in images %}
-      <a href="{{ img.image.url }}" target="_blank" class="block group">
-        <img src="{{ img.image.url }}" alt="Field image" class="rounded shadow-sm aspect-square object-cover group-hover:opacity-90" />
+<!-- Full page hero background -->
+<div class="relative text-white">
+  <div class="fixed inset-0 hero-bg hero-bg-fixed"></div>
+  <div class="fixed inset-0 hero-overlay"></div>
+  
+  <div class="relative z-10 max-w-7xl mx-auto px-6 py-12">
+      
+      <!-- Back Link -->
+      <a href="{% url 'field_officer_submissions' %}" class="inline-flex items-center gap-2 text-white/80 hover:text-white transition-colors mb-6 group">
+        <svg class="w-5 h-5 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+        <span>Back to Submission History</span>
       </a>
-      {% endfor %}
-    </div>
-    {% else %}
-    <p class="text-gray-500">No images attached.</p>
-    {% endif %}
-  </div>
 
+      <!-- Header Section -->
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 glass-surface rounded-full text-white/90 text-sm mb-3">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            Field Submission #{{ submission.id }}
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold text-white mb-3">{{ submission.project.title }}</h1>
+          <p class="text-white/80 flex items-center gap-2 text-lg">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+            Surveyed on {{ submission.survey_date|date:'F d, Y' }}
+          </p>
+        </div>
+        <div class="glass-surface-strong px-5 py-4 rounded-2xl">
+          <div class="text-white/70 text-sm">Submitted by</div>
+          <div class="text-white font-semibold text-lg">{{ submission.field_officer.get_full_name|default:submission.field_officer.username }}</div>
+        </div>
+      </div>
+
+      <!-- Main Content Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- Main Content Column -->
+        <div class="lg:col-span-2 space-y-6">
+          
+          <!-- Field Summary Card -->
+          <div class="glass-surface-strong rounded-2xl p-6">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-10 h-10 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+                </svg>
+              </div>
+              <h2 class="text-xl font-bold text-white">Field Summary</h2>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div class="glass-surface rounded-xl p-4">
+                <div class="text-white/70 text-sm font-medium mb-1">Area Measured</div>
+                <div class="text-2xl font-bold text-white">{{ submission.hectare_area }}</div>
+                <div class="text-white/60 text-xs">Hectares</div>
+              </div>
+              <div class="glass-surface rounded-xl p-4">
+                <div class="text-white/70 text-sm font-medium mb-1">Soil Type</div>
+                <div class="text-lg font-bold text-white capitalize">{{ submission.soil_type }}</div>
+              </div>
+              <div class="glass-surface rounded-xl p-4">
+                <div class="text-white/70 text-sm font-medium mb-1">Latitude</div>
+                <div class="text-lg font-bold text-white">{{ submission.latitude }}</div>
+              </div>
+              <div class="glass-surface rounded-xl p-4">
+                <div class="text-white/70 text-sm font-medium mb-1">Longitude</div>
+                <div class="text-lg font-bold text-white">{{ submission.longitude }}</div>
+              </div>
+            </div>
+
+            {% if submission.water_salinity or submission.tidal_range %}
+            <div class="grid grid-cols-2 gap-4 mt-4">
+              {% if submission.water_salinity %}
+              <div class="glass-surface rounded-xl p-4">
+                <div class="text-white/70 text-sm font-medium mb-1">Water Salinity</div>
+                <div class="text-lg font-bold text-white">{{ submission.water_salinity }} ppt</div>
+              </div>
+              {% endif %}
+              {% if submission.tidal_range %}
+              <div class="glass-surface rounded-xl p-4">
+                <div class="text-white/70 text-sm font-medium mb-1">Tidal Range</div>
+                <div class="text-lg font-bold text-white">{{ submission.tidal_range }} m</div>
+              </div>
+              {% endif %}
+            </div>
+            {% endif %}
+
+            {% if submission.notes %}
+            <div class="mt-6 pt-6 border-t border-white/20">
+              <div class="text-white/70 text-sm font-medium mb-2">Field Notes</div>
+              <p class="text-white/90 leading-relaxed">{{ submission.notes }}</p>
+            </div>
+            {% endif %}
+          </div>
+
+          <!-- Species Data Card -->
+          <div class="glass-surface-strong rounded-2xl p-6">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-10 h-10 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                </svg>
+              </div>
+              <h2 class="text-xl font-bold text-white">Species Data</h2>
+              {% if submission.species_data %}
+              <span class="ml-auto bg-white/20 backdrop-blur text-white text-sm font-medium px-3 py-1 rounded-full">
+                {{ submission.species_data|length }} species recorded
+              </span>
+              {% endif %}
+            </div>
+            
+            {% if submission.species_data %}
+            <div class="overflow-x-auto">
+              <table class="w-full">
+                <thead>
+                  <tr class="border-b border-white/20">
+                    <th class="text-left py-3 px-4 text-white/70 font-semibold text-sm uppercase tracking-wider">Species Name</th>
+                    <th class="text-left py-3 px-4 text-white/70 font-semibold text-sm uppercase tracking-wider">Count</th>
+                    <th class="text-left py-3 px-4 text-white/70 font-semibold text-sm uppercase tracking-wider">Health Status</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-white/10">
+                  {% for sp in submission.species_data %}
+                  <tr class="hover:bg-white/5 transition-colors">
+                    <td class="py-4 px-4">
+                      <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+                          <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                          </svg>
+                        </div>
+                        <span class="font-medium text-white">{{ sp.name|default:"—" }}</span>
+                      </div>
+                    </td>
+                    <td class="py-4 px-4">
+                      <span class="inline-flex items-center px-3 py-1 bg-white/20 text-white rounded-full font-semibold">
+                        {{ sp.count|default:"—" }}
+                      </span>
+                    </td>
+                    <td class="py-4 px-4">
+                      <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-medium
+                        {% if sp.health == 'healthy' or sp.health == 'good' or sp.health == 'excellent' %}
+                          bg-green-500/30 text-green-200
+                        {% elif sp.health == 'moderate' or sp.health == 'fair' %}
+                          bg-yellow-500/30 text-yellow-200
+                        {% elif sp.health == 'poor' or sp.health == 'unhealthy' %}
+                          bg-red-500/30 text-red-200
+                        {% else %}
+                          bg-white/20 text-white
+                        {% endif %}
+                      ">
+                        <span class="w-2 h-2 rounded-full
+                          {% if sp.health == 'healthy' or sp.health == 'good' or sp.health == 'excellent' %}
+                            bg-green-400
+                          {% elif sp.health == 'moderate' or sp.health == 'fair' %}
+                            bg-yellow-400
+                          {% elif sp.health == 'poor' or sp.health == 'unhealthy' %}
+                            bg-red-400
+                          {% else %}
+                            bg-white/60
+                          {% endif %}
+                        "></span>
+                        {{ sp.health|default:"—"|capfirst }}
+                      </span>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            {% else %}
+            <div class="text-center py-12">
+              <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
+                </svg>
+              </div>
+              <p class="text-white/60">No species data recorded for this submission.</p>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- Sidebar Column -->
+        <div class="space-y-6">
+          
+          <!-- Submission Info Card -->
+          <div class="glass-surface-strong rounded-2xl p-6">
+            <h3 class="text-lg font-bold text-white mb-4">Submission Info</h3>
+            <div class="space-y-4">
+              <div class="flex items-center justify-between py-2 border-b border-white/10">
+                <span class="text-white/60 text-sm">Submission ID</span>
+                <span class="font-mono text-white font-medium">#{{ submission.id }}</span>
+              </div>
+              <div class="flex items-center justify-between py-2 border-b border-white/10">
+                <span class="text-white/60 text-sm">Survey Date</span>
+                <span class="text-white font-medium">{{ submission.survey_date|date:'M d, Y' }}</span>
+              </div>
+              <div class="flex items-center justify-between py-2 border-b border-white/10">
+                <span class="text-white/60 text-sm">Created</span>
+                <span class="text-white font-medium">{{ submission.created_at|date:'M d, Y' }}</span>
+              </div>
+              <div class="flex items-center justify-between py-2">
+                <span class="text-white/60 text-sm">Last Updated</span>
+                <span class="text-white font-medium">{{ submission.updated_at|date:'M d, Y' }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Images Card -->
+          <div class="glass-surface-strong rounded-2xl p-6">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                </svg>
+              </div>
+              <h3 class="text-lg font-bold text-white">Field Images</h3>
+            </div>
+            
+            {% if images %}
+            <div class="grid grid-cols-2 gap-3">
+              {% for img in images %}
+              <a href="{{ img.image.url }}" target="_blank" class="group relative aspect-square rounded-xl overflow-hidden border border-white/20">
+                <img src="{{ img.image.url }}" alt="Field image" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-3">
+                  <span class="text-white text-xs font-medium flex items-center gap-1">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
+                    </svg>
+                    View Full
+                  </span>
+                </div>
+              </a>
+              {% endfor %}
+            </div>
+            {% else %}
+            <div class="text-center py-8">
+              <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                <svg class="w-6 h-6 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                </svg>
+              </div>
+              <p class="text-white/60 text-sm">No images attached</p>
+            </div>
+            {% endif %}
+          </div>
+
+          <!-- Project Link Card -->
+          <div class="glass-surface-strong rounded-2xl p-6">
+            <h3 class="text-lg font-bold text-white mb-3">Related Project</h3>
+            <p class="text-white/80 text-sm mb-4">{{ submission.project.title }}</p>
+            <div class="text-sm text-white/60 mb-4">
+              <div class="flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
+                {{ submission.project.location|default:"Location not specified" }}
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}
